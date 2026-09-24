@@ -33,32 +33,143 @@ mouse_filter = 2
 [node name="REC" type="Label" parent="HUD"]
 layout_mode = 0
 offset_left = 38.0
-offset_top = 26.0
-offset_right = 300.0
-offset_bottom = 64.0
+offset_top = 24.0
+offset_right = 320.0
+offset_bottom = 62.0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.87, 0.85, 0.82, 0.9)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.35)
-theme_override_constants/shadow_offset_x = 1
-theme_override_constants/shadow_offset_y = 1
-theme_override_font_sizes/font_size = 25
-text = "● REC  00:00:00"
+theme_override_colors/font_color = Color(0.94, 0.93, 0.9, 0.92)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 27
+text = "● REC"
+
+[node name="Timecode" type="Label" parent="HUD"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 60.0
+offset_right = 360.0
+offset_bottom = 92.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.88, 0.87, 0.84, 0.85)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.4)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 22
+text = "00:00:00:00"
 
 [node name="Battery" type="Label" parent="HUD"]
 layout_mode = 0
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -245.0
-offset_top = 28.0
+offset_left = -300.0
+offset_top = 24.0
 offset_right = -36.0
-offset_bottom = 62.0
+offset_bottom = 60.0
 grow_horizontal = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.79, 0.78, 0.75, 0.82)
-theme_override_font_sizes/font_size = 21
-text = "▣  SP 60  4:3"
+theme_override_colors/font_color = Color(0.9, 0.89, 0.86, 0.88)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.4)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 23
+text = "▮▮▮▮▯"
 horizontal_alignment = 2
+
+[node name="TapeMode" type="Label" parent="HUD"]
+layout_mode = 0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = 58.0
+offset_right = -36.0
+offset_bottom = 88.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.84, 0.83, 0.8, 0.8)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.35)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 19
+text = "SP  T-120  4:3"
+horizontal_alignment = 2
+
+[node name="Tracking" type="Label" parent="HUD"]
+layout_mode = 0
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -300.0
+offset_top = 86.0
+offset_right = -36.0
+offset_bottom = 114.0
+grow_horizontal = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.78, 0.77, 0.74, 0.62)
+theme_override_font_sizes/font_size = 17
+text = "TRACKING ──┼──"
+horizontal_alignment = 2
+
+[node name="DateStamp" type="Label" parent="HUD"]
+layout_mode = 0
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -330.0
+offset_top = -232.0
+offset_right = -38.0
+offset_bottom = -198.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.95, 0.94, 0.9, 0.9)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 24
+text = "JUN 14 1998"
+horizontal_alignment = 2
+
+[node name="TimeStamp" type="Label" parent="HUD"]
+layout_mode = 0
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -330.0
+offset_top = -200.0
+offset_right = -38.0
+offset_bottom = -166.0
+grow_horizontal = 0
+grow_vertical = 0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.95, 0.94, 0.9, 0.9)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.45)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 24
+text = "PM 11:42:08"
+horizontal_alignment = 2
+
+[node name="AutoFocus" type="Label" parent="HUD"]
+layout_mode = 0
+offset_left = 38.0
+offset_top = 96.0
+offset_right = 340.0
+offset_bottom = 126.0
+mouse_filter = 2
+theme_override_colors/font_color = Color(0.92, 0.9, 0.86, 0.85)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.4)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 19
+text = "AUTO FOCUS"
+visible = false
 
 [node name="Status" type="Label" parent="HUD"]
 layout_mode = 0
@@ -66,12 +177,12 @@ anchors_preset = 12
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 38.0
-offset_top = -58.0
-offset_right = 400.0
-offset_bottom = -30.0
+offset_top = -62.0
+offset_right = 460.0
+offset_bottom = -32.0
 grow_vertical = 0
 mouse_filter = 2
-theme_override_colors/font_color = Color(0.56, 0.54, 0.51, 0.72)
+theme_override_colors/font_color = Color(0.62, 0.61, 0.58, 0.72)
 theme_override_font_sizes/font_size = 16
 text = "HANDHELD // VHS ON"
 
