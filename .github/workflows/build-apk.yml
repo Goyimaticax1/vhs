@@ -46,7 +46,6 @@ jobs:
           RELEASES="https://github.com/godotengine/godot/releases/download"
           TAG="$GODOT_VERSION-stable"
           mkdir -p ~/godot-bin
-          curl -fL --retry 3 -o /tmp/godot.zip "$RELEASES/$TAG/Godot_v$TAG_linux.x86_64.zip" || \
           curl -fL --retry 3 -o /tmp/godot.zip "$RELEASES/$TAG/Godot_v${TAG}_linux.x86_64.zip"
           unzip -q -o /tmp/godot.zip -d /tmp/godot-extract
           mv "/tmp/godot-extract/Godot_v${TAG}_linux.x86_64" ~/godot-bin/godot
