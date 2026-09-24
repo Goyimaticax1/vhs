@@ -1,0 +1,765 @@
+workflow:   Build Android APK
+run_id:     36052650960
+conclusion: failure
+url:        https://github.com/Goyimaticax1/vhs/actions/runs/36052650960
+captured:   2026-09-24T20:07:50Z
+
+===== 0_build.txt =====
+2026-09-24T20:07:04.6091001Z [==                                     ] 7% Computing updates...               
+2026-09-24T20:07:04.6173538Z [===                                    ] 8% Computing updates...               
+2026-09-24T20:07:04.6237179Z [===                                    ] 10% Computing updates...              
+2026-09-24T20:07:04.6238080Z [=======================================] 100% Computing updates...             
+2026-09-24T20:07:04.6238743Z 
+2026-09-24T20:07:04.6448445Z [command]/usr/local/lib/android/sdk/cmdline-tools/16.0/bin/sdkmanager platform-tools
+2026-09-24T20:07:05.4479118Z Loading package information...                                                  
+2026-09-24T20:07:05.5532554Z Loading local repository...                                                     
+2026-09-24T20:07:05.5540852Z [                                       ] 3% Loading local repository...        
+2026-09-24T20:07:05.5638932Z [                                       ] 3% Fetch remote repository...         
+2026-09-24T20:07:05.8651853Z [=                                      ] 3% Fetch remote repository...         
+2026-09-24T20:07:05.9357987Z [=                                      ] 4% Fetch remote repository...         
+2026-09-24T20:07:05.9681511Z [=                                      ] 5% Fetch remote repository...         
+2026-09-24T20:07:06.0213314Z [==                                     ] 5% Fetch remote repository...         
+2026-09-24T20:07:06.1218581Z [==                                     ] 6% Fetch remote repository...         
+2026-09-24T20:07:06.2011166Z [==                                     ] 7% Fetch remote repository...         
+2026-09-24T20:07:06.2020741Z [==                                     ] 7% Computing updates...               
+2026-09-24T20:07:06.2132897Z [===                                    ] 8% Computing updates...               
+2026-09-24T20:07:06.2197127Z [===                                    ] 10% Computing updates...              
+2026-09-24T20:07:06.2200572Z [=======================================] 100% Computing updates...             
+2026-09-24T20:07:06.2200960Z 
+2026-09-24T20:07:06.2666245Z ##[group]Run actions/cache@v4
+2026-09-24T20:07:06.2666521Z with:
+2026-09-24T20:07:06.2666805Z   path: ~/godot-bin
+~/.local/share/godot/export_templates
+
+2026-09-24T20:07:06.2667162Z   key: godot-4.7.2-linux-x86_64
+2026-09-24T20:07:06.2667427Z   enableCrossOsArchive: false
+2026-09-24T20:07:06.2667679Z   fail-on-cache-miss: false
+2026-09-24T20:07:06.2667919Z   lookup-only: false
+2026-09-24T20:07:06.2668136Z   save-always: false
+2026-09-24T20:07:06.2668346Z env:
+2026-09-24T20:07:06.2668546Z   GODOT_VERSION: 4.7.2
+2026-09-24T20:07:06.2668776Z   EXPORT_NAME: vhs-camcorder
+2026-09-24T20:07:06.2669122Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:06.2669633Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:06.2670197Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-24T20:07:06.2670504Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-24T20:07:06.2670782Z ##[endgroup]
+2026-09-24T20:07:06.3745821Z (node:2505) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-24T20:07:06.3746655Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-24T20:07:06.4800781Z Cache not found for input keys: godot-4.7.2-linux-x86_64
+2026-09-24T20:07:06.4943888Z ##[group]Run set -euo pipefail
+2026-09-24T20:07:06.4944281Z [36;1mset -euo pipefail[0m
+2026-09-24T20:07:06.4944715Z [36;1mRELEASES="https://github.com/godotengine/godot/releases/download"[0m
+2026-09-24T20:07:06.4945141Z [36;1mTAG="$GODOT_VERSION-stable"[0m
+2026-09-24T20:07:06.4945425Z [36;1mmkdir -p ~/godot-bin[0m
+2026-09-24T20:07:06.4945871Z [36;1mcurl -fL --retry 3 -o /tmp/godot.zip "$RELEASES/$TAG/Godot_v${TAG}_linux.x86_64.zip"[0m
+2026-09-24T20:07:06.4946364Z [36;1munzip -q -o /tmp/godot.zip -d /tmp/godot-extract[0m
+2026-09-24T20:07:06.4946807Z [36;1mmv "/tmp/godot-extract/Godot_v${TAG}_linux.x86_64" ~/godot-bin/godot[0m
+2026-09-24T20:07:06.4947206Z [36;1mchmod +x ~/godot-bin/godot[0m
+2026-09-24T20:07:06.4947650Z [36;1mcurl -fL --retry 3 -o /tmp/templates.tpz "$RELEASES/$TAG/Godot_v${TAG}_export_templates.tpz"[0m
+2026-09-24T20:07:06.4948156Z [36;1munzip -q -o /tmp/templates.tpz -d /tmp/templates[0m
+2026-09-24T20:07:06.4948582Z [36;1mmkdir -p ~/.local/share/godot/export_templates[0m
+2026-09-24T20:07:06.4949021Z [36;1mrm -rf "$HOME/.local/share/godot/export_templates/$GODOT_VERSION.stable"[0m
+2026-09-24T20:07:06.4949593Z [36;1mmv /tmp/templates/templates "$HOME/.local/share/godot/export_templates/$GODOT_VERSION.stable"[0m
+2026-09-24T20:07:06.5183016Z shell: /usr/bin/bash -e {0}
+2026-09-24T20:07:06.5183316Z env:
+2026-09-24T20:07:06.5183764Z   GODOT_VERSION: 4.7.2
+2026-09-24T20:07:06.5184016Z   EXPORT_NAME: vhs-camcorder
+2026-09-24T20:07:06.5184391Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:06.5184911Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:06.5185325Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-24T20:07:06.5185632Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-24T20:07:06.5185919Z ##[endgroup]
+2026-09-24T20:07:06.5392427Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2026-09-24T20:07:06.5397124Z                                  Dload  Upload   Total   Spent    Left  Speed
+2026-09-24T20:07:06.5397425Z 
+2026-09-24T20:07:06.5964297Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-09-24T20:07:06.5965071Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-09-24T20:07:06.9539637Z 
+2026-09-24T20:07:06.9540810Z 100 74.2M  100 74.2M    0     0   178M      0 --:--:-- --:--:-- --:--:--  178M
+2026-09-24T20:07:08.0688194Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2026-09-24T20:07:08.0689214Z                                  Dload  Upload   Total   Spent    Left  Speed
+2026-09-24T20:07:08.0689713Z 
+2026-09-24T20:07:08.1785790Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-09-24T20:07:08.1786362Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-09-24T20:07:08.3350798Z 
+2026-09-24T20:07:09.3338349Z   3 1221M    3 40.0M    0     0   150M      0  0:00:08 --:--:--  0:00:08  150M
+2026-09-24T20:07:10.3366320Z  41 1221M   41  503M    0     0   398M      0  0:00:03  0:00:01  0:00:02  464M
+2026-09-24T20:07:10.8511123Z  80 1221M   80  981M    0     0   432M      0  0:00:02  0:00:02 --:--:--  470M
+2026-09-24T20:07:10.8511961Z 100 1221M  100 1221M    0     0   439M      0  0:00:02  0:00:02 --:--:--  469M
+2026-09-24T20:07:25.8763366Z ##[group]Run ~/godot-bin/godot --headless --version
+2026-09-24T20:07:25.8763802Z [36;1m~/godot-bin/godot --headless --version[0m
+2026-09-24T20:07:25.8833294Z shell: /usr/bin/bash -e {0}
+2026-09-24T20:07:25.8833568Z env:
+2026-09-24T20:07:25.8833790Z   GODOT_VERSION: 4.7.2
+2026-09-24T20:07:25.8834040Z   EXPORT_NAME: vhs-camcorder
+2026-09-24T20:07:25.8834409Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:25.8834911Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:25.8835325Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-24T20:07:25.8835643Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-24T20:07:25.8835952Z ##[endgroup]
+2026-09-24T20:07:25.9696196Z 4.7.2.stable.official.ed1daf0bf
+2026-09-24T20:07:25.9746036Z ##[group]Run # A cold import pass reports errors on first run; run it twice.
+2026-09-24T20:07:25.9746589Z [36;1m# A cold import pass reports errors on first run; run it twice.[0m
+2026-09-24T20:07:25.9747036Z [36;1m~/godot-bin/godot --headless --import || true[0m
+2026-09-24T20:07:25.9747414Z [36;1m~/godot-bin/godot --headless --import[0m
+2026-09-24T20:07:25.9816741Z shell: /usr/bin/bash -e {0}
+2026-09-24T20:07:25.9817012Z env:
+2026-09-24T20:07:25.9817222Z   GODOT_VERSION: 4.7.2
+2026-09-24T20:07:25.9817465Z   EXPORT_NAME: vhs-camcorder
+2026-09-24T20:07:25.9817833Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:25.9818340Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:25.9818739Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-24T20:07:25.9819040Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-24T20:07:25.9819324Z ##[endgroup]
+2026-09-24T20:07:26.0105089Z Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-09-24T20:07:26.0798252Z 
+2026-09-24T20:07:29.4597177Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+2026-09-24T20:07:29.4599131Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+2026-09-24T20:07:29.4603039Z [  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+2026-09-24T20:07:29.4617465Z [  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+2026-09-24T20:07:29.4618496Z [  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+2026-09-24T20:07:29.4619485Z [  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+2026-09-24T20:07:29.4620738Z [  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+2026-09-24T20:07:29.4621540Z [92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+2026-09-24T20:07:29.4622024Z [0m
+2026-09-24T20:07:29.4786786Z [   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (4 steps)[39m[0m
+2026-09-24T20:07:29.4787812Z [   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-09-24T20:07:29.4788523Z [  20% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-09-24T20:07:29.4789132Z [  40% ] [90m[1mupdate_scripts_classes[22m | VhsPlayer[39m[0m
+2026-09-24T20:07:29.4789636Z [  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-09-24T20:07:29.4790326Z [92m[ DONE ][39m [1mupdate_scripts_classes[22m
+2026-09-24T20:07:29.4790650Z [0m
+2026-09-24T20:07:29.5392480Z [   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+2026-09-24T20:07:29.5393544Z [   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+2026-09-24T20:07:29.5394500Z [  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+2026-09-24T20:07:29.5395290Z [92m[ DONE ][39m [1mloading_editor_layout[22m
+2026-09-24T20:07:29.5395787Z [0m
+2026-09-24T20:07:30.9137999Z cannot connect to daemon at tcp:5037: Connection refused
+2026-09-24T20:07:31.9864397Z Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-09-24T20:07:32.0158600Z 
+2026-09-24T20:07:34.3575430Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+2026-09-24T20:07:34.3576784Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+2026-09-24T20:07:34.3580518Z [  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+2026-09-24T20:07:34.3598491Z [  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+2026-09-24T20:07:34.3599511Z [  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+2026-09-24T20:07:34.3600665Z [  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+2026-09-24T20:07:34.3601617Z [  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+2026-09-24T20:07:34.3602714Z [92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+2026-09-24T20:07:34.3603177Z [0m
+2026-09-24T20:07:34.4353119Z [   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+2026-09-24T20:07:34.4354457Z [   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+2026-09-24T20:07:34.4355514Z [  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+2026-09-24T20:07:34.4356417Z [92m[ DONE ][39m [1mloading_editor_layout[22m
+2026-09-24T20:07:34.4356969Z [0m
+2026-09-24T20:07:35.0386529Z cannot connect to daemon at tcp:5037: Connection refused
+2026-09-24T20:07:35.2510987Z ##[group]Run set -euo pipefail
+2026-09-24T20:07:35.2511511Z [36;1mset -euo pipefail[0m
+2026-09-24T20:07:35.2511934Z [36;1mmkdir -p build[0m
+2026-09-24T20:07:35.2512540Z [36;1m~/godot-bin/godot --headless --export-debug "Android" "build/$EXPORT_NAME-unsigned.apk"[0m
+2026-09-24T20:07:35.2513120Z [36;1mls -lh build[0m
+2026-09-24T20:07:35.2581890Z shell: /usr/bin/bash -e {0}
+2026-09-24T20:07:35.2582356Z env:
+2026-09-24T20:07:35.2582790Z   GODOT_VERSION: 4.7.2
+2026-09-24T20:07:35.2583140Z   EXPORT_NAME: vhs-camcorder
+2026-09-24T20:07:35.2583792Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:35.2584590Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:35.2585148Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-24T20:07:35.2585650Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-24T20:07:35.2586053Z ##[endgroup]
+2026-09-24T20:07:35.2893525Z Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-09-24T20:07:35.3190651Z 
+2026-09-24T20:07:37.7104664Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+2026-09-24T20:07:37.7106037Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+2026-09-24T20:07:37.7109631Z [  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+2026-09-24T20:07:37.7126640Z [  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+2026-09-24T20:07:37.7127825Z [  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+2026-09-24T20:07:37.7129161Z [  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+2026-09-24T20:07:37.7130496Z [  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+2026-09-24T20:07:37.7131376Z [92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+2026-09-24T20:07:37.7132083Z [0m
+2026-09-24T20:07:37.7798910Z ERROR: Cannot export project with preset "Android" due to configuration errors:
+2026-09-24T20:07:37.7800693Z ETC2/ASTC texture compression is required for Android export. In Project Settings, search for 'ETC2' in the search field, or enable 'Advanced Settings' and go to Rendering > Textures > VRAM Compression to enable 'Import ETC2 ASTC'.
+2026-09-24T20:07:37.7801607Z 
+2026-09-24T20:07:37.7801954Z    at: _fs_changed (editor/editor_node.cpp:1401)
+2026-09-24T20:07:37.7802580Z ERROR: Project export for preset "Android" failed.
+2026-09-24T20:07:37.7803101Z    at: _fs_changed (editor/editor_node.cpp:1417)
+2026-09-24T20:07:38.4233142Z cannot connect to daemon at tcp:5037: Connection refused
+2026-09-24T20:07:38.6424023Z ##[error]Process completed with exit code 1.
+2026-09-24T20:07:38.6536725Z Post job cleanup.
+2026-09-24T20:07:38.7921739Z (node:2617) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-24T20:07:38.7922565Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-24T20:07:38.8142722Z Post job cleanup.
+2026-09-24T20:07:38.9050911Z [command]/usr/bin/git version
+2026-09-24T20:07:38.9087821Z git version 2.55.0
+2026-09-24T20:07:38.9129633Z Temporarily overriding HOME='/home/runner/work/_temp/52260af5-c819-4079-8c2c-f7a3d564b0c1' before making global git config changes
+2026-09-24T20:07:38.9131076Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-24T20:07:38.9135701Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/vhs/vhs
+2026-09-24T20:07:38.9178164Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-24T20:07:38.9215238Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-24T20:07:38.9494809Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-24T20:07:38.9522837Z http.https://github.com/.extraheader
+2026-09-24T20:07:38.9536633Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-24T20:07:38.9573888Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-24T20:07:38.9840551Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-24T20:07:38.9881669Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-24T20:07:39.0302091Z Cleaning up orphan processes
+2026-09-24T20:07:39.0627906Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4, actions/setup-java@v4, android-actions/setup-android@v3. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== build/1_Set up job.txt =====
+﻿2026-09-24T20:06:45.6522135Z Current runner version: '2.337.0'
+2026-09-24T20:06:45.6552385Z ##[group]Runner Image Provisioner
+2026-09-24T20:06:45.6553467Z Hosted Compute Agent
+2026-09-24T20:06:45.6554153Z Version: 20260828.587
+2026-09-24T20:06:45.6554842Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-24T20:06:45.6555606Z Build Date: 2026-08-28T16:44:25Z
+2026-09-24T20:06:45.6556390Z Worker ID: {29f2cc60-dbee-474e-b2a9-415e091fab8d}
+2026-09-24T20:06:45.6557178Z Azure Region: northcentralus
+2026-09-24T20:06:45.6557807Z ##[endgroup]
+2026-09-24T20:06:45.6559336Z ##[group]Operating System
+2026-09-24T20:06:45.6560223Z Ubuntu
+2026-09-24T20:06:45.6561312Z 24.04.5
+2026-09-24T20:06:45.6561874Z LTS
+2026-09-24T20:06:45.6562398Z ##[endgroup]
+2026-09-24T20:06:45.6563046Z ##[group]Runner Image
+2026-09-24T20:06:45.6563700Z Image: ubuntu-24.04
+2026-09-24T20:06:45.6564358Z Version: 20260920.314.1
+2026-09-24T20:06:45.6565459Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-24T20:06:45.6567287Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+2026-09-24T20:06:45.6568411Z ##[endgroup]
+2026-09-24T20:06:45.6569754Z ##[group]GITHUB_TOKEN Permissions
+2026-09-24T20:06:45.6572143Z Contents: read
+2026-09-24T20:06:45.6572852Z Metadata: read
+2026-09-24T20:06:45.6573462Z Packages: read
+2026-09-24T20:06:45.6574053Z ##[endgroup]
+2026-09-24T20:06:45.6576292Z Secret source: Actions
+2026-09-24T20:06:45.6577251Z Cache mode: write
+2026-09-24T20:06:45.6578389Z Prepare workflow directory
+2026-09-24T20:06:45.6980512Z Prepare all required actions
+2026-09-24T20:06:45.7030696Z Getting action download info
+2026-09-24T20:06:45.9875208Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-24T20:06:46.0851335Z Download action repository 'actions/setup-java@v4' (SHA:cf277c60eb25467037889841efdb72551f06f6c3)
+2026-09-24T20:06:46.5551599Z Download action repository 'android-actions/setup-android@v3' (SHA:9fc6c4e9069bf8d3d10b2204b1fb8f6ef7065407)
+2026-09-24T20:06:46.7878024Z Download action repository 'actions/cache@v4' (SHA:0057852bfaa89a56745cba8c7296529d2fc39830)
+2026-09-24T20:06:46.8926173Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-09-24T20:06:47.1268666Z Complete job name: build
+
+===== build/21_Post Set up JDK 17.txt =====
+﻿2026-09-24T20:07:38.6536713Z Post job cleanup.
+2026-09-24T20:07:38.7921699Z (node:2617) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-24T20:07:38.7922561Z (Use `node --trace-deprecation ...` to show where the warning was created)
+
+===== build/22_Post Checkout.txt =====
+﻿2026-09-24T20:07:38.8142704Z Post job cleanup.
+2026-09-24T20:07:38.9050859Z [command]/usr/bin/git version
+2026-09-24T20:07:38.9087805Z git version 2.55.0
+2026-09-24T20:07:38.9129616Z Temporarily overriding HOME='/home/runner/work/_temp/52260af5-c819-4079-8c2c-f7a3d564b0c1' before making global git config changes
+2026-09-24T20:07:38.9131070Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-24T20:07:38.9135694Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/vhs/vhs
+2026-09-24T20:07:38.9178145Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-24T20:07:38.9215222Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-24T20:07:38.9494766Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-24T20:07:38.9522725Z http.https://github.com/.extraheader
+2026-09-24T20:07:38.9536614Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-24T20:07:38.9573868Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-24T20:07:38.9840502Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-24T20:07:38.9881640Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+
+===== build/23_Complete job.txt =====
+﻿2026-09-24T20:07:39.0302078Z Cleaning up orphan processes
+2026-09-24T20:07:39.0627883Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/cache@v4, actions/checkout@v4, actions/setup-java@v4, android-actions/setup-android@v3. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+
+===== build/2_Checkout.txt =====
+﻿2026-09-24T20:06:47.2122395Z ##[group]Run actions/checkout@v4
+2026-09-24T20:06:47.2123550Z with:
+2026-09-24T20:06:47.2124294Z   repository: Goyimaticax1/vhs
+2026-09-24T20:06:47.2132994Z   token: ***
+2026-09-24T20:06:47.2133711Z   ssh-strict: true
+2026-09-24T20:06:47.2134374Z   ssh-user: git
+2026-09-24T20:06:47.2135024Z   persist-credentials: true
+2026-09-24T20:06:47.2135819Z   clean: true
+2026-09-24T20:06:47.2136527Z   sparse-checkout-cone-mode: true
+2026-09-24T20:06:47.2137301Z   fetch-depth: 1
+2026-09-24T20:06:47.2138003Z   fetch-tags: false
+2026-09-24T20:06:47.2138679Z   show-progress: true
+2026-09-24T20:06:47.2139359Z   lfs: false
+2026-09-24T20:06:47.2140122Z   submodules: false
+2026-09-24T20:06:47.2140863Z   set-safe-directory: true
+2026-09-24T20:06:47.2141695Z   allow-unsafe-pr-checkout: false
+2026-09-24T20:06:47.2142747Z env:
+2026-09-24T20:06:47.2143372Z   GODOT_VERSION: 4.7.2
+2026-09-24T20:06:47.2144112Z   EXPORT_NAME: vhs-camcorder
+2026-09-24T20:06:47.2144836Z ##[endgroup]
+2026-09-24T20:06:47.3209820Z Syncing repository: Goyimaticax1/vhs
+2026-09-24T20:06:47.3212838Z ##[group]Getting Git version info
+2026-09-24T20:06:47.3213951Z Working directory is '/home/runner/work/vhs/vhs'
+2026-09-24T20:06:47.3215448Z [command]/usr/bin/git version
+2026-09-24T20:06:47.3243357Z git version 2.55.0
+2026-09-24T20:06:47.3273290Z ##[endgroup]
+2026-09-24T20:06:47.3282702Z Temporarily overriding HOME='/home/runner/work/_temp/68742acd-3abd-4875-9f01-ed0e8c9b238a' before making global git config changes
+2026-09-24T20:06:47.3286968Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-24T20:06:47.3290354Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/vhs/vhs
+2026-09-24T20:06:47.3338712Z Deleting the contents of '/home/runner/work/vhs/vhs'
+2026-09-24T20:06:47.3345236Z ##[group]Initializing the repository
+2026-09-24T20:06:47.3350190Z [command]/usr/bin/git init /home/runner/work/vhs/vhs
+2026-09-24T20:06:47.3428688Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-24T20:06:47.3431745Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-24T20:06:47.3433339Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-24T20:06:47.3434624Z hint: call:
+2026-09-24T20:06:47.3435290Z hint:
+2026-09-24T20:06:47.3436159Z hint: 	git config --global init.defaultBranch <name>
+2026-09-24T20:06:47.3437168Z hint:
+2026-09-24T20:06:47.3438069Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-24T20:06:47.3439611Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-24T20:06:47.3527643Z hint:
+2026-09-24T20:06:47.3528949Z hint: 	git branch -m <name>
+2026-09-24T20:06:47.3530116Z hint:
+2026-09-24T20:06:47.3531549Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-24T20:06:47.3533773Z Initialized empty Git repository in /home/runner/work/vhs/vhs/.git/
+2026-09-24T20:06:47.3537273Z [command]/usr/bin/git remote add origin https://github.com/Goyimaticax1/vhs
+2026-09-24T20:06:47.3541726Z ##[endgroup]
+2026-09-24T20:06:47.3543013Z ##[group]Disabling automatic garbage collection
+2026-09-24T20:06:47.3544391Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-24T20:06:47.3566251Z ##[endgroup]
+2026-09-24T20:06:47.3567685Z ##[group]Setting up auth
+2026-09-24T20:06:47.3574596Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-24T20:06:47.3611710Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-24T20:06:47.3961243Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-24T20:06:47.4005073Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-24T20:06:47.4267761Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-24T20:06:47.4309353Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-24T20:06:47.4555564Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-24T20:06:47.4598625Z ##[endgroup]
+2026-09-24T20:06:47.4599622Z ##[group]Fetching the repository
+2026-09-24T20:06:47.4608544Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +826b54fd13db0f316335fc4d22e69ae6c955c822:refs/remotes/origin/main
+2026-09-24T20:06:47.7615818Z From https://github.com/Goyimaticax1/vhs
+2026-09-24T20:06:47.7617429Z  * [new ref]         826b54fd13db0f316335fc4d22e69ae6c955c822 -> origin/main
+2026-09-24T20:06:47.7621464Z ##[endgroup]
+2026-09-24T20:06:47.7622886Z ##[group]Determining the checkout info
+2026-09-24T20:06:47.7624714Z ##[endgroup]
+2026-09-24T20:06:47.7629685Z [command]/usr/bin/git sparse-checkout disable
+2026-09-24T20:06:47.7683525Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-24T20:06:47.7720654Z ##[group]Checking out the ref
+2026-09-24T20:06:47.7724328Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-09-24T20:06:47.7814077Z Switched to a new branch 'main'
+2026-09-24T20:06:47.7819375Z branch 'main' set up to track 'origin/main'.
+2026-09-24T20:06:47.7826635Z ##[endgroup]
+2026-09-24T20:06:47.7874871Z [command]/usr/bin/git log -1 --format=%H
+2026-09-24T20:06:47.7904930Z 826b54fd13db0f316335fc4d22e69ae6c955c822
+
+===== build/3_Set up JDK 17.txt =====
+﻿2026-09-24T20:06:47.8313593Z ##[group]Run actions/setup-java@v4
+2026-09-24T20:06:47.8314760Z with:
+2026-09-24T20:06:47.8315638Z   distribution: temurin
+2026-09-24T20:06:47.8316636Z   java-version: 17
+2026-09-24T20:06:47.8317579Z   java-package: jdk
+2026-09-24T20:06:47.8318539Z   check-latest: false
+2026-09-24T20:06:47.8319497Z   server-id: github
+2026-09-24T20:06:47.8320597Z   server-username: GITHUB_ACTOR
+2026-09-24T20:06:47.8321712Z   server-password: GITHUB_TOKEN
+2026-09-24T20:06:47.8322823Z   overwrite-settings: true
+2026-09-24T20:06:47.8323902Z   job-status: success
+2026-09-24T20:06:47.8333206Z   token: ***
+2026-09-24T20:06:47.8334111Z env:
+2026-09-24T20:06:47.8334949Z   GODOT_VERSION: 4.7.2
+2026-09-24T20:06:47.8335962Z   EXPORT_NAME: vhs-camcorder
+2026-09-24T20:06:47.8336999Z ##[endgroup]
+2026-09-24T20:06:48.0058540Z ##[warning]setup-java v4 is deprecated and will no longer receive updates. Please migrate to actions/setup-java@v5.
+2026-09-24T20:06:48.0069599Z ##[group]Installed distributions
+2026-09-24T20:06:48.0091163Z Resolved Java 17.0.20+1 from tool-cache
+2026-09-24T20:06:48.0102895Z (node:2246) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-24T20:06:48.0105688Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-24T20:06:48.0107294Z Setting Java 17.0.20+1 as the default
+2026-09-24T20:06:48.0108632Z Creating toolchains.xml for JDK version 17 from temurin
+2026-09-24T20:06:48.0174450Z Writing to /home/runner/.m2/toolchains.xml
+2026-09-24T20:06:48.0175629Z 
+2026-09-24T20:06:48.0176071Z Java configuration:
+2026-09-24T20:06:48.0177041Z   Distribution: temurin
+2026-09-24T20:06:48.0178133Z   Version: 17.0.20+1
+2026-09-24T20:06:48.0179499Z   Path: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:06:48.0181098Z 
+2026-09-24T20:06:48.0182526Z ##[endgroup]
+2026-09-24T20:06:48.0200324Z Creating settings.xml with server-id: github
+2026-09-24T20:06:48.0241572Z Writing to /home/runner/.m2/settings.xml
+
+===== build/4_Set up Android SDK (for zipalign + apksigner).txt =====
+2026-09-24T20:07:03.1960505Z 
+2026-09-24T20:07:03.1961252Z 3.4 You agree that you will not take any actions that may cause or result in the fragmentation of Glass, including but not limited to distributing, participating in the creation of, or promoting in any way a software development kit derived from the GDK.
+2026-09-24T20:07:03.1962071Z 
+2026-09-24T20:07:03.1962684Z 3.5 Use, reproduction and distribution of components of the GDK licensed under an open source software license are governed solely by the terms of that open source software license and not this License Agreement.
+2026-09-24T20:07:03.1963591Z 
+2026-09-24T20:07:03.1964839Z 3.6 You agree that the form and nature of the GDK that Google provides may change without prior notice to you and that future versions of the GDK may be incompatible with applications developed on previous versions of the GDK. You agree that Google may stop (permanently or temporarily) providing the GDK (or any features within the GDK) to you or to users generally at Google's sole discretion, without prior notice to you.
+2026-09-24T20:07:03.1966125Z 
+2026-09-24T20:07:03.1966617Z 3.7 Nothing in this License Agreement gives you a right to use any of Google's trade names, trademarks, service marks, logos, domain names, or other distinctive brand features.
+2026-09-24T20:07:03.1967192Z 
+2026-09-24T20:07:03.1967718Z 3.8 You agree that you will not remove, obscure, or alter any proprietary rights notices (including copyright and trademark notices) that may be affixed to or contained within the GDK.
+2026-09-24T20:07:03.1968345Z 
+2026-09-24T20:07:03.1968349Z 
+2026-09-24T20:07:03.1969439Z 3.9 Your use of any Android system files, packaged APIs, or other components of the GDK which are part of the Android Software Development Kit is subject to the terms of the Android Software Development Kit License Agreement located at http://developer.android.com/sdk/terms.html. These terms are hereby incorporated by reference into this License Agreement.
+2026-09-24T20:07:03.1970818Z 
+2026-09-24T20:07:03.1970913Z 4. Use of the GDK by You
+2026-09-24T20:07:03.1971068Z 
+2026-09-24T20:07:03.1972102Z 4.1 Google agrees that it obtains no right, title or interest from you (or your licensors) under this License Agreement in or to any software applications that you develop using the GDK, including any intellectual property rights that subsist in those applications.
+2026-09-24T20:07:03.1973495Z 
+2026-09-24T20:07:03.1975546Z 4.2 You agree to use the GDK and write applications only for purposes that are permitted by (a) this License Agreement, (b) the Glass Platform Developer Policies (located at https://developers.google.com/glass/policies, and hereby incorporated into this License Agreement by reference), and (c) any applicable law, regulation or generally accepted practices or guidelines in the relevant jurisdictions (including any laws regarding the export of data or software to and from the United States or other relevant countries).
+2026-09-24T20:07:03.1977949Z 
+2026-09-24T20:07:03.1981090Z 4.3 You agree that if you use the GDK to develop applications for general public users, you will protect the privacy and legal rights of those users. If the users provide you with user names, passwords, or other login information or personal information, you must make the users aware that the information will be available to your application, and you must provide legally adequate privacy notice and protection for those users. If your application stores personal or sensitive information provided by users, it must do so securely. If the user provides your application with Google Account information, your application may only use that information to access the user's Google Account when, and for the limited purposes for which, the user has given you permission to do so.
+2026-09-24T20:07:03.1983544Z 
+2026-09-24T20:07:03.1984495Z 4.4 You agree that you will not engage in any activity with the GDK, including the development or distribution of an application, that interferes with, disrupts, damages, or accesses in an unauthorized manner the servers, networks, or other properties or services of any third party including, but not limited to, Google.
+2026-09-24T20:07:03.1985497Z 
+2026-09-24T20:07:03.1986485Z 4.5 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any data, content, or resources that you create, transmit or display through Glass and/or applications for Glass, and for the consequences of your actions (including any loss or damage which Google may suffer) by doing so.
+2026-09-24T20:07:03.1987543Z 
+2026-09-24T20:07:03.1988867Z 4.6 You agree that you are solely responsible for (and that Google has no responsibility to you or to any third party for) any breach of your obligations under this License Agreement, any applicable third party contract or Terms of Service, or any applicable law or regulation, and for the consequences (including any loss or damage which Google or any third party may suffer) of any such breach.
+2026-09-24T20:07:03.1990292Z 
+2026-09-24T20:07:03.1990297Z 
+2026-09-24T20:07:03.1991425Z 4.7 The GDK is in development, and your testing and feedback are an important part of the development process. By using the GDK, you acknowledge that implementation of some features are still under development and that you should not rely on the GDK, Glass devices, Glass system software, Google Mirror API, or Glass services having the full functionality of a stable release.
+2026-09-24T20:07:03.1992760Z 
+2026-09-24T20:07:03.1992866Z 5. Your Developer Credentials
+2026-09-24T20:07:03.1993106Z 
+2026-09-24T20:07:03.1994510Z 5.1 You agree that you are responsible for maintaining the confidentiality of any developer credentials that may be issued to you by Google or which you may choose yourself and that you will be solely responsible for all applications that are developed under your developer credentials.
+2026-09-24T20:07:03.1995456Z 
+2026-09-24T20:07:03.1995558Z 6. Privacy and Information
+2026-09-24T20:07:03.1995709Z 
+2026-09-24T20:07:03.1995713Z 
+2026-09-24T20:07:03.1997131Z 6.1 In order to continually innovate and improve the GDK, Google may collect certain usage statistics from the software including but not limited to a unique identifier, associated IP address, version number of the software, and information on which tools and/or services in the GDK are being used and how they are being used. Before any of this information is collected, the GDK will notify you and seek your consent. If you withhold consent, the information will not be collected.
+2026-09-24T20:07:03.1998794Z 
+2026-09-24T20:07:03.1999161Z 6.2 The data collected is examined in the aggregate to improve the GDK and is maintained in accordance with Google's Privacy Policy.
+2026-09-24T20:07:03.1999622Z 
+2026-09-24T20:07:03.1999726Z 7. Third Party Applications
+2026-09-24T20:07:03.2000053Z 
+2026-09-24T20:07:03.2001788Z 7.1 If you use the GDK to run applications developed by a third party or that access data, content or resources provided by a third party, you agree that Google is not responsible for those applications, data, content, or resources. You understand that all data, content or resources which you may access through such third party applications are the sole responsibility of the person from which they originated and that Google is not liable for any loss or damage that you may experience as a result of the use or access of any of those third party applications, data, content, or resources.
+2026-09-24T20:07:03.2003548Z 
+2026-09-24T20:07:03.2004955Z 7.2 You should be aware the data, content, and resources presented to you through such a third party application may be protected by intellectual property rights which are owned by the providers (or by other persons or companies on their behalf). You may not modify, rent, lease, loan, sell, distribute or create derivative works based on these data, content, or resources (either in whole or in part) unless you have been specifically given permission to do so by the relevant owners.
+2026-09-24T20:07:03.2006418Z 
+2026-09-24T20:07:03.2007205Z 7.3 You acknowledge that your use of such third party applications, data, content, or resources may be subject to separate terms between you and the relevant third party. In that case, this License Agreement does not affect your legal relationship with these third parties.
+2026-09-24T20:07:03.2008062Z 
+2026-09-24T20:07:03.2008152Z 8. Using Google APIs
+2026-09-24T20:07:03.2008293Z 
+2026-09-24T20:07:03.2008374Z 8.1 Google APIs
+2026-09-24T20:07:03.2008567Z 
+2026-09-24T20:07:03.2011040Z 8.1.1 If you use any API to retrieve data from Google, you acknowledge that the data may be protected by intellectual property rights which are owned by Google or those parties that provide the data (or by other persons or companies on their behalf). Your use of any such API may be subject to additional Terms of Service. You may not modify, rent, lease, loan, sell, distribute or create derivative works based on this data (either in whole or in part) unless allowed by the relevant Terms of Service.
+2026-09-24T20:07:03.2013841Z 
+2026-09-24T20:07:03.2014942Z 8.1.2 If you use any API to retrieve a user's data from Google, you acknowledge and agree that you shall retrieve data only with the user's explicit consent and only when, and for the limited purposes for which, the user has given you permission to do so.
+2026-09-24T20:07:03.2016173Z 
+2026-09-24T20:07:03.2016333Z 9. Terminating this License Agreement
+2026-09-24T20:07:03.2016616Z 
+2026-09-24T20:07:03.2017084Z 9.1 This License Agreement will continue to apply until terminated by either you or Google as set out below.
+2026-09-24T20:07:03.2017706Z 
+2026-09-24T20:07:03.2018286Z 9.2 If you want to terminate this License Agreement, you may do so by ceasing your use of the GDK and any relevant developer credentials.
+2026-09-24T20:07:03.2019027Z 
+2026-09-24T20:07:03.2022379Z 9.3 Google may at any time, terminate this License Agreement with you if: (A) you have breached any provision of this License Agreement; or (B) Google is required to do so by law; or (C) the partner with whom Google offered certain parts of GDK (such as APIs) to you has terminated its relationship with Google or ceased to offer certain parts of the GDK to you; or (D) Google decides to no longer provide the GDK or certain parts of the GDK to users in the country in which you are resident or from which you use the service, or the provision of the GDK or certain GDK services to you by Google is, in Google's sole discretion, no longer commercially viable.
+2026-09-24T20:07:03.2025483Z 
+2026-09-24T20:07:03.2027668Z 9.4 When this License Agreement comes to an end, all of the legal rights, obligations and liabilities that you and Google have benefited from, been subject to (or which have accrued over time whilst this License Agreement has been in force) or which are expressed to continue indefinitely, shall be unaffected by this cessation, and the provisions of paragraph 14.7 shall continue to apply to such rights, obligations and liabilities indefinitely.
+2026-09-24T20:07:03.2030887Z 
+2026-09-24T20:07:03.2031080Z 10. DISCLAIMER OF WARRANTIES
+2026-09-24T20:07:03.2031330Z 
+2026-09-24T20:07:03.2031988Z 10.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT YOUR USE OF THE GDK IS AT YOUR SOLE RISK AND THAT THE GDK IS PROVIDED "AS IS" AND "AS AVAILABLE" WITHOUT WARRANTY OF ANY KIND FROM GOOGLE.
+2026-09-24T20:07:03.2032570Z 
+2026-09-24T20:07:03.2033322Z 10.2 YOUR USE OF THE GDK AND ANY MATERIAL DOWNLOADED OR OTHERWISE OBTAINED THROUGH THE USE OF THE GDK IS AT YOUR OWN DISCRETION AND RISK AND YOU ARE SOLELY RESPONSIBLE FOR ANY DAMAGE TO YOUR COMPUTER SYSTEM OR OTHER DEVICE OR LOSS OF DATA THAT RESULTS FROM SUCH USE.
+2026-09-24T20:07:03.2034174Z 
+2026-09-24T20:07:03.2034935Z 10.3 GOOGLE FURTHER EXPRESSLY DISCLAIMS ALL WARRANTIES AND CONDITIONS OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, BUT NOT LIMITED TO THE IMPLIED WARRANTIES AND CONDITIONS OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT.
+2026-09-24T20:07:03.2035770Z 
+2026-09-24T20:07:03.2035870Z 11. LIMITATION OF LIABILITY
+2026-09-24T20:07:03.2036020Z 
+2026-09-24T20:07:03.2037315Z 11.1 YOU EXPRESSLY UNDERSTAND AND AGREE THAT GOOGLE, ITS SUBSIDIARIES AND AFFILIATES, AND ITS LICENSORS SHALL NOT BE LIABLE TO YOU UNDER ANY THEORY OF LIABILITY FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL OR EXEMPLARY DAMAGES THAT MAY BE INCURRED BY YOU, INCLUDING ANY LOSS OF DATA, WHETHER OR NOT GOOGLE OR ITS REPRESENTATIVES HAVE BEEN ADVISED OF OR SHOULD HAVE BEEN AWARE OF THE POSSIBILITY OF ANY SUCH LOSSES ARISING.
+2026-09-24T20:07:03.2038649Z 
+2026-09-24T20:07:03.2038740Z 12. Indemnification
+2026-09-24T20:07:03.2038875Z 
+2026-09-24T20:07:03.2041438Z 12.1 To the maximum extent permitted by law, you agree to defend, indemnify and hold harmless Google, its affiliates and their respective directors, officers, employees and agents from and against any and all claims, actions, suits or proceedings, as well as any and all losses, liabilities, damages, costs and expenses (including reasonable attorneys fees) arising out of or accruing from (a) your use of the GDK, (b) any application you develop on the GDK that infringes any copyright, trademark, trade secret, trade dress, patent or other intellectual property right of any person or defames any person or violates their rights of publicity or privacy, and (c) any non-compliance by you with this License Agreement.
+2026-09-24T20:07:03.2043649Z 
+2026-09-24T20:07:03.2043756Z 13. Changes to the License Agreement
+2026-09-24T20:07:03.2043940Z 
+2026-09-24T20:07:03.2044619Z 13.1 Google may make changes to the License Agreement as it distributes new versions of the GDK. When these changes are made, Google will make a new version of the License Agreement available on the website where the GDK is made available.
+2026-09-24T20:07:03.2045382Z 
+2026-09-24T20:07:03.2045477Z 14. General Legal Terms
+2026-09-24T20:07:03.2045619Z 
+2026-09-24T20:07:03.2046523Z 14.1 This License Agreement constitutes the whole legal agreement between you and Google and governs your use of the GDK (excluding any services which Google may provide to you under a separate written agreement), and completely replaces any prior agreements between you and Google in relation to the GDK.
+2026-09-24T20:07:03.2047481Z 
+2026-09-24T20:07:03.2048400Z 14.2 You agree that if Google does not exercise or enforce any legal right or remedy which is contained in this License Agreement (or which Google has the benefit of under any applicable law), this will not be taken to be a formal waiver of Google's rights and that those rights or remedies will still be available to Google.
+2026-09-24T20:07:03.2049517Z 
+2026-09-24T20:07:03.2050718Z 14.3 If any court of law, having the jurisdiction to decide on this matter, rules that any provision of this License Agreement is invalid, then that provision will be removed from this License Agreement without affecting the rest of this License Agreement. The remaining provisions of this License Agreement will continue to be valid and enforceable.
+2026-09-24T20:07:03.2051869Z 
+2026-09-24T20:07:03.2053192Z 14.4 You acknowledge and agree that each member of the group of companies of which Google is the parent shall be third party beneficiaries to this License Agreement and that such other companies shall be entitled to directly enforce, and rely upon, any provision of this License Agreement that confers a benefit on (or rights in favor of) them. Other than this, no other person or company shall be third party beneficiaries to this License Agreement.
+2026-09-24T20:07:03.2054547Z 
+2026-09-24T20:07:03.2055320Z 14.5 EXPORT RESTRICTIONS. THE GDK IS SUBJECT TO UNITED STATES EXPORT LAWS AND REGULATIONS. YOU MUST COMPLY WITH ALL DOMESTIC AND INTERNATIONAL EXPORT LAWS AND REGULATIONS THAT APPLY TO THE GDK. THESE LAWS INCLUDE RESTRICTIONS ON DESTINATIONS, END USERS AND END USE.
+2026-09-24T20:07:03.2056180Z 
+2026-09-24T20:07:03.2057188Z 14.6 The rights granted in this License Agreement may not be assigned or transferred by either you or Google without the prior written approval of the other party. Neither you nor Google shall be permitted to delegate their responsibilities or obligations under this License Agreement without the prior written approval of the other party.
+2026-09-24T20:07:03.2058427Z 
+2026-09-24T20:07:03.2060672Z 14.7 This License Agreement, and your relationship with Google under this License Agreement, shall be governed by the laws of the State of California without regard to its conflict of laws provisions. You and Google agree to submit to the exclusive jurisdiction of the courts located within the county of Santa Clara, California to resolve any legal matter arising from this License Agreement. Notwithstanding this, you agree that Google shall still be allowed to apply for injunctive remedies (or an equivalent type of urgent legal relief) in any jurisdiction.
+2026-09-24T20:07:03.2063343Z 
+2026-09-24T20:07:03.2063479Z November 19, 2013
+2026-09-24T20:07:03.2063837Z ---------------------------------------
+2026-09-24T20:07:03.2064709Z Accept? (y/N): 
+2026-09-24T20:07:03.2065094Z 6/6: License mips-android-sysimage-license:
+2026-09-24T20:07:03.2065504Z ---------------------------------------
+2026-09-24T20:07:03.2067958Z MIPS Technologies, Inc. (“MIPS”) Internal Evaluation License Agreement for MIPS Android™ System Images for Android Software Development Kit (SDK): This Internal Evaluation License Agreement (this "Agreement") is entered into by and between MIPS and you (as an individual developer or a legal entity -- identified below as “Recipient”). MIPS shall make the Evaluation Software available to Recipient as described in accordance with the terms and conditions set forth below.
+2026-09-24T20:07:03.2069656Z 
+2026-09-24T20:07:03.2071899Z By clicking on the “Accept” button, downloading, installing, or otherwise using the Evaluation Materials (defined below), you agree to be bound by the terms of this Agreement effective as of the date you click “Accept” (the “Effective Date”), and if doing so on behalf of an entity, you represent that you are authorized to bind the entity to the terms and conditions of this Agreement. If you do not agree to be bound by the terms and conditions of this Agreement, do not download, install, or use the Evaluation Materials.
+2026-09-24T20:07:03.2073677Z 
+2026-09-24T20:07:03.2073862Z 1. DEFINITIONS. These terms shall have the following meanings:
+2026-09-24T20:07:03.2074209Z 
+2026-09-24T20:07:03.2074806Z 1.1 “MIPS” shall mean MIPS Technologies, Inc., a Delaware corporation having a principal place of business at: 955 East Arques Ave., Sunnyvale, CA 94085
+2026-09-24T20:07:03.2075411Z 
+2026-09-24T20:07:03.2076062Z 1.2 “Evaluation Software” shall mean MIPS Android™ emulator system images for Android Software Development Kit (SDK), as made available to Recipient.
+2026-09-24T20:07:03.2076942Z 
+2026-09-24T20:07:03.2078252Z 1.3 “Evaluation Materials" means, collectively, the Evaluation Software (in source and/or object code form) and documentation (including, without limitation, any design documents, specifications, reference manuals, and other related materials) related to the Evaluation Software as made available to Recipient.
+2026-09-24T20:07:03.2079367Z 
+2026-09-24T20:07:03.2083617Z 1.4 “Open Source Software” means any software that requires (as a condition of use, modification and/or distribution of such software) that such software or other software incorporated into, derived from or distributed with such software (a) be disclosed or distributed in source code form; or (b) be licensed by the user to third parties for the purpose of making and/or distributing derivative works; or (c) be redistributable at no charge. Open Source Software includes, without limitation, software licensed or distributed under any of the following licenses or distribution models, or licenses or distribution models substantially similar to any of the following: (a) GNU’s General Public License (GPL) or Lesser/Library GPL (LGPL), (b) the Artistic License (e.g., PERL), (c) the Mozilla Public License, (d) the Netscape Public License, (e) the Sun Community Source License (SCSL), (f) the Sun Industry Source License (SISL), (g) the Apache Software license and (h) the Common Public License (CPL).
+2026-09-24T20:07:03.2087177Z 
+2026-09-24T20:07:03.2088609Z 1.5 “Pre-Release Materials” means “alpha” or “beta” designated pre-release features, which may not be fully functional, which MIPS may substantially modify in producing any production version of the Evaluation Materials, and/or which is still under development by MIPS and/or MIPS’ suppliers.
+2026-09-24T20:07:03.2090164Z 
+2026-09-24T20:07:03.2092375Z 2. PURPOSE. MIPS desires to make the Evaluation Materials available to Recipient solely for Recipient's internal evaluation of the Evaluation Software to evaluate the desirability of cooperating with MIPS in developing products that are compatible with the Evaluation Software and/or to advise MIPS as to possible modifications to the Evaluation Software. Recipient may not disclose, distribute, modify (except to facilitate the above-mentioned internal evaluation), or make commercial use of the Evaluation Materials or any modifications of the Evaluation Materials.
+2026-09-24T20:07:03.2094702Z 
+2026-09-24T20:07:03.2096258Z THE EVALUATION MATERIALS ARE PROVIDED FOR EVALUATION PURPOSES ONLY AND MAY NOT BE MODIFIED (EXCEPT TO FACILITATE THE INTERNAL EVALUATION) OR DISTRIBUTED BY RECIPIENT OR INCORPORATED INTO RECIPIENT’S PRODUCTS OR SOFTWARE. PLEASE CONTACT A MIPS SALES REPRESENTATIVE TO LEARN ABOUT THE AVAILABILITY AND COST OF A COMMERCIAL VERSION OF THE EVALUATION SOFTWARE.
+2026-09-24T20:07:03.2097630Z 
+2026-09-24T20:07:03.2098573Z 3. TITLE. Title to the Evaluation Materials remains with MIPS or its suppliers. Recipient shall not mortgage, pledge or encumber the Evaluation Materials in any way. Recipient shall return all Evaluation Materials, keeping no copies, upon termination or expiration of this Agreement.
+2026-09-24T20:07:03.2099612Z 
+2026-09-24T20:07:03.2103444Z 4. LICENSE. MIPS grants Recipient a royalty-free, personal, nontransferable, nonexclusive license under its copyrights to use the Evaluation Software only for the purposes described in paragraph 2 above and only for a period beginning on the Effective Date and extending to the first anniversary of the Effective Date (the “Evaluation Period”). Unless otherwise communicated in writing by MIPS to Recipient, to the extent the Evaluation Software is provided in more than one delivery or release (each, a “Release”) the license grant in this Section 4 and the Evaluation Period shall apply to each Release, in which case the Evaluation Period shall begin on the date that the Release is made generally available and continue to the first anniversary of such date. Recipient may not make modifications to the Evaluation Software. Recipient shall not disassemble, reverse-engineer, or decompile any software that is not provided to Recipient in source code form.
+2026-09-24T20:07:03.2106758Z 
+2026-09-24T20:07:03.2106764Z 
+2026-09-24T20:07:03.2107856Z EXCEPT AS PROVIDED HEREIN, NO OTHER LICENSE, EXPRESS OR IMPLIED, BY ESTOPPEL OR OTHERWISE, TO ANY OTHER MIPS INTELLECTUAL PROPERTY RIGHTS IS GRANTED TO THE RECIPIENT. OTHER THAN AS EXPLICITLY SET FORTH IN PARAGRAPH 2 ABOVE, NO RIGHT TO COPY, TO REPRODUCE, TO MODIFY, OR TO CREATE DERIVATIVE WORKS OF, THE EVALUATION MATERIALS IS GRANTED HEREIN.
+2026-09-24T20:07:03.2108935Z 
+2026-09-24T20:07:03.2109698Z 5. NO OBLIGATION. Recipient shall have no duty to purchase or license any product from MIPS. MIPS and its suppliers shall have no obligation to provide support for, or develop a non-evaluation version of, the Evaluation Software or to license any version of it.
+2026-09-24T20:07:03.2110709Z 
+2026-09-24T20:07:03.2114261Z 6. MODIFICATIONS. This Agreement does not obligate Recipient to provide MIPS with comments or suggestions regarding Evaluation Materials. However, should Recipient provide MIPS with comments or suggestions for the modification, correction, improvement or enhancement of (a) the Evaluation Materials or (b) MIPS products or processes which may embody the Evaluation Materials, then Recipient agrees to grant and hereby grants to MIPS a non-exclusive, irrevocable, worldwide, fully paid-up, royalty-free license, with the right to sublicense MIPS’ licensees and customers, under Recipient’s Intellectual property rights, to use and disclose such comments and suggestions in any manner MIPS chooses and to display, perform, copy, make, have made, use, sell, offer to sell, import, and otherwise dispose of MIPS’ and its sublicensee’s products embodying such comments and suggestions in any manner and via any media MIPS chooses, without reference to the source.
+2026-09-24T20:07:03.2117397Z 
+2026-09-24T20:07:03.2119009Z 7. WARRANTY DISCLAIMER. MIPS AND ITS SUPPLIERS MAKE NO WARRANTIES WITH RESPECT TO EVALUATION MATERIALS, EITHER EXPRESS OR IMPLIED, INCLUDING ANY IMPLIED WARRANTIES OF MERCHANTABILITY OR FITNESS FOR A PARTICULAR PURPOSE, OR ANY IMPLIED WARRANTY OF NONINFRINGEMENT WITH RESPECT TO THIRD PARTY INTELLECTUAL PROPERTY. RECIPIENT ACKNOWLEDGES AND AGREES THAT THE EVALUATION MATERIALS ARE PROVIDED “AS IS,” WITHOUT WARRANTY OF ANY KIND.
+2026-09-24T20:07:03.2120742Z 
+2026-09-24T20:07:03.2122465Z 8. LIMITATION OF LIABILITY. MIPS AND ITS SUPPLIERS SHALL NOT BE LIABLE FOR ANY PROPERTY DAMAGE, PERSONAL INJURY, LOSS OF PROFITS, INTERRUPTION OF BUSINESS OR FOR ANY DIRECT, INDIRECT, SPECIAL, CONSEQUENTIAL OR INCIDENTAL DAMAGES, HOWEVER CAUSED OR ALLEGED, WHETHER FOR BREACH OF WARRANTY, CONTRACT, STRICT LIABILITY OR OTHERWISE, INCLUDING WITHOUT LIMITATION, UNDER TORT OR OTHER LEGAL THEORY. MIPS AND ITS SUPPLIERS DISCLAIM ANY AND ALL LIABILITY, INCLUDING LIABILITY FOR INFRINGEMENT OF ANY INTELLECTUAL PROPERTY RIGHTS OF ANY KIND RELATING TO THE EVALUATION MATERIALS.
+2026-09-24T20:07:03.2124253Z 
+2026-09-24T20:07:03.2124952Z 9. EXPIRATION. MIPS may terminate this Agreement immediately after a breach by Recipient or otherwise at MIPS’ reasonable discretion and upon five (5) business days’ notice to Recipient.
+2026-09-24T20:07:03.2125581Z 
+2026-09-24T20:07:03.2125675Z 10. GENERAL.
+2026-09-24T20:07:03.2125800Z 
+2026-09-24T20:07:03.2128943Z 10.1 Controlling Law. This Agreement shall be governed by California law excluding its choice of law rules. With the exception of MIPS’ rights to enforce its intellectual property rights and any confidentiality obligations under this Agreement or any licenses distributed with the Evaluation Materials, all disputes and any claims arising under or relating to this Agreement shall be subject to the exclusive jurisdiction and venue of the state and federal courts located in Santa Clara County, California. Each party hereby agrees to jurisdiction and venue in the courts set forth in the preceding sentence. The parties agree that the United Nations Convention on Contracts for the International Sale of Goods is specifically excluded from application to this Agreement. The parties consent to the personal jurisdiction of the above courts.
+2026-09-24T20:07:03.2131896Z 
+2026-09-24T20:07:03.2133373Z 10.2 Remedies. Recipient acknowledges and agrees that any breach of confidentiality obligations under this Agreement or any licenses distributed with the Evaluation Materials, as well as any disclosure, commercialization, or public use of the Evaluation Materials, would cause irreparable injury to MIPS, and therefore Recipient agrees to consent to, and hereby consents to, the grant of an injunction by any court of competent jurisdiction in the event of an actual or threatened breach.
+2026-09-24T20:07:03.2134893Z 
+2026-09-24T20:07:03.2136800Z 10.3 Assignment. Recipient may not delegate, assign or transfer this Agreement, the license granted or any of Recipient’s rights, obligations, or duties hereunder, expressly, by implication, by operation of law, by way of merger (regardless of whether Recipient is the surviving entity) or acquisition, or otherwise and any attempt to do so, without MIPS’ express prior written consent, shall be ineffective, null and void. MIPS may freely assign this Agreement, and its rights and obligations hereunder, in its sole discretion.
+2026-09-24T20:07:03.2138492Z 
+2026-09-24T20:07:03.2140022Z 10.4 Entire Agreement. This Agreement constitutes the entire agreement between Recipient and MIPS and supersedes in their entirety any and all oral or written agreements previously existing between Recipient and MIPS with respect to the subject matter hereof. This Agreement may only be amended or supplemented by a writing that refers explicitly to this Agreement and that is signed or otherwise accepted by duly authorized representatives of Recipient and MIPS.
+2026-09-24T20:07:03.2141569Z 
+2026-09-24T20:07:03.2142957Z 10.5 Severability. In the event that any provision of this Agreement is finally adjudicated to be unenforceable or invalid under any applicable law, such unenforceability or invalidity shall not render this Agreement unenforceable or invalid as a whole, and, in such event, such unenforceable or invalid provision shall be interpreted so as to best accomplish the objectives of such provision within the limits of applicable law or applicable court decisions.
+2026-09-24T20:07:03.2144592Z 
+2026-09-24T20:07:03.2148941Z 10.6 Export Regulations / Export Control. Recipient shall not export, either directly or indirectly, any product, service or technical data or system incorporating the Evaluation Materials without first obtaining any required license or other necessary approval from the U.S. Department of Commerce or any other governing agency or department of the United States Government. In the event any product is exported from the United States or re-exported from a foreign destination by Recipient, Recipient shall ensure that the distribution and export/re-export or import of the product is in compliance with all applicable laws, regulations, orders, or other restrictions of the U.S. Export Administration Regulations and the appropriate foreign government. Recipient agrees that neither it nor any of its subsidiaries will export/re-export any technical data, process, product, or service, directly or indirectly, to any country for which the United States government or any agency thereof or the foreign government from where it is shipping requires an export license, or other governmental approval, without first obtaining such license or approval. Recipient also agrees to implement measures to ensure that foreign national employees are authorized to receive any information controlled by U.S. export control laws. An export is "deemed" to take place when information is released to a foreign national wherever located.
+2026-09-24T20:07:03.2154598Z 
+2026-09-24T20:07:03.2158130Z 10.7 Special Terms for Pre-Release Materials. If so indicated in the description of the Evaluation Software, the Evaluation Software may contain Pre-Release Materials. Recipient hereby understands, acknowledges and agrees that: (i) Pre-Release Materials may not be fully tested and may contain bugs or errors; (ii) Pre-Release materials are not suitable for commercial release in their current state; (iii) regulatory approvals for Pre-Release Materials (such as UL or FCC) have not been obtained, and Pre-Release Materials may therefore not be certified for use in certain countries or environments or may not be suitable for certain applications and (iv) MIPS can provide no assurance that it will ever produce or make generally available a production version of the Pre-Release Materials . MIPS is not under any obligation to develop and/or release or offer for sale or license a final product based upon the Pre-Release Materials and may unilaterally elect to abandon the Pre-Release Materials or any such development platform at any time and without any obligation or liability whatsoever to Recipient or any other person.
+2026-09-24T20:07:03.2162158Z 
+2026-09-24T20:07:03.2162831Z ANY PRE-RELEASE MATERIALS ARE NON-QUALIFIED AND, AS SUCH, ARE PROVIDED “AS IS” AND “AS AVAILABLE”, POSSIBLY WITH FAULTS, AND WITHOUT REPRESENTATION OR WARRANTY OF ANY KIND.
+2026-09-24T20:07:03.2163421Z 
+2026-09-24T20:07:03.2165360Z 10.8 Open Source Software. In the event Open Source software is included with Evaluation Software, such Open Source software is licensed pursuant to the applicable Open Source software license agreement identified in the Open Source software comments in the applicable source code file(s) and/or file header as indicated in the Evaluation Software. Additional detail may be available (where applicable) in the accompanying on-line documentation. With respect to the Open Source software, nothing in this Agreement limits any rights under, or grants rights that supersede, the terms of any applicable Open Source software license agreement.
+2026-09-24T20:07:03.2167473Z ---------------------------------------
+2026-09-24T20:07:03.2167787Z Accept? (y/N): All SDK package licenses accepted
+2026-09-24T20:07:03.2168009Z 
+2026-09-24T20:07:03.2168278Z [command]/usr/local/lib/android/sdk/cmdline-tools/16.0/bin/sdkmanager build-tools;34.0.0
+2026-09-24T20:07:03.9795024Z Loading package information...                                                  
+2026-09-24T20:07:04.0863306Z Loading local repository...                                                     
+2026-09-24T20:07:04.0865333Z [                                       ] 3% Loading local repository...        
+2026-09-24T20:07:04.0964400Z [                                       ] 3% Fetch remote repository...         
+2026-09-24T20:07:04.3183165Z [=                                      ] 3% Fetch remote repository...         
+2026-09-24T20:07:04.4145266Z [=                                      ] 4% Fetch remote repository...         
+2026-09-24T20:07:04.4380918Z [=                                      ] 5% Fetch remote repository...         
+2026-09-24T20:07:04.4735340Z [==                                     ] 5% Fetch remote repository...         
+2026-09-24T20:07:04.5383556Z [==                                     ] 6% Fetch remote repository...         
+2026-09-24T20:07:04.6061375Z [==                                     ] 7% Fetch remote repository...         
+2026-09-24T20:07:04.6090981Z [==                                     ] 7% Computing updates...               
+2026-09-24T20:07:04.6173498Z [===                                    ] 8% Computing updates...               
+2026-09-24T20:07:04.6237146Z [===                                    ] 10% Computing updates...              
+2026-09-24T20:07:04.6238073Z [=======================================] 100% Computing updates...             
+2026-09-24T20:07:04.6238737Z 
+2026-09-24T20:07:04.6448408Z [command]/usr/local/lib/android/sdk/cmdline-tools/16.0/bin/sdkmanager platform-tools
+2026-09-24T20:07:05.4479072Z Loading package information...                                                  
+2026-09-24T20:07:05.5532493Z Loading local repository...                                                     
+2026-09-24T20:07:05.5540816Z [                                       ] 3% Loading local repository...        
+2026-09-24T20:07:05.5638897Z [                                       ] 3% Fetch remote repository...         
+2026-09-24T20:07:05.8651794Z [=                                      ] 3% Fetch remote repository...         
+2026-09-24T20:07:05.9357930Z [=                                      ] 4% Fetch remote repository...         
+2026-09-24T20:07:05.9681456Z [=                                      ] 5% Fetch remote repository...         
+2026-09-24T20:07:06.0213253Z [==                                     ] 5% Fetch remote repository...         
+2026-09-24T20:07:06.1218521Z [==                                     ] 6% Fetch remote repository...         
+2026-09-24T20:07:06.2011103Z [==                                     ] 7% Fetch remote repository...         
+2026-09-24T20:07:06.2020712Z [==                                     ] 7% Computing updates...               
+2026-09-24T20:07:06.2132824Z [===                                    ] 8% Computing updates...               
+2026-09-24T20:07:06.2197085Z [===                                    ] 10% Computing updates...              
+2026-09-24T20:07:06.2200564Z [=======================================] 100% Computing updates...             
+2026-09-24T20:07:06.2200956Z 
+
+===== build/5_Cache Godot 4.7.2.txt =====
+﻿2026-09-24T20:07:06.2666233Z ##[group]Run actions/cache@v4
+2026-09-24T20:07:06.2666518Z with:
+2026-09-24T20:07:06.2666800Z   path: ~/godot-bin
+~/.local/share/godot/export_templates
+
+2026-09-24T20:07:06.2667159Z   key: godot-4.7.2-linux-x86_64
+2026-09-24T20:07:06.2667425Z   enableCrossOsArchive: false
+2026-09-24T20:07:06.2667677Z   fail-on-cache-miss: false
+2026-09-24T20:07:06.2667916Z   lookup-only: false
+2026-09-24T20:07:06.2668135Z   save-always: false
+2026-09-24T20:07:06.2668344Z env:
+2026-09-24T20:07:06.2668544Z   GODOT_VERSION: 4.7.2
+2026-09-24T20:07:06.2668774Z   EXPORT_NAME: vhs-camcorder
+2026-09-24T20:07:06.2669119Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:06.2669629Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:06.2670194Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-24T20:07:06.2670501Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-24T20:07:06.2670779Z ##[endgroup]
+2026-09-24T20:07:06.3745656Z (node:2505) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-09-24T20:07:06.3746652Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-09-24T20:07:06.4800746Z Cache not found for input keys: godot-4.7.2-linux-x86_64
+
+===== build/6_Download Godot 4.7.2 + export templates.txt =====
+﻿2026-09-24T20:07:06.4943873Z ##[group]Run set -euo pipefail
+2026-09-24T20:07:06.4944278Z [36;1mset -euo pipefail[0m
+2026-09-24T20:07:06.4944705Z [36;1mRELEASES="https://github.com/godotengine/godot/releases/download"[0m
+2026-09-24T20:07:06.4945139Z [36;1mTAG="$GODOT_VERSION-stable"[0m
+2026-09-24T20:07:06.4945422Z [36;1mmkdir -p ~/godot-bin[0m
+2026-09-24T20:07:06.4945867Z [36;1mcurl -fL --retry 3 -o /tmp/godot.zip "$RELEASES/$TAG/Godot_v${TAG}_linux.x86_64.zip"[0m
+2026-09-24T20:07:06.4946361Z [36;1munzip -q -o /tmp/godot.zip -d /tmp/godot-extract[0m
+2026-09-24T20:07:06.4946804Z [36;1mmv "/tmp/godot-extract/Godot_v${TAG}_linux.x86_64" ~/godot-bin/godot[0m
+2026-09-24T20:07:06.4947204Z [36;1mchmod +x ~/godot-bin/godot[0m
+2026-09-24T20:07:06.4947648Z [36;1mcurl -fL --retry 3 -o /tmp/templates.tpz "$RELEASES/$TAG/Godot_v${TAG}_export_templates.tpz"[0m
+2026-09-24T20:07:06.4948154Z [36;1munzip -q -o /tmp/templates.tpz -d /tmp/templates[0m
+2026-09-24T20:07:06.4948523Z [36;1mmkdir -p ~/.local/share/godot/export_templates[0m
+2026-09-24T20:07:06.4949019Z [36;1mrm -rf "$HOME/.local/share/godot/export_templates/$GODOT_VERSION.stable"[0m
+2026-09-24T20:07:06.4949589Z [36;1mmv /tmp/templates/templates "$HOME/.local/share/godot/export_templates/$GODOT_VERSION.stable"[0m
+2026-09-24T20:07:06.5182993Z shell: /usr/bin/bash -e {0}
+2026-09-24T20:07:06.5183313Z env:
+2026-09-24T20:07:06.5183760Z   GODOT_VERSION: 4.7.2
+2026-09-24T20:07:06.5184013Z   EXPORT_NAME: vhs-camcorder
+2026-09-24T20:07:06.5184388Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:06.5184908Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:06.5185322Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-24T20:07:06.5185630Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-24T20:07:06.5185917Z ##[endgroup]
+2026-09-24T20:07:06.5392362Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2026-09-24T20:07:06.5397083Z                                  Dload  Upload   Total   Spent    Left  Speed
+2026-09-24T20:07:06.5397413Z 
+2026-09-24T20:07:06.5964250Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-09-24T20:07:06.5965063Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-09-24T20:07:06.9539579Z 
+2026-09-24T20:07:06.9540803Z 100 74.2M  100 74.2M    0     0   178M      0 --:--:-- --:--:-- --:--:--  178M
+2026-09-24T20:07:08.0688139Z   % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+2026-09-24T20:07:08.0689208Z                                  Dload  Upload   Total   Spent    Left  Speed
+2026-09-24T20:07:08.0689709Z 
+2026-09-24T20:07:08.1785746Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-09-24T20:07:08.1786360Z   0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+2026-09-24T20:07:08.3350743Z 
+2026-09-24T20:07:09.3338267Z   3 1221M    3 40.0M    0     0   150M      0  0:00:08 --:--:--  0:00:08  150M
+2026-09-24T20:07:10.3366268Z  41 1221M   41  503M    0     0   398M      0  0:00:03  0:00:01  0:00:02  464M
+2026-09-24T20:07:10.8511071Z  80 1221M   80  981M    0     0   432M      0  0:00:02  0:00:02 --:--:--  470M
+2026-09-24T20:07:10.8511958Z 100 1221M  100 1221M    0     0   439M      0  0:00:02  0:00:02 --:--:--  469M
+
+===== build/7_Godot version.txt =====
+﻿2026-09-24T20:07:25.8763350Z ##[group]Run ~/godot-bin/godot --headless --version
+2026-09-24T20:07:25.8763799Z [36;1m~/godot-bin/godot --headless --version[0m
+2026-09-24T20:07:25.8833287Z shell: /usr/bin/bash -e {0}
+2026-09-24T20:07:25.8833565Z env:
+2026-09-24T20:07:25.8833787Z   GODOT_VERSION: 4.7.2
+2026-09-24T20:07:25.8834038Z   EXPORT_NAME: vhs-camcorder
+2026-09-24T20:07:25.8834406Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:25.8834908Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:25.8835322Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-24T20:07:25.8835640Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-24T20:07:25.8835949Z ##[endgroup]
+2026-09-24T20:07:25.9696159Z 4.7.2.stable.official.ed1daf0bf
+
+===== build/8_Import project (build the resource cache).txt =====
+﻿2026-09-24T20:07:25.9746027Z ##[group]Run # A cold import pass reports errors on first run; run it twice.
+2026-09-24T20:07:25.9746586Z [36;1m# A cold import pass reports errors on first run; run it twice.[0m
+2026-09-24T20:07:25.9747032Z [36;1m~/godot-bin/godot --headless --import || true[0m
+2026-09-24T20:07:25.9747412Z [36;1m~/godot-bin/godot --headless --import[0m
+2026-09-24T20:07:25.9816726Z shell: /usr/bin/bash -e {0}
+2026-09-24T20:07:25.9817010Z env:
+2026-09-24T20:07:25.9817220Z   GODOT_VERSION: 4.7.2
+2026-09-24T20:07:25.9817463Z   EXPORT_NAME: vhs-camcorder
+2026-09-24T20:07:25.9817830Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:25.9818337Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:25.9818737Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-24T20:07:25.9819038Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-24T20:07:25.9819321Z ##[endgroup]
+2026-09-24T20:07:26.0104944Z Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-09-24T20:07:26.0798202Z 
+2026-09-24T20:07:29.4597128Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+2026-09-24T20:07:29.4599122Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+2026-09-24T20:07:29.4603025Z [  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+2026-09-24T20:07:29.4617451Z [  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+2026-09-24T20:07:29.4618491Z [  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+2026-09-24T20:07:29.4619481Z [  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+2026-09-24T20:07:29.4620731Z [  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+2026-09-24T20:07:29.4621535Z [92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+2026-09-24T20:07:29.4622017Z [0m
+2026-09-24T20:07:29.4786743Z [   0% ] [90m[1mupdate_scripts_classes[22m | Started Registering global classes... (4 steps)[39m[0m
+2026-09-24T20:07:29.4787805Z [   0% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-09-24T20:07:29.4788518Z [  20% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-09-24T20:07:29.4789128Z [  40% ] [90m[1mupdate_scripts_classes[22m | VhsPlayer[39m[0m
+2026-09-24T20:07:29.4789634Z [  60% ] [90m[1mupdate_scripts_classes[22m | [39m[0m
+2026-09-24T20:07:29.4790324Z [92m[ DONE ][39m [1mupdate_scripts_classes[22m
+2026-09-24T20:07:29.4790648Z [0m
+2026-09-24T20:07:29.5392446Z [   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+2026-09-24T20:07:29.5393527Z [   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+2026-09-24T20:07:29.5394495Z [  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+2026-09-24T20:07:29.5395285Z [92m[ DONE ][39m [1mloading_editor_layout[22m
+2026-09-24T20:07:29.5395784Z [0m
+2026-09-24T20:07:30.9137918Z cannot connect to daemon at tcp:5037: Connection refused
+2026-09-24T20:07:31.9864349Z Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-09-24T20:07:32.0158561Z 
+2026-09-24T20:07:34.3575377Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+2026-09-24T20:07:34.3576777Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+2026-09-24T20:07:34.3580507Z [  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+2026-09-24T20:07:34.3598475Z [  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+2026-09-24T20:07:34.3599507Z [  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+2026-09-24T20:07:34.3600659Z [  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+2026-09-24T20:07:34.3601602Z [  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+2026-09-24T20:07:34.3602367Z [92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+2026-09-24T20:07:34.3603173Z [0m
+2026-09-24T20:07:34.4353069Z [   0% ] [90m[1mloading_editor_layout[22m | Started Loading editor (5 steps)[39m[0m
+2026-09-24T20:07:34.4354439Z [   0% ] [90m[1mloading_editor_layout[22m | Loading editor layout...[39m[0m
+2026-09-24T20:07:34.4355510Z [  16% ] [90m[1mloading_editor_layout[22m | Loading docks...[39m[0m
+2026-09-24T20:07:34.4356413Z [92m[ DONE ][39m [1mloading_editor_layout[22m
+2026-09-24T20:07:34.4356965Z [0m
+2026-09-24T20:07:35.0386476Z cannot connect to daemon at tcp:5037: Connection refused
+
+===== build/9_Export unsigned APK.txt =====
+﻿2026-09-24T20:07:35.2510971Z ##[group]Run set -euo pipefail
+2026-09-24T20:07:35.2511509Z [36;1mset -euo pipefail[0m
+2026-09-24T20:07:35.2511932Z [36;1mmkdir -p build[0m
+2026-09-24T20:07:35.2512537Z [36;1m~/godot-bin/godot --headless --export-debug "Android" "build/$EXPORT_NAME-unsigned.apk"[0m
+2026-09-24T20:07:35.2513117Z [36;1mls -lh build[0m
+2026-09-24T20:07:35.2581883Z shell: /usr/bin/bash -e {0}
+2026-09-24T20:07:35.2582353Z env:
+2026-09-24T20:07:35.2582742Z   GODOT_VERSION: 4.7.2
+2026-09-24T20:07:35.2583138Z   EXPORT_NAME: vhs-camcorder
+2026-09-24T20:07:35.2583789Z   JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:35.2584585Z   JAVA_HOME_17_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/17.0.20-1/x64
+2026-09-24T20:07:35.2585146Z   ANDROID_HOME: /usr/local/lib/android/sdk
+2026-09-24T20:07:35.2585648Z   ANDROID_SDK_ROOT: /usr/local/lib/android/sdk
+2026-09-24T20:07:35.2586051Z ##[endgroup]
+2026-09-24T20:07:35.2893257Z Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+2026-09-24T20:07:35.3190608Z 
+2026-09-24T20:07:37.7104614Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Started Project initialization (5 steps)[39m[0m
+2026-09-24T20:07:37.7106032Z [   0% ] [90m[1mfirst_scan_filesystem[22m | Scanning file structure...[39m[0m
+2026-09-24T20:07:37.7109619Z [  16% ] [90m[1mfirst_scan_filesystem[22m | Loading global class names...[39m[0m
+2026-09-24T20:07:37.7126625Z [  33% ] [90m[1mfirst_scan_filesystem[22m | Verifying GDExtensions...[39m[0m
+2026-09-24T20:07:37.7127820Z [  50% ] [90m[1mfirst_scan_filesystem[22m | Creating autoload scripts...[39m[0m
+2026-09-24T20:07:37.7129154Z [  66% ] [90m[1mfirst_scan_filesystem[22m | Initializing plugins...[39m[0m
+2026-09-24T20:07:37.7130490Z [  83% ] [90m[1mfirst_scan_filesystem[22m | Starting file scan...[39m[0m
+2026-09-24T20:07:37.7131371Z [92m[ DONE ][39m [1mfirst_scan_filesystem[22m
+2026-09-24T20:07:37.7132079Z [0m
+2026-09-24T20:07:37.7798825Z ERROR: Cannot export project with preset "Android" due to configuration errors:
+2026-09-24T20:07:37.7800689Z ETC2/ASTC texture compression is required for Android export. In Project Settings, search for 'ETC2' in the search field, or enable 'Advanced Settings' and go to Rendering > Textures > VRAM Compression to enable 'Import ETC2 ASTC'.
+2026-09-24T20:07:37.7801603Z 
+2026-09-24T20:07:37.7801951Z    at: _fs_changed (editor/editor_node.cpp:1401)
+2026-09-24T20:07:37.7802576Z ERROR: Project export for preset "Android" failed.
+2026-09-24T20:07:37.7803099Z    at: _fs_changed (editor/editor_node.cpp:1417)
+2026-09-24T20:07:38.4233096Z cannot connect to daemon at tcp:5037: Connection refused
+2026-09-24T20:07:38.6423996Z ##[error]Process completed with exit code 1.
+
+===== build/system.txt =====
+2026-09-24T20:06:42.6650000Z Requested labels: ubuntu-latest
+2026-09-24T20:06:42.6650000Z Job defined at: Goyimaticax1/vhs/.github/workflows/build-apk.yml@refs/heads/main
+2026-09-24T20:06:42.6650000Z Waiting for a runner to pick up this job...
+2026-09-24T20:06:42.6630000Z Evaluating build.if
+2026-09-24T20:06:42.6630000Z Evaluating: success()
+2026-09-24T20:06:42.6630000Z Result: true
+2026-09-24T20:06:43.1170000Z Job is waiting for a hosted runner to come online.
+2026-09-24T20:06:43.1170000Z Job is about to start running on the hosted runner: GitHub Actions 1000000034
