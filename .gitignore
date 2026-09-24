@@ -1,0 +1,6 @@
+.godot/
+project/.godot/
+project/build/
+*.apk
+*.aab
+!VHS_Camcorder_Godot48_Nodes.zip
