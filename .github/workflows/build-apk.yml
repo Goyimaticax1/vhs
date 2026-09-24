@@ -43,17 +43,19 @@ jobs:
         if: steps.cache-godot.outputs.cache-hit != 'true'
         run: |
           set -euo pipefail
-          BASE="https://github.com/godotengine/godot/releases/download/${GODOT_VERSION}-stable"
+          RELEASES="https://github.com/godotengine/godot/releases/download"
+          TAG="$GODOT_VERSION-stable"
           mkdir -p ~/godot-bin
-          curl -fL --retry 3 -o /tmp/godot.zip "$BASE/Godot_v${GODOT_VERSION}-stable_linux.x86_64.zip"
+          curl -fL --retry 3 -o /tmp/godot.zip "$RELEASES/$TAG/Godot_v$TAG_linux.x86_64.zip" || \
+          curl -fL --retry 3 -o /tmp/godot.zip "$RELEASES/$TAG/Godot_v${TAG}_linux.x86_64.zip"
           unzip -q -o /tmp/godot.zip -d /tmp/godot-extract
-          mv "/tmp/godot-extract/Godot_v${GODOT_VERSION}-stable_linux.x86_64" ~/godot-bin/godot
+          mv "/tmp/godot-extract/Godot_v${TAG}_linux.x86_64" ~/godot-bin/godot
           chmod +x ~/godot-bin/godot
-          curl -fL --retry 3 -o /tmp/templates.tpz "$BASE/Godot_v${GODOT_VERSION}-stable_export_templates.tpz"
+          curl -fL --retry 3 -o /tmp/templates.tpz "$RELEASES/$TAG/Godot_v${TAG}_export_templates.tpz"
           unzip -q -o /tmp/templates.tpz -d /tmp/templates
           mkdir -p ~/.local/share/godot/export_templates
-          rm -rf "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
-          mv /tmp/templates/templates "$HOME/.local/share/godot/export_templates/${GODOT_VERSION}.stable"
+          rm -rf "$HOME/.local/share/godot/export_templates/$GODOT_VERSION.stable"
+          mv /tmp/templates/templates "$HOME/.local/share/godot/export_templates/$GODOT_VERSION.stable"
 
       - name: Godot version
         run: ~/godot-bin/godot --headless --version
@@ -61,7 +63,7 @@ jobs:
       - name: Import project (build the resource cache)
         working-directory: project
         run: |
-          # First import pass always reports "errors" on a cold cache; run twice.
+          # A cold import pass reports errors on first run; run it twice.
           ~/godot-bin/godot --headless --import || true
           ~/godot-bin/godot --headless --import
 
@@ -70,7 +72,7 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p build
-          ~/godot-bin/godot --headless --export-debug "Android" "build/${EXPORT_NAME}-unsigned.apk"
+          ~/godot-bin/godot --headless --export-debug "Android" "build/$EXPORT_NAME-unsigned.apk"
           ls -lh build
 
       - name: Align and sign APK
@@ -85,14 +87,14 @@ jobs:
             -keyalg RSA -keysize 2048 -validity 10000 \
             -dname "CN=Android Debug,O=Android,C=US"
           "$BUILD_TOOLS/zipalign" -p -f 4 \
-            "project/build/${EXPORT_NAME}-unsigned.apk" \
-            "project/build/${EXPORT_NAME}.apk"
+            "project/build/$EXPORT_NAME-unsigned.apk" \
+            "project/build/$EXPORT_NAME.apk"
           "$BUILD_TOOLS/apksigner" sign \
             --ks /tmp/debug.keystore \
             --ks-pass pass:android --key-pass pass:android \
             --ks-key-alias androiddebugkey \
-            "project/build/${EXPORT_NAME}.apk"
-          "$BUILD_TOOLS/apksigner" verify --print-certs "project/build/${EXPORT_NAME}.apk"
+            "project/build/$EXPORT_NAME.apk"
+          "$BUILD_TOOLS/apksigner" verify --print-certs "project/build/$EXPORT_NAME.apk"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
