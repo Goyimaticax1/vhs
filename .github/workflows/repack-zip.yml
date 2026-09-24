@@ -1,0 +1,39 @@
+name: Repack project zip
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'project/**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  repack:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Rebuild zip from project/
+        run: |
+          rm -rf _pack
+          mkdir -p _pack/VHS_Camcorder_Godot48_Nodes
+          cp -a project/. _pack/VHS_Camcorder_Godot48_Nodes/
+          rm -f VHS_Camcorder_Godot48_Nodes.zip
+          (cd _pack && zip -X -r ../VHS_Camcorder_Godot48_Nodes.zip VHS_Camcorder_Godot48_Nodes)
+          rm -rf _pack
+          unzip -l VHS_Camcorder_Godot48_Nodes.zip
+
+      - name: Commit zip
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add VHS_Camcorder_Godot48_Nodes.zip
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+          else
+            git commit -m "Repack VHS_Camcorder_Godot48_Nodes.zip from project/"
+            git push
+          fi
