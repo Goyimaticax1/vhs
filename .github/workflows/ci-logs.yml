@@ -1,0 +1,85 @@
+name: Capture CI logs
+
+on:
+  workflow_run:
+    workflows:
+      - "Build Android APK"
+      - "Extract project zip"
+      - "Repack project zip"
+    types: [completed]
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: ci-logs
+  cancel-in-progress: false
+
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Fetch run logs
+        env:
+          GH_TOKEN: ${{ github.token }}
+          RUN_ID: ${{ github.event.workflow_run.id }}
+          WF_NAME: ${{ github.event.workflow_run.name }}
+          WF_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+          WF_URL: ${{ github.event.workflow_run.html_url }}
+        run: |
+          set -uo pipefail
+          slug=$(echo "$WF_NAME" | tr '[:upper:]' '[:lower:]' | tr -c 'a-z0-9' '-' | sed 's/-\+/-/g; s/^-//; s/-$//')
+          mkdir -p ci-logs
+          out="ci-logs/$slug.log"
+          {
+            echo "workflow:   $WF_NAME"
+            echo "run_id:     $RUN_ID"
+            echo "conclusion: $WF_CONCLUSION"
+            echo "url:        $WF_URL"
+            echo "captured:   $(date -u +%FT%TZ)"
+            echo
+          } > "$out"
+          rm -rf /tmp/logs /tmp/logs.zip
+          if gh api "repos/$GITHUB_REPOSITORY/actions/runs/$RUN_ID/logs" > /tmp/logs.zip 2>/tmp/logerr; then
+            mkdir -p /tmp/logs
+            if unzip -q -o /tmp/logs.zip -d /tmp/logs; then
+              find /tmp/logs -type f -name '*.txt' | sort | while read -r f; do
+                echo "===== ${f#/tmp/logs/} =====" >> "$out"
+                tail -n 200 "$f" >> "$out"
+                echo >> "$out"
+              done
+            else
+              echo "(could not unzip log archive)" >> "$out"
+            fi
+          else
+            echo "(could not download logs)" >> "$out"
+            cat /tmp/logerr >> "$out" || true
+          fi
+          tail -c 300000 "$out" > "$out.tmp" && mv "$out.tmp" "$out"
+          wc -l "$out"
+
+      - name: Commit logs
+        env:
+          WF_NAME: ${{ github.event.workflow_run.name }}
+          WF_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A ci-logs
+          if git diff --cached --quiet; then
+            echo "No log changes."
+            exit 0
+          fi
+          git commit -m "CI logs: $WF_NAME ($WF_CONCLUSION)"
+          for i in 1 2 3 4 5; do
+            if git pull --rebase --autostash origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep 7
+          done
+          exit 1
