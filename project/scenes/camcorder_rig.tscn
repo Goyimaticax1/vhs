@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/camera_rig.gd" id="1_rig"]
+
+[node name="CamcorderRig" type="Node3D"]
+script = ExtResource("1_rig")
+player_path = NodePath("../Player")
+
+[node name="SpringArm3D" type="SpringArm3D" parent="."]
+spring_length = 0.0
+motion_scale = 1.0
+margin = 0.02
+collision_mask = 1
+
+[node name="CamcorderCamera" type="Camera3D" parent="SpringArm3D"]
+current = true
+fov = 67.0
+near = 0.03
+far = 70.0
+keep_aspect = 1

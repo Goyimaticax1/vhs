@@ -1,0 +1,482 @@
+[gd_scene load_steps=18 format=3]
+
+[ext_resource type="PackedScene" path="res://scenes/player.tscn" id="1_player"]
+[ext_resource type="PackedScene" path="res://scenes/camcorder_rig.tscn" id="2_rig"]
+[ext_resource type="PackedScene" path="res://scenes/mobile_controls.tscn" id="3_controls"]
+[ext_resource type="PackedScene" path="res://scenes/vhs_overlay.tscn" id="4_vhs"]
+
+[sub_resource type="Environment" id="Environment_world"]
+background_mode = 1
+background_color = Color(0.01, 0.01, 0.012, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.20, 0.18, 0.22, 1)
+ambient_light_energy = 0.05
+ambient_light_sky_contribution = 0.0
+fog_enabled = false
+
+[sub_resource type="BoxMesh" id="UnitBox"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="BoxShape3D" id="UnitBoxShape"]
+size = Vector3(1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="MatWallExt"]
+albedo_color = Color(0.34, 0.3, 0.24, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="MatWallInt"]
+albedo_color = Color(0.4, 0.35, 0.28, 1)
+roughness = 0.88
+
+[sub_resource type="StandardMaterial3D" id="MatFloor"]
+albedo_color = Color(0.22, 0.15, 0.1, 1)
+roughness = 0.8
+
+[sub_resource type="StandardMaterial3D" id="MatCeiling"]
+albedo_color = Color(0.16, 0.14, 0.12, 1)
+roughness = 0.9
+
+[sub_resource type="StandardMaterial3D" id="MatRoof"]
+albedo_color = Color(0.08, 0.07, 0.07, 1)
+roughness = 0.85
+
+[sub_resource type="StandardMaterial3D" id="MatWood"]
+albedo_color = Color(0.3, 0.2, 0.12, 1)
+roughness = 0.75
+
+[sub_resource type="StandardMaterial3D" id="MatDark"]
+albedo_color = Color(0.1, 0.09, 0.09, 1)
+roughness = 0.7
+
+[sub_resource type="StandardMaterial3D" id="MatFabric"]
+albedo_color = Color(0.28, 0.1, 0.1, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="MatMetal"]
+albedo_color = Color(0.45, 0.46, 0.48, 1)
+roughness = 0.4
+metallic = 0.6
+
+[sub_resource type="StandardMaterial3D" id="MatLinen"]
+albedo_color = Color(0.62, 0.58, 0.5, 1)
+roughness = 0.9
+
+[node name="VHSWorld" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_world")
+
+[node name="Level" type="Node3D" parent="."]
+
+[node name="House" type="Node3D" parent="Level"]
+
+[node name="Floor" type="StaticBody3D" parent="Level/House"]
+position = Vector3(0, -0.1, 0)
+scale = Vector3(18.0, 0.2, 14.0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/Floor"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatFloor")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/Floor"]
+shape = SubResource("UnitBoxShape")
+
+[node name="Ceiling" type="StaticBody3D" parent="Level/House"]
+position = Vector3(0, 3.7, 0)
+scale = Vector3(18.0, 0.2, 14.0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/Ceiling"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatCeiling")
+
+[node name="Roof" type="StaticBody3D" parent="Level/House"]
+position = Vector3(0, 3.95, 0)
+scale = Vector3(18.6, 0.3, 14.6)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/Roof"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatRoof")
+
+[node name="WallSouth" type="StaticBody3D" parent="Level/House"]
+position = Vector3(0, 1.8, 7.0)
+scale = Vector3(18.0, 3.6, 0.2)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/WallSouth"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallExt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/WallSouth"]
+shape = SubResource("UnitBoxShape")
+
+[node name="WallNorth" type="StaticBody3D" parent="Level/House"]
+position = Vector3(0, 1.8, -7.0)
+scale = Vector3(18.0, 3.6, 0.2)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/WallNorth"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallExt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/WallNorth"]
+shape = SubResource("UnitBoxShape")
+
+[node name="WallEast" type="StaticBody3D" parent="Level/House"]
+position = Vector3(9.0, 1.8, 0)
+scale = Vector3(0.2, 3.6, 14.0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/WallEast"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallExt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/WallEast"]
+shape = SubResource("UnitBoxShape")
+
+[node name="WallWest" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-9.0, 1.8, 0)
+scale = Vector3(0.2, 3.6, 14.0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/WallWest"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallExt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/WallWest"]
+shape = SubResource("UnitBoxShape")
+
+[node name="HallDividerL_A" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-1.7, 1.8, 5.25)
+scale = Vector3(0.2, 3.6, 3.5)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/HallDividerL_A"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallInt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/HallDividerL_A"]
+shape = SubResource("UnitBoxShape")
+
+[node name="HallDividerL_B" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-1.7, 1.8, 0.0)
+scale = Vector3(0.2, 3.6, 3.0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/HallDividerL_B"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallInt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/HallDividerL_B"]
+shape = SubResource("UnitBoxShape")
+
+[node name="HallDividerL_C" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-1.7, 1.8, -5.25)
+scale = Vector3(0.2, 3.6, 3.5)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/HallDividerL_C"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallInt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/HallDividerL_C"]
+shape = SubResource("UnitBoxShape")
+
+[node name="HallDividerR_A" type="StaticBody3D" parent="Level/House"]
+position = Vector3(1.7, 1.8, 5.25)
+scale = Vector3(0.2, 3.6, 3.5)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/HallDividerR_A"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallInt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/HallDividerR_A"]
+shape = SubResource("UnitBoxShape")
+
+[node name="HallDividerR_B" type="StaticBody3D" parent="Level/House"]
+position = Vector3(1.7, 1.8, 0.0)
+scale = Vector3(0.2, 3.6, 3.0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/HallDividerR_B"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallInt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/HallDividerR_B"]
+shape = SubResource("UnitBoxShape")
+
+[node name="HallDividerR_C" type="StaticBody3D" parent="Level/House"]
+position = Vector3(1.7, 1.8, -5.25)
+scale = Vector3(0.2, 3.6, 3.5)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/HallDividerR_C"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallInt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/HallDividerR_C"]
+shape = SubResource("UnitBoxShape")
+
+[node name="LivingKitchenWall_A" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-7.237, 1.8, 0)
+scale = Vector3(3.526, 3.6, 0.2)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/LivingKitchenWall_A"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallInt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/LivingKitchenWall_A"]
+shape = SubResource("UnitBoxShape")
+
+[node name="LivingKitchenWall_B" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-2.587, 1.8, 0)
+scale = Vector3(1.7740000000000002, 3.6, 0.2)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/LivingKitchenWall_B"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallInt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/LivingKitchenWall_B"]
+shape = SubResource("UnitBoxShape")
+
+[node name="BedroomStudyWall_A" type="StaticBody3D" parent="Level/House"]
+position = Vector3(2.587, 1.8, 0)
+scale = Vector3(1.7740000000000002, 3.6, 0.2)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/BedroomStudyWall_A"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallInt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/BedroomStudyWall_A"]
+shape = SubResource("UnitBoxShape")
+
+[node name="BedroomStudyWall_B" type="StaticBody3D" parent="Level/House"]
+position = Vector3(7.237, 1.8, 0)
+scale = Vector3(3.526, 3.6, 0.2)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/BedroomStudyWall_B"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWallInt")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/BedroomStudyWall_B"]
+shape = SubResource("UnitBoxShape")
+
+[node name="Couch" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-7.65, 0.4, 5.25)
+scale = Vector3(2.4, 0.8, 1.0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/Couch"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatFabric")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/Couch"]
+shape = SubResource("UnitBoxShape")
+
+[node name="CoffeeTable" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-5.4, 0.175, 5.017)
+scale = Vector3(1.2, 0.35, 0.6)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/CoffeeTable"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWood")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/CoffeeTable"]
+shape = SubResource("UnitBoxShape")
+
+[node name="Bookshelf" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-2.475, 1.1, 6.533)
+scale = Vector3(1.6, 2.2, 0.4)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/Bookshelf"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatDark")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/Bookshelf"]
+shape = SubResource("UnitBoxShape")
+
+[node name="KitchenCounter" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-6.975, 0.45, -0.933)
+scale = Vector3(3.4, 0.9, 0.6)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/KitchenCounter"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatMetal")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/KitchenCounter"]
+shape = SubResource("UnitBoxShape")
+
+[node name="KitchenTable" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-4.05, 0.375, -3.733)
+scale = Vector3(1.3, 0.75, 1.3)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/KitchenTable"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWood")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/KitchenTable"]
+shape = SubResource("UnitBoxShape")
+
+[node name="KitchenChairA" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-3.375, 0.4, -3.033)
+scale = Vector3(0.45, 0.8, 0.45)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/KitchenChairA"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWood")
+
+[node name="KitchenChairB" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-4.725, 0.4, -4.433)
+scale = Vector3(0.45, 0.8, 0.45)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/KitchenChairB"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWood")
+
+[node name="KitchenCabinet" type="StaticBody3D" parent="Level/House"]
+position = Vector3(-8.55, 1.0, -6.3)
+scale = Vector3(0.6, 2.0, 0.6)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/KitchenCabinet"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatDark")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/KitchenCabinet"]
+shape = SubResource("UnitBoxShape")
+
+[node name="BedBase" type="StaticBody3D" parent="Level/House"]
+position = Vector3(6.3, 0.25, 4.9)
+scale = Vector3(1.7, 0.5, 2.2)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/BedBase"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWood")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/BedBase"]
+shape = SubResource("UnitBoxShape")
+
+[node name="BedLinen" type="StaticBody3D" parent="Level/House"]
+position = Vector3(6.3, 0.575, 4.9)
+scale = Vector3(1.6, 0.15, 2.1)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/BedLinen"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatLinen")
+
+[node name="Pillow" type="StaticBody3D" parent="Level/House"]
+position = Vector3(6.3, 0.74, 6.008)
+scale = Vector3(0.7, 0.18, 0.5)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/Pillow"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatLinen")
+
+[node name="Nightstand" type="StaticBody3D" parent="Level/House"]
+position = Vector3(7.538, 0.25, 6.008)
+scale = Vector3(0.5, 0.5, 0.5)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/Nightstand"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWood")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/Nightstand"]
+shape = SubResource("UnitBoxShape")
+
+[node name="Wardrobe" type="StaticBody3D" parent="Level/House"]
+position = Vector3(8.438, 1.1, 1.167)
+scale = Vector3(1.0, 2.2, 0.6)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/Wardrobe"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatDark")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/Wardrobe"]
+shape = SubResource("UnitBoxShape")
+
+[node name="Desk" type="StaticBody3D" parent="Level/House"]
+position = Vector3(7.087, 0.375, -1.167)
+scale = Vector3(1.4, 0.75, 0.7)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/Desk"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWood")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/Desk"]
+shape = SubResource("UnitBoxShape")
+
+[node name="DeskChair" type="StaticBody3D" parent="Level/House"]
+position = Vector3(6.413, 0.4, -0.817)
+scale = Vector3(0.45, 0.8, 0.45)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/DeskChair"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWood")
+
+[node name="Shelf" type="StaticBody3D" parent="Level/House"]
+position = Vector3(8.55, 1.0, -5.367)
+scale = Vector3(1.8, 2.0, 0.35)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/Shelf"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatDark")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/Shelf"]
+shape = SubResource("UnitBoxShape")
+
+[node name="CrateA" type="StaticBody3D" parent="Level/House"]
+position = Vector3(2.925, 0.45, -5.6)
+scale = Vector3(1.0, 0.9, 1.0)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/CrateA"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWood")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/CrateA"]
+shape = SubResource("UnitBoxShape")
+
+[node name="CrateB" type="StaticBody3D" parent="Level/House"]
+position = Vector3(4.05, 0.35, -6.067)
+scale = Vector3(0.7, 0.7, 0.7)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/CrateB"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatWood")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/CrateB"]
+shape = SubResource("UnitBoxShape")
+
+[node name="CoatRack" type="StaticBody3D" parent="Level/House"]
+position = Vector3(1.012, 0.9, 6.183)
+scale = Vector3(0.3, 1.8, 0.3)
+
+[node name="Mesh" type="MeshInstance3D" parent="Level/House/CoatRack"]
+mesh = SubResource("UnitBox")
+material_override = SubResource("MatDark")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Level/House/CoatRack"]
+shape = SubResource("UnitBoxShape")
+
+[node name="Lighting" type="Node3D" parent="Level/House"]
+
+[node name="Light_Hall" type="OmniLight3D" parent="Level/House/Lighting"]
+position = Vector3(0.0, 2.592, 0.583)
+light_color = Color(0.85, 0.7, 0.5, 1)
+light_energy = 0.95
+shadow_enabled = false
+omni_range = 6.5
+
+[node name="Light_Living" type="OmniLight3D" parent="Level/House/Lighting"]
+position = Vector3(-5.062, 2.592, 4.667)
+light_color = Color(0.85, 0.65, 0.45, 1)
+light_energy = 0.9
+shadow_enabled = false
+omni_range = 5.5
+
+[node name="Light_Bedroom" type="OmniLight3D" parent="Level/House/Lighting"]
+position = Vector3(6.188, 2.592, 4.083)
+light_color = Color(0.8, 0.62, 0.55, 1)
+light_energy = 0.8
+shadow_enabled = false
+omni_range = 5.0
+
+[node name="Player" parent="." instance=ExtResource("1_player")]
+position = Vector3(0, 1, 6.0)
+
+[node name="CamcorderRig" parent="." instance=ExtResource("2_rig")]
+position = Vector3(0, 2.52, 6.0)
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 90
+
+[node name="MobileControls" parent="UI" instance=ExtResource("3_controls")]
+
+[node name="VHSOverlay" parent="." instance=ExtResource("4_vhs")]
