@@ -1,430 +1,430 @@
 workflow:   Repack project zip
-run_id:     36054508339
+run_id:     36054889101
 conclusion: success
-url:        https://github.com/Goyimaticax1/vhs/actions/runs/36054508339
-captured:   2026-09-24T20:23:28Z
+url:        https://github.com/Goyimaticax1/vhs/actions/runs/36054889101
+captured:   2026-09-24T20:26:53Z
 
 ===== 0_repack.txt =====
-2026-09-24T20:23:13.6623681Z ##[group]Runner Image Provisioner
-2026-09-24T20:23:13.6625062Z Hosted Compute Agent
-2026-09-24T20:23:13.6625942Z Version: 20260828.587
-2026-09-24T20:23:13.6627134Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
-2026-09-24T20:23:13.6628323Z Build Date: 2026-08-28T16:44:25Z
-2026-09-24T20:23:13.6629511Z Worker ID: {e458acdb-3f6d-4cb2-abd1-fc8a447c0b1d}
-2026-09-24T20:23:13.6630731Z Azure Region: eastus
-2026-09-24T20:23:13.6631970Z ##[endgroup]
-2026-09-24T20:23:13.6634686Z ##[group]Operating System
-2026-09-24T20:23:13.6635751Z Ubuntu
-2026-09-24T20:23:13.6636708Z 24.04.5
-2026-09-24T20:23:13.6637621Z LTS
-2026-09-24T20:23:13.6638470Z ##[endgroup]
-2026-09-24T20:23:13.6639421Z ##[group]Runner Image
-2026-09-24T20:23:13.6640410Z Image: ubuntu-24.04
-2026-09-24T20:23:13.6641374Z Version: 20260920.314.1
-2026-09-24T20:23:13.6643787Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
-2026-09-24T20:23:13.6646553Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
-2026-09-24T20:23:13.6648185Z ##[endgroup]
-2026-09-24T20:23:13.6650195Z ##[group]GITHUB_TOKEN Permissions
-2026-09-24T20:23:13.6653348Z Contents: write
-2026-09-24T20:23:13.6654421Z Metadata: read
-2026-09-24T20:23:13.6655284Z ##[endgroup]
-2026-09-24T20:23:13.6658499Z Secret source: Actions
-2026-09-24T20:23:13.6660053Z Cache mode: write
-2026-09-24T20:23:13.6662041Z Prepare workflow directory
-2026-09-24T20:23:13.7496252Z Prepare all required actions
-2026-09-24T20:23:13.7546342Z Getting action download info
-2026-09-24T20:23:13.9250403Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
-2026-09-24T20:23:14.8328050Z Complete job name: repack
-2026-09-24T20:23:14.9262746Z ##[group]Run actions/checkout@v4
-2026-09-24T20:23:14.9263753Z with:
-2026-09-24T20:23:14.9264226Z   repository: Goyimaticax1/vhs
-2026-09-24T20:23:14.9268319Z   token: ***
-2026-09-24T20:23:14.9268793Z   ssh-strict: true
-2026-09-24T20:23:14.9269236Z   ssh-user: git
-2026-09-24T20:23:14.9269688Z   persist-credentials: true
-2026-09-24T20:23:14.9270178Z   clean: true
-2026-09-24T20:23:14.9270665Z   sparse-checkout-cone-mode: true
-2026-09-24T20:23:14.9271263Z   fetch-depth: 1
-2026-09-24T20:23:14.9271964Z   fetch-tags: false
-2026-09-24T20:23:14.9272477Z   show-progress: true
-2026-09-24T20:23:14.9272997Z   lfs: false
-2026-09-24T20:23:14.9273441Z   submodules: false
-2026-09-24T20:23:14.9273898Z   set-safe-directory: true
-2026-09-24T20:23:14.9274410Z   allow-unsafe-pr-checkout: false
-2026-09-24T20:23:14.9275208Z ##[endgroup]
-2026-09-24T20:23:15.0316005Z Syncing repository: Goyimaticax1/vhs
-2026-09-24T20:23:15.0318710Z ##[group]Getting Git version info
-2026-09-24T20:23:15.0319915Z Working directory is '/home/runner/work/vhs/vhs'
-2026-09-24T20:23:15.0321876Z [command]/usr/bin/git version
-2026-09-24T20:23:15.0398321Z git version 2.55.0
-2026-09-24T20:23:15.0435071Z ##[endgroup]
-2026-09-24T20:23:15.0443639Z Temporarily overriding HOME='/home/runner/work/_temp/552cd078-a1a6-4fed-a8fe-f368cce74573' before making global git config changes
-2026-09-24T20:23:15.0446095Z Adding repository directory to the temporary git global config as a safe directory
-2026-09-24T20:23:15.0447909Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/vhs/vhs
-2026-09-24T20:23:15.0504835Z Deleting the contents of '/home/runner/work/vhs/vhs'
-2026-09-24T20:23:15.0509862Z ##[group]Initializing the repository
-2026-09-24T20:23:15.0514437Z [command]/usr/bin/git init /home/runner/work/vhs/vhs
-2026-09-24T20:23:15.0640303Z hint: Using 'master' as the name for the initial branch. This default branch name
-2026-09-24T20:23:15.0642441Z hint: will change to "main" in Git 3.0. To configure the initial branch name
-2026-09-24T20:23:15.0644199Z hint: to use in all of your new repositories, which will suppress this warning,
-2026-09-24T20:23:15.0647141Z hint: call:
-2026-09-24T20:23:15.0648806Z hint:
-2026-09-24T20:23:15.0650258Z hint: 	git config --global init.defaultBranch <name>
-2026-09-24T20:23:15.0652594Z hint:
-2026-09-24T20:23:15.0654058Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
-2026-09-24T20:23:15.0655654Z hint: 'development'. The just-created branch can be renamed via this command:
-2026-09-24T20:23:15.0656868Z hint:
-2026-09-24T20:23:15.0657567Z hint: 	git branch -m <name>
-2026-09-24T20:23:15.0658409Z hint:
-2026-09-24T20:23:15.0659478Z hint: Disable this message with "git config set advice.defaultBranchName false"
-2026-09-24T20:23:15.0661062Z Initialized empty Git repository in /home/runner/work/vhs/vhs/.git/
-2026-09-24T20:23:15.0663848Z [command]/usr/bin/git remote add origin https://github.com/Goyimaticax1/vhs
-2026-09-24T20:23:15.0710938Z ##[endgroup]
-2026-09-24T20:23:15.0712435Z ##[group]Disabling automatic garbage collection
-2026-09-24T20:23:15.0715279Z [command]/usr/bin/git config --local gc.auto 0
-2026-09-24T20:23:15.0749242Z ##[endgroup]
-2026-09-24T20:23:15.0750392Z ##[group]Setting up auth
-2026-09-24T20:23:15.0757303Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-09-24T20:23:15.0793288Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-09-24T20:23:15.1172660Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-09-24T20:23:15.1214767Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-09-24T20:23:15.1454302Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-09-24T20:23:15.1491830Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-09-24T20:23:15.1724595Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
-2026-09-24T20:23:15.1768552Z ##[endgroup]
-2026-09-24T20:23:15.1769868Z ##[group]Fetching the repository
-2026-09-24T20:23:15.1779351Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +912d2ea4466ace1b2346b8325b3f2e73802243a3:refs/remotes/origin/main
-2026-09-24T20:23:15.4176197Z From https://github.com/Goyimaticax1/vhs
-2026-09-24T20:23:15.4177880Z  * [new ref]         912d2ea4466ace1b2346b8325b3f2e73802243a3 -> origin/main
-2026-09-24T20:23:15.4182415Z ##[endgroup]
-2026-09-24T20:23:15.4184220Z ##[group]Determining the checkout info
-2026-09-24T20:23:15.4185808Z ##[endgroup]
-2026-09-24T20:23:15.4189457Z [command]/usr/bin/git sparse-checkout disable
-2026-09-24T20:23:15.4244934Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
-2026-09-24T20:23:15.4278979Z ##[group]Checking out the ref
-2026-09-24T20:23:15.4284064Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
-2026-09-24T20:23:15.4367697Z Switched to a new branch 'main'
-2026-09-24T20:23:15.4372700Z branch 'main' set up to track 'origin/main'.
-2026-09-24T20:23:15.4378590Z ##[endgroup]
-2026-09-24T20:23:15.4423134Z [command]/usr/bin/git log -1 --format=%H
-2026-09-24T20:23:15.4451740Z 912d2ea4466ace1b2346b8325b3f2e73802243a3
-2026-09-24T20:23:15.4723051Z ##[group]Run rm -rf _pack
-2026-09-24T20:23:15.4724366Z [36;1mrm -rf _pack[0m
-2026-09-24T20:23:15.4725671Z [36;1mmkdir -p _pack/VHS_Camcorder_Godot48_Nodes[0m
-2026-09-24T20:23:15.4727471Z [36;1mcp -a project/. _pack/VHS_Camcorder_Godot48_Nodes/[0m
-2026-09-24T20:23:15.4729886Z [36;1mrm -rf _pack/VHS_Camcorder_Godot48_Nodes/.godot _pack/VHS_Camcorder_Godot48_Nodes/build[0m
-2026-09-24T20:23:15.4732466Z [36;1mrm -f VHS_Camcorder_Godot48_Nodes.zip[0m
-2026-09-24T20:23:15.4734538Z [36;1m(cd _pack && zip -X -r ../VHS_Camcorder_Godot48_Nodes.zip VHS_Camcorder_Godot48_Nodes)[0m
-2026-09-24T20:23:15.4736581Z [36;1mrm -rf _pack[0m
-2026-09-24T20:23:15.4738082Z [36;1munzip -l VHS_Camcorder_Godot48_Nodes.zip[0m
-2026-09-24T20:23:15.4995958Z shell: /usr/bin/bash -e {0}
-2026-09-24T20:23:15.4997467Z ##[endgroup]
-2026-09-24T20:23:15.5481246Z   adding: VHS_Camcorder_Godot48_Nodes/ (stored 0%)
-2026-09-24T20:23:15.5484788Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/ (stored 0%)
-2026-09-24T20:23:15.5487797Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/player.tscn (deflated 52%)
-2026-09-24T20:23:15.5491093Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/mobile_controls.tscn (deflated 52%)
-2026-09-24T20:23:15.5494005Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/camcorder_rig.tscn (deflated 53%)
-2026-09-24T20:23:15.5497166Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/vhs_overlay.tscn (deflated 84%)
-2026-09-24T20:23:15.5500250Z   adding: VHS_Camcorder_Godot48_Nodes/project.godot (deflated 76%)
-2026-09-24T20:23:15.5503290Z   adding: VHS_Camcorder_Godot48_Nodes/main.tscn (deflated 89%)
-2026-09-24T20:23:15.5505637Z   adding: VHS_Camcorder_Godot48_Nodes/.ci-trigger (stored 0%)
-2026-09-24T20:23:15.5508235Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/ (stored 0%)
-2026-09-24T20:23:15.5511098Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/camera_rig.gd (deflated 74%)
-2026-09-24T20:23:15.5514049Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/vhs_overlay.gd (deflated 71%)
-2026-09-24T20:23:15.5516454Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/mobile_controls.gd (deflated 75%)
-2026-09-24T20:23:15.5518892Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/camera_shakify.gd (deflated 62%)
-2026-09-24T20:23:15.5521132Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/player.gd (deflated 68%)
-2026-09-24T20:23:15.5523474Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/torch.gd (deflated 61%)
-2026-09-24T20:23:15.5525577Z   adding: VHS_Camcorder_Godot48_Nodes/export_presets.cfg (deflated 59%)
-2026-09-24T20:23:15.5528475Z   adding: VHS_Camcorder_Godot48_Nodes/README.md (deflated 52%)
-2026-09-24T20:23:15.5530664Z   adding: VHS_Camcorder_Godot48_Nodes/shaders/ (stored 0%)
-2026-09-24T20:23:15.5533038Z   adding: VHS_Camcorder_Godot48_Nodes/shaders/vhs_post.gdshader (deflated 68%)
-2026-09-24T20:23:15.5640704Z Archive:  VHS_Camcorder_Godot48_Nodes.zip
-2026-09-24T20:23:15.5642411Z   Length      Date    Time    Name
-2026-09-24T20:23:15.5644052Z ---------  ---------- -----   ----
-2026-09-24T20:23:15.5646567Z         0  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/
-2026-09-24T20:23:15.5648913Z         0  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scenes/
-2026-09-24T20:23:15.5650860Z       718  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scenes/player.tscn
-2026-09-24T20:23:15.5653321Z       787  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scenes/mobile_controls.tscn
-2026-09-24T20:23:15.5655575Z      1002  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scenes/camcorder_rig.tscn
-2026-09-24T20:23:15.5657804Z      8251  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scenes/vhs_overlay.tscn
-2026-09-24T20:23:15.5659856Z      3344  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/project.godot
-2026-09-24T20:23:15.5662020Z     17195  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/main.tscn
-2026-09-24T20:23:15.5663881Z         8  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/.ci-trigger
-2026-09-24T20:23:15.5665660Z         0  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/
-2026-09-24T20:23:15.5667911Z     20991  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/camera_rig.gd
-2026-09-24T20:23:15.5670040Z      9452  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/vhs_overlay.gd
-2026-09-24T20:23:15.5672442Z      4698  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/mobile_controls.gd
-2026-09-24T20:23:15.5674637Z      4832  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/camera_shakify.gd
-2026-09-24T20:23:15.5676797Z      6003  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/player.gd
-2026-09-24T20:23:15.5678759Z      2613  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/torch.gd
-2026-09-24T20:23:15.5680713Z      1769  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/export_presets.cfg
-2026-09-24T20:23:15.5683171Z      8038  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/README.md
-2026-09-24T20:23:15.5684925Z         0  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/shaders/
-2026-09-24T20:23:15.5686833Z      4282  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/shaders/vhs_post.gdshader
-2026-09-24T20:23:15.5688604Z ---------                     -------
-2026-09-24T20:23:15.5689764Z     93983                     20 files
-2026-09-24T20:23:15.5770915Z ##[group]Run git config user.name "github-actions[bot]"
-2026-09-24T20:23:15.5773010Z [36;1mgit config user.name "github-actions[bot]"[0m
-2026-09-24T20:23:15.5775098Z [36;1mgit config user.email "41898282+github-actions[bot]@users.noreply.github.com"[0m
-2026-09-24T20:23:15.5777196Z [36;1mgit add -f VHS_Camcorder_Godot48_Nodes.zip[0m
-2026-09-24T20:23:15.5778684Z [36;1mif git diff --cached --quiet; then[0m
-2026-09-24T20:23:15.5780048Z [36;1m  echo "No changes to commit."[0m
-2026-09-24T20:23:15.5781283Z [36;1m  exit 0[0m
-2026-09-24T20:23:15.5782563Z [36;1mfi[0m
-2026-09-24T20:23:15.5784005Z [36;1mgit commit -m "Repack VHS_Camcorder_Godot48_Nodes.zip from project/"[0m
-2026-09-24T20:23:15.5785758Z [36;1mfor i in 1 2 3 4 5; do[0m
-2026-09-24T20:23:15.5787528Z [36;1m  if git pull --rebase --autostash origin main && git push origin HEAD:main; then[0m
-2026-09-24T20:23:15.5789407Z [36;1m    exit 0[0m
-2026-09-24T20:23:15.5790391Z [36;1m  fi[0m
-2026-09-24T20:23:15.5791588Z [36;1m  sleep 7[0m
-2026-09-24T20:23:15.5792581Z [36;1mdone[0m
-2026-09-24T20:23:15.5793485Z [36;1mexit 1[0m
-2026-09-24T20:23:15.5859223Z shell: /usr/bin/bash -e {0}
-2026-09-24T20:23:15.5860349Z ##[endgroup]
-2026-09-24T20:23:15.6095531Z [main 4424bf1] Repack VHS_Camcorder_Godot48_Nodes.zip from project/
-2026-09-24T20:23:15.6099245Z  1 file changed, 0 insertions(+), 0 deletions(-)
-2026-09-24T20:23:15.8237082Z From https://github.com/Goyimaticax1/vhs
-2026-09-24T20:23:15.8238908Z  * branch            main       -> FETCH_HEAD
-2026-09-24T20:23:15.8423788Z Current branch main is up to date.
-2026-09-24T20:23:16.9286367Z To https://github.com/Goyimaticax1/vhs
-2026-09-24T20:23:16.9288136Z    912d2ea..4424bf1  HEAD -> main
-2026-09-24T20:23:16.9552524Z Post job cleanup.
-2026-09-24T20:23:17.0422488Z [command]/usr/bin/git version
-2026-09-24T20:23:17.0466908Z git version 2.55.0
-2026-09-24T20:23:17.0512773Z Temporarily overriding HOME='/home/runner/work/_temp/ddb31c9d-ba9a-4d26-9d86-ee1d984a60d3' before making global git config changes
-2026-09-24T20:23:17.0514059Z Adding repository directory to the temporary git global config as a safe directory
-2026-09-24T20:23:17.0519268Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/vhs/vhs
-2026-09-24T20:23:17.0563111Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-09-24T20:23:17.0601796Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-09-24T20:23:17.0870026Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-09-24T20:23:17.0902170Z http.https://github.com/.extraheader
-2026-09-24T20:23:17.0913343Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
-2026-09-24T20:23:17.0949852Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-09-24T20:23:17.1224618Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-09-24T20:23:17.1267794Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-09-24T20:23:17.1669682Z Cleaning up orphan processes
-2026-09-24T20:23:17.1964300Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+2026-09-24T20:26:39.6346047Z ##[group]Runner Image Provisioner
+2026-09-24T20:26:39.6347678Z Hosted Compute Agent
+2026-09-24T20:26:39.6348747Z Version: 20260828.587
+2026-09-24T20:26:39.6349998Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-24T20:26:39.6351614Z Build Date: 2026-08-28T16:44:25Z
+2026-09-24T20:26:39.6352893Z Worker ID: {291a720c-77b1-42d0-8d4d-58f2c06acf09}
+2026-09-24T20:26:39.6354357Z Azure Region: eastus
+2026-09-24T20:26:39.6355407Z ##[endgroup]
+2026-09-24T20:26:39.6358391Z ##[group]Operating System
+2026-09-24T20:26:39.6359469Z Ubuntu
+2026-09-24T20:26:39.6360397Z 24.04.5
+2026-09-24T20:26:39.6361748Z LTS
+2026-09-24T20:26:39.6362672Z ##[endgroup]
+2026-09-24T20:26:39.6363886Z ##[group]Runner Image
+2026-09-24T20:26:39.6364936Z Image: ubuntu-24.04
+2026-09-24T20:26:39.6366576Z Version: 20260920.314.1
+2026-09-24T20:26:39.6368691Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-24T20:26:39.6371863Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+2026-09-24T20:26:39.6373602Z ##[endgroup]
+2026-09-24T20:26:39.6375685Z ##[group]GITHUB_TOKEN Permissions
+2026-09-24T20:26:39.6378760Z Contents: write
+2026-09-24T20:26:39.6379879Z Metadata: read
+2026-09-24T20:26:39.6380874Z ##[endgroup]
+2026-09-24T20:26:39.6384318Z Secret source: Actions
+2026-09-24T20:26:39.6386039Z Cache mode: write
+2026-09-24T20:26:39.6387847Z Prepare workflow directory
+2026-09-24T20:26:39.6878185Z Prepare all required actions
+2026-09-24T20:26:39.6953269Z Getting action download info
+2026-09-24T20:26:39.9874436Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-24T20:26:40.1592387Z Complete job name: repack
+2026-09-24T20:26:40.2461985Z ##[group]Run actions/checkout@v4
+2026-09-24T20:26:40.2462916Z with:
+2026-09-24T20:26:40.2463370Z   repository: Goyimaticax1/vhs
+2026-09-24T20:26:40.2467301Z   token: ***
+2026-09-24T20:26:40.2467763Z   ssh-strict: true
+2026-09-24T20:26:40.2468213Z   ssh-user: git
+2026-09-24T20:26:40.2468771Z   persist-credentials: true
+2026-09-24T20:26:40.2469272Z   clean: true
+2026-09-24T20:26:40.2469732Z   sparse-checkout-cone-mode: true
+2026-09-24T20:26:40.2470260Z   fetch-depth: 1
+2026-09-24T20:26:40.2470695Z   fetch-tags: false
+2026-09-24T20:26:40.2471564Z   show-progress: true
+2026-09-24T20:26:40.2472145Z   lfs: false
+2026-09-24T20:26:40.2472566Z   submodules: false
+2026-09-24T20:26:40.2473024Z   set-safe-directory: true
+2026-09-24T20:26:40.2473538Z   allow-unsafe-pr-checkout: false
+2026-09-24T20:26:40.2474403Z ##[endgroup]
+2026-09-24T20:26:40.3523050Z Syncing repository: Goyimaticax1/vhs
+2026-09-24T20:26:40.3524984Z ##[group]Getting Git version info
+2026-09-24T20:26:40.3525763Z Working directory is '/home/runner/work/vhs/vhs'
+2026-09-24T20:26:40.3527220Z [command]/usr/bin/git version
+2026-09-24T20:26:40.3607672Z git version 2.55.0
+2026-09-24T20:26:40.3635936Z ##[endgroup]
+2026-09-24T20:26:40.3652894Z Temporarily overriding HOME='/home/runner/work/_temp/b97b3515-7184-43f9-981b-bc98dc770e8a' before making global git config changes
+2026-09-24T20:26:40.3655322Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-24T20:26:40.3658640Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/vhs/vhs
+2026-09-24T20:26:40.3713316Z Deleting the contents of '/home/runner/work/vhs/vhs'
+2026-09-24T20:26:40.3717713Z ##[group]Initializing the repository
+2026-09-24T20:26:40.3721653Z [command]/usr/bin/git init /home/runner/work/vhs/vhs
+2026-09-24T20:26:40.3830676Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-24T20:26:40.3832854Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-24T20:26:40.3834810Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-24T20:26:40.3836250Z hint: call:
+2026-09-24T20:26:40.3837244Z hint:
+2026-09-24T20:26:40.3839216Z hint: 	git config --global init.defaultBranch <name>
+2026-09-24T20:26:40.3840821Z hint:
+2026-09-24T20:26:40.3842339Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-24T20:26:40.3844197Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-24T20:26:40.3845738Z hint:
+2026-09-24T20:26:40.3846622Z hint: 	git branch -m <name>
+2026-09-24T20:26:40.3847596Z hint:
+2026-09-24T20:26:40.3848936Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-24T20:26:40.3850966Z Initialized empty Git repository in /home/runner/work/vhs/vhs/.git/
+2026-09-24T20:26:40.3854517Z [command]/usr/bin/git remote add origin https://github.com/Goyimaticax1/vhs
+2026-09-24T20:26:40.3895082Z ##[endgroup]
+2026-09-24T20:26:40.3896417Z ##[group]Disabling automatic garbage collection
+2026-09-24T20:26:40.3900157Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-24T20:26:40.3933858Z ##[endgroup]
+2026-09-24T20:26:40.3935136Z ##[group]Setting up auth
+2026-09-24T20:26:40.3940643Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-24T20:26:40.3974290Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-24T20:26:40.4368965Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-24T20:26:40.4408136Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-24T20:26:40.4635549Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-24T20:26:40.4670914Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-24T20:26:40.4902525Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-24T20:26:40.4948241Z ##[endgroup]
+2026-09-24T20:26:40.4949297Z ##[group]Fetching the repository
+2026-09-24T20:26:40.4958724Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +dc5268bea987f82699215729e75967bbdbc9bd95:refs/remotes/origin/main
+2026-09-24T20:26:40.7341756Z From https://github.com/Goyimaticax1/vhs
+2026-09-24T20:26:40.7343085Z  * [new ref]         dc5268bea987f82699215729e75967bbdbc9bd95 -> origin/main
+2026-09-24T20:26:40.7347498Z ##[endgroup]
+2026-09-24T20:26:40.7348264Z ##[group]Determining the checkout info
+2026-09-24T20:26:40.7350275Z ##[endgroup]
+2026-09-24T20:26:40.7356278Z [command]/usr/bin/git sparse-checkout disable
+2026-09-24T20:26:40.7408307Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-24T20:26:40.7440417Z ##[group]Checking out the ref
+2026-09-24T20:26:40.7446938Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-09-24T20:26:40.7555645Z Switched to a new branch 'main'
+2026-09-24T20:26:40.7561763Z branch 'main' set up to track 'origin/main'.
+2026-09-24T20:26:40.7567462Z ##[endgroup]
+2026-09-24T20:26:40.7608588Z [command]/usr/bin/git log -1 --format=%H
+2026-09-24T20:26:40.7634802Z dc5268bea987f82699215729e75967bbdbc9bd95
+2026-09-24T20:26:40.7856709Z ##[group]Run rm -rf _pack
+2026-09-24T20:26:40.7857350Z [36;1mrm -rf _pack[0m
+2026-09-24T20:26:40.7857909Z [36;1mmkdir -p _pack/VHS_Camcorder_Godot48_Nodes[0m
+2026-09-24T20:26:40.7858645Z [36;1mcp -a project/. _pack/VHS_Camcorder_Godot48_Nodes/[0m
+2026-09-24T20:26:40.7859580Z [36;1mrm -rf _pack/VHS_Camcorder_Godot48_Nodes/.godot _pack/VHS_Camcorder_Godot48_Nodes/build[0m
+2026-09-24T20:26:40.7860465Z [36;1mrm -f VHS_Camcorder_Godot48_Nodes.zip[0m
+2026-09-24T20:26:40.7861678Z [36;1m(cd _pack && zip -X -r ../VHS_Camcorder_Godot48_Nodes.zip VHS_Camcorder_Godot48_Nodes)[0m
+2026-09-24T20:26:40.7862476Z [36;1mrm -rf _pack[0m
+2026-09-24T20:26:40.7863213Z [36;1munzip -l VHS_Camcorder_Godot48_Nodes.zip[0m
+2026-09-24T20:26:40.8135752Z shell: /usr/bin/bash -e {0}
+2026-09-24T20:26:40.8136395Z ##[endgroup]
+2026-09-24T20:26:40.9369992Z   adding: VHS_Camcorder_Godot48_Nodes/ (stored 0%)
+2026-09-24T20:26:40.9371793Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/ (stored 0%)
+2026-09-24T20:26:40.9373584Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/player.tscn (deflated 52%)
+2026-09-24T20:26:40.9375397Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/mobile_controls.tscn (deflated 52%)
+2026-09-24T20:26:40.9377411Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/camcorder_rig.tscn (deflated 53%)
+2026-09-24T20:26:40.9379247Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/vhs_overlay.tscn (deflated 84%)
+2026-09-24T20:26:40.9380692Z   adding: VHS_Camcorder_Godot48_Nodes/project.godot (deflated 76%)
+2026-09-24T20:26:40.9382272Z   adding: VHS_Camcorder_Godot48_Nodes/main.tscn (deflated 89%)
+2026-09-24T20:26:40.9383553Z   adding: VHS_Camcorder_Godot48_Nodes/.ci-trigger (stored 0%)
+2026-09-24T20:26:40.9384775Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/ (stored 0%)
+2026-09-24T20:26:40.9388179Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/camera_rig.gd (deflated 74%)
+2026-09-24T20:26:40.9390711Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/vhs_overlay.gd (deflated 71%)
+2026-09-24T20:26:40.9392826Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/mobile_controls.gd (deflated 75%)
+2026-09-24T20:26:40.9394623Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/camera_shakify.gd (deflated 62%)
+2026-09-24T20:26:40.9396323Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/player.gd (deflated 68%)
+2026-09-24T20:26:40.9398074Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/torch.gd (deflated 61%)
+2026-09-24T20:26:40.9399581Z   adding: VHS_Camcorder_Godot48_Nodes/export_presets.cfg (deflated 59%)
+2026-09-24T20:26:40.9401273Z   adding: VHS_Camcorder_Godot48_Nodes/README.md (deflated 52%)
+2026-09-24T20:26:40.9402393Z   adding: VHS_Camcorder_Godot48_Nodes/shaders/ (stored 0%)
+2026-09-24T20:26:40.9403418Z   adding: VHS_Camcorder_Godot48_Nodes/shaders/vhs_post.gdshader (deflated 68%)
+2026-09-24T20:26:40.9441375Z Archive:  VHS_Camcorder_Godot48_Nodes.zip
+2026-09-24T20:26:40.9442655Z   Length      Date    Time    Name
+2026-09-24T20:26:40.9443268Z ---------  ---------- -----   ----
+2026-09-24T20:26:40.9444132Z         0  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/
+2026-09-24T20:26:40.9445294Z         0  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scenes/
+2026-09-24T20:26:40.9446686Z       718  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scenes/player.tscn
+2026-09-24T20:26:40.9447894Z       787  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scenes/mobile_controls.tscn
+2026-09-24T20:26:40.9448841Z      1002  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scenes/camcorder_rig.tscn
+2026-09-24T20:26:40.9449713Z      8251  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scenes/vhs_overlay.tscn
+2026-09-24T20:26:40.9450881Z      3344  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/project.godot
+2026-09-24T20:26:40.9452065Z     23767  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/main.tscn
+2026-09-24T20:26:40.9452840Z         8  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/.ci-trigger
+2026-09-24T20:26:40.9453584Z         0  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/
+2026-09-24T20:26:40.9454599Z     20991  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/camera_rig.gd
+2026-09-24T20:26:40.9455729Z      9452  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/vhs_overlay.gd
+2026-09-24T20:26:40.9456645Z      4698  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/mobile_controls.gd
+2026-09-24T20:26:40.9457536Z      4832  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/camera_shakify.gd
+2026-09-24T20:26:40.9458395Z      6003  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/player.gd
+2026-09-24T20:26:40.9459194Z      2613  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/torch.gd
+2026-09-24T20:26:40.9460004Z      1769  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/export_presets.cfg
+2026-09-24T20:26:40.9460946Z      8038  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/README.md
+2026-09-24T20:26:40.9461975Z         0  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/shaders/
+2026-09-24T20:26:40.9462780Z      4282  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/shaders/vhs_post.gdshader
+2026-09-24T20:26:40.9463512Z ---------                     -------
+2026-09-24T20:26:40.9464075Z    100555                     20 files
+2026-09-24T20:26:40.9507653Z ##[group]Run git config user.name "github-actions[bot]"
+2026-09-24T20:26:40.9508444Z [36;1mgit config user.name "github-actions[bot]"[0m
+2026-09-24T20:26:40.9509299Z [36;1mgit config user.email "41898282+github-actions[bot]@users.noreply.github.com"[0m
+2026-09-24T20:26:40.9510170Z [36;1mgit add -f VHS_Camcorder_Godot48_Nodes.zip[0m
+2026-09-24T20:26:40.9510814Z [36;1mif git diff --cached --quiet; then[0m
+2026-09-24T20:26:40.9511699Z [36;1m  echo "No changes to commit."[0m
+2026-09-24T20:26:40.9512236Z [36;1m  exit 0[0m
+2026-09-24T20:26:40.9512663Z [36;1mfi[0m
+2026-09-24T20:26:40.9513287Z [36;1mgit commit -m "Repack VHS_Camcorder_Godot48_Nodes.zip from project/"[0m
+2026-09-24T20:26:40.9514037Z [36;1mfor i in 1 2 3 4 5; do[0m
+2026-09-24T20:26:40.9514792Z [36;1m  if git pull --rebase --autostash origin main && git push origin HEAD:main; then[0m
+2026-09-24T20:26:40.9515571Z [36;1m    exit 0[0m
+2026-09-24T20:26:40.9516002Z [36;1m  fi[0m
+2026-09-24T20:26:40.9516446Z [36;1m  sleep 7[0m
+2026-09-24T20:26:40.9516878Z [36;1mdone[0m
+2026-09-24T20:26:40.9517285Z [36;1mexit 1[0m
+2026-09-24T20:26:40.9580000Z shell: /usr/bin/bash -e {0}
+2026-09-24T20:26:40.9580535Z ##[endgroup]
+2026-09-24T20:26:40.9793928Z [main 2c34717] Repack VHS_Camcorder_Godot48_Nodes.zip from project/
+2026-09-24T20:26:40.9794938Z  1 file changed, 0 insertions(+), 0 deletions(-)
+2026-09-24T20:26:41.1891552Z From https://github.com/Goyimaticax1/vhs
+2026-09-24T20:26:41.1892531Z  * branch            main       -> FETCH_HEAD
+2026-09-24T20:26:41.1985029Z Current branch main is up to date.
+2026-09-24T20:26:42.2260132Z To https://github.com/Goyimaticax1/vhs
+2026-09-24T20:26:42.2260900Z    dc5268b..2c34717  HEAD -> main
+2026-09-24T20:26:42.2497096Z Post job cleanup.
+2026-09-24T20:26:42.3344004Z [command]/usr/bin/git version
+2026-09-24T20:26:42.3388479Z git version 2.55.0
+2026-09-24T20:26:42.3432425Z Temporarily overriding HOME='/home/runner/work/_temp/e72d19de-8642-4072-9776-4aaf77e3d1da' before making global git config changes
+2026-09-24T20:26:42.3433995Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-24T20:26:42.3442200Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/vhs/vhs
+2026-09-24T20:26:42.3478917Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-24T20:26:42.3516732Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-24T20:26:42.3765597Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-24T20:26:42.3793117Z http.https://github.com/.extraheader
+2026-09-24T20:26:42.3805892Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-24T20:26:42.3846940Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-24T20:26:42.4172436Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-24T20:26:42.4226605Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-24T20:26:42.4695926Z Cleaning up orphan processes
+2026-09-24T20:26:42.4999191Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
 
 ===== repack/1_Set up job.txt =====
-﻿2026-09-24T20:23:13.6582983Z Current runner version: '2.337.0'
-2026-09-24T20:23:13.6623652Z ##[group]Runner Image Provisioner
-2026-09-24T20:23:13.6625053Z Hosted Compute Agent
-2026-09-24T20:23:13.6625930Z Version: 20260828.587
-2026-09-24T20:23:13.6627118Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
-2026-09-24T20:23:13.6628315Z Build Date: 2026-08-28T16:44:25Z
-2026-09-24T20:23:13.6629502Z Worker ID: {e458acdb-3f6d-4cb2-abd1-fc8a447c0b1d}
-2026-09-24T20:23:13.6630716Z Azure Region: eastus
-2026-09-24T20:23:13.6631953Z ##[endgroup]
-2026-09-24T20:23:13.6634663Z ##[group]Operating System
-2026-09-24T20:23:13.6635739Z Ubuntu
-2026-09-24T20:23:13.6636696Z 24.04.5
-2026-09-24T20:23:13.6637614Z LTS
-2026-09-24T20:23:13.6638463Z ##[endgroup]
-2026-09-24T20:23:13.6639409Z ##[group]Runner Image
-2026-09-24T20:23:13.6640402Z Image: ubuntu-24.04
-2026-09-24T20:23:13.6641369Z Version: 20260920.314.1
-2026-09-24T20:23:13.6643529Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
-2026-09-24T20:23:13.6646535Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
-2026-09-24T20:23:13.6648178Z ##[endgroup]
-2026-09-24T20:23:13.6650179Z ##[group]GITHUB_TOKEN Permissions
-2026-09-24T20:23:13.6653326Z Contents: write
-2026-09-24T20:23:13.6654413Z Metadata: read
-2026-09-24T20:23:13.6655276Z ##[endgroup]
-2026-09-24T20:23:13.6658476Z Secret source: Actions
-2026-09-24T20:23:13.6660036Z Cache mode: write
-2026-09-24T20:23:13.6662022Z Prepare workflow directory
-2026-09-24T20:23:13.7496212Z Prepare all required actions
-2026-09-24T20:23:13.7546306Z Getting action download info
-2026-09-24T20:23:13.9250367Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
-2026-09-24T20:23:14.8328012Z Complete job name: repack
+﻿2026-09-24T20:26:39.6307495Z Current runner version: '2.337.0'
+2026-09-24T20:26:39.6346019Z ##[group]Runner Image Provisioner
+2026-09-24T20:26:39.6347650Z Hosted Compute Agent
+2026-09-24T20:26:39.6348730Z Version: 20260828.587
+2026-09-24T20:26:39.6349974Z Commit: abac92662cab4cc7352de4f9f9d2e2419aad9c29
+2026-09-24T20:26:39.6351590Z Build Date: 2026-08-28T16:44:25Z
+2026-09-24T20:26:39.6352873Z Worker ID: {291a720c-77b1-42d0-8d4d-58f2c06acf09}
+2026-09-24T20:26:39.6354334Z Azure Region: eastus
+2026-09-24T20:26:39.6355386Z ##[endgroup]
+2026-09-24T20:26:39.6358364Z ##[group]Operating System
+2026-09-24T20:26:39.6359452Z Ubuntu
+2026-09-24T20:26:39.6360383Z 24.04.5
+2026-09-24T20:26:39.6361725Z LTS
+2026-09-24T20:26:39.6362651Z ##[endgroup]
+2026-09-24T20:26:39.6363865Z ##[group]Runner Image
+2026-09-24T20:26:39.6364924Z Image: ubuntu-24.04
+2026-09-24T20:26:39.6366556Z Version: 20260920.314.1
+2026-09-24T20:26:39.6368434Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20260920.314/images/ubuntu/Ubuntu2404-Readme.md
+2026-09-24T20:26:39.6371842Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20260920.314
+2026-09-24T20:26:39.6373587Z ##[endgroup]
+2026-09-24T20:26:39.6375666Z ##[group]GITHUB_TOKEN Permissions
+2026-09-24T20:26:39.6378735Z Contents: write
+2026-09-24T20:26:39.6379861Z Metadata: read
+2026-09-24T20:26:39.6380858Z ##[endgroup]
+2026-09-24T20:26:39.6384291Z Secret source: Actions
+2026-09-24T20:26:39.6386017Z Cache mode: write
+2026-09-24T20:26:39.6387824Z Prepare workflow directory
+2026-09-24T20:26:39.6878149Z Prepare all required actions
+2026-09-24T20:26:39.6953235Z Getting action download info
+2026-09-24T20:26:39.9874395Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-09-24T20:26:40.1592351Z Complete job name: repack
 
 ===== repack/2_Run actions_checkout@v4.txt =====
-﻿2026-09-24T20:23:14.9262707Z ##[group]Run actions/checkout@v4
-2026-09-24T20:23:14.9263740Z with:
-2026-09-24T20:23:14.9264212Z   repository: Goyimaticax1/vhs
-2026-09-24T20:23:14.9268314Z   token: ***
-2026-09-24T20:23:14.9268789Z   ssh-strict: true
-2026-09-24T20:23:14.9269233Z   ssh-user: git
-2026-09-24T20:23:14.9269684Z   persist-credentials: true
-2026-09-24T20:23:14.9270175Z   clean: true
-2026-09-24T20:23:14.9270662Z   sparse-checkout-cone-mode: true
-2026-09-24T20:23:14.9271260Z   fetch-depth: 1
-2026-09-24T20:23:14.9271959Z   fetch-tags: false
-2026-09-24T20:23:14.9272474Z   show-progress: true
-2026-09-24T20:23:14.9272984Z   lfs: false
-2026-09-24T20:23:14.9273431Z   submodules: false
-2026-09-24T20:23:14.9273894Z   set-safe-directory: true
-2026-09-24T20:23:14.9274407Z   allow-unsafe-pr-checkout: false
-2026-09-24T20:23:14.9275198Z ##[endgroup]
-2026-09-24T20:23:15.0315933Z Syncing repository: Goyimaticax1/vhs
-2026-09-24T20:23:15.0318665Z ##[group]Getting Git version info
-2026-09-24T20:23:15.0319800Z Working directory is '/home/runner/work/vhs/vhs'
-2026-09-24T20:23:15.0321861Z [command]/usr/bin/git version
-2026-09-24T20:23:15.0398277Z git version 2.55.0
-2026-09-24T20:23:15.0435018Z ##[endgroup]
-2026-09-24T20:23:15.0443610Z Temporarily overriding HOME='/home/runner/work/_temp/552cd078-a1a6-4fed-a8fe-f368cce74573' before making global git config changes
-2026-09-24T20:23:15.0446084Z Adding repository directory to the temporary git global config as a safe directory
-2026-09-24T20:23:15.0447898Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/vhs/vhs
-2026-09-24T20:23:15.0504778Z Deleting the contents of '/home/runner/work/vhs/vhs'
-2026-09-24T20:23:15.0509851Z ##[group]Initializing the repository
-2026-09-24T20:23:15.0514417Z [command]/usr/bin/git init /home/runner/work/vhs/vhs
-2026-09-24T20:23:15.0640214Z hint: Using 'master' as the name for the initial branch. This default branch name
-2026-09-24T20:23:15.0642401Z hint: will change to "main" in Git 3.0. To configure the initial branch name
-2026-09-24T20:23:15.0644111Z hint: to use in all of your new repositories, which will suppress this warning,
-2026-09-24T20:23:15.0647114Z hint: call:
-2026-09-24T20:23:15.0648779Z hint:
-2026-09-24T20:23:15.0650232Z hint: 	git config --global init.defaultBranch <name>
-2026-09-24T20:23:15.0652570Z hint:
-2026-09-24T20:23:15.0654028Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
-2026-09-24T20:23:15.0655648Z hint: 'development'. The just-created branch can be renamed via this command:
-2026-09-24T20:23:15.0656863Z hint:
-2026-09-24T20:23:15.0657557Z hint: 	git branch -m <name>
-2026-09-24T20:23:15.0658400Z hint:
-2026-09-24T20:23:15.0659471Z hint: Disable this message with "git config set advice.defaultBranchName false"
-2026-09-24T20:23:15.0661056Z Initialized empty Git repository in /home/runner/work/vhs/vhs/.git/
-2026-09-24T20:23:15.0663835Z [command]/usr/bin/git remote add origin https://github.com/Goyimaticax1/vhs
-2026-09-24T20:23:15.0710910Z ##[endgroup]
-2026-09-24T20:23:15.0712394Z ##[group]Disabling automatic garbage collection
-2026-09-24T20:23:15.0715269Z [command]/usr/bin/git config --local gc.auto 0
-2026-09-24T20:23:15.0749218Z ##[endgroup]
-2026-09-24T20:23:15.0750386Z ##[group]Setting up auth
-2026-09-24T20:23:15.0757274Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-09-24T20:23:15.0793259Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-09-24T20:23:15.1172566Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-09-24T20:23:15.1214668Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-09-24T20:23:15.1453639Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-09-24T20:23:15.1491793Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
-2026-09-24T20:23:15.1724510Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
-2026-09-24T20:23:15.1768498Z ##[endgroup]
-2026-09-24T20:23:15.1769858Z ##[group]Fetching the repository
-2026-09-24T20:23:15.1779325Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +912d2ea4466ace1b2346b8325b3f2e73802243a3:refs/remotes/origin/main
-2026-09-24T20:23:15.4176111Z From https://github.com/Goyimaticax1/vhs
-2026-09-24T20:23:15.4177870Z  * [new ref]         912d2ea4466ace1b2346b8325b3f2e73802243a3 -> origin/main
-2026-09-24T20:23:15.4182389Z ##[endgroup]
-2026-09-24T20:23:15.4184211Z ##[group]Determining the checkout info
-2026-09-24T20:23:15.4185804Z ##[endgroup]
-2026-09-24T20:23:15.4189438Z [command]/usr/bin/git sparse-checkout disable
-2026-09-24T20:23:15.4244802Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
-2026-09-24T20:23:15.4278955Z ##[group]Checking out the ref
-2026-09-24T20:23:15.4284024Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
-2026-09-24T20:23:15.4367638Z Switched to a new branch 'main'
-2026-09-24T20:23:15.4372672Z branch 'main' set up to track 'origin/main'.
-2026-09-24T20:23:15.4378573Z ##[endgroup]
-2026-09-24T20:23:15.4423105Z [command]/usr/bin/git log -1 --format=%H
-2026-09-24T20:23:15.4451706Z 912d2ea4466ace1b2346b8325b3f2e73802243a3
+﻿2026-09-24T20:26:40.2461956Z ##[group]Run actions/checkout@v4
+2026-09-24T20:26:40.2462906Z with:
+2026-09-24T20:26:40.2463367Z   repository: Goyimaticax1/vhs
+2026-09-24T20:26:40.2467298Z   token: ***
+2026-09-24T20:26:40.2467760Z   ssh-strict: true
+2026-09-24T20:26:40.2468210Z   ssh-user: git
+2026-09-24T20:26:40.2468767Z   persist-credentials: true
+2026-09-24T20:26:40.2469269Z   clean: true
+2026-09-24T20:26:40.2469729Z   sparse-checkout-cone-mode: true
+2026-09-24T20:26:40.2470257Z   fetch-depth: 1
+2026-09-24T20:26:40.2470692Z   fetch-tags: false
+2026-09-24T20:26:40.2471547Z   show-progress: true
+2026-09-24T20:26:40.2472142Z   lfs: false
+2026-09-24T20:26:40.2472563Z   submodules: false
+2026-09-24T20:26:40.2473021Z   set-safe-directory: true
+2026-09-24T20:26:40.2473535Z   allow-unsafe-pr-checkout: false
+2026-09-24T20:26:40.2474394Z ##[endgroup]
+2026-09-24T20:26:40.3522992Z Syncing repository: Goyimaticax1/vhs
+2026-09-24T20:26:40.3524966Z ##[group]Getting Git version info
+2026-09-24T20:26:40.3525683Z Working directory is '/home/runner/work/vhs/vhs'
+2026-09-24T20:26:40.3527207Z [command]/usr/bin/git version
+2026-09-24T20:26:40.3607642Z git version 2.55.0
+2026-09-24T20:26:40.3635909Z ##[endgroup]
+2026-09-24T20:26:40.3652864Z Temporarily overriding HOME='/home/runner/work/_temp/b97b3515-7184-43f9-981b-bc98dc770e8a' before making global git config changes
+2026-09-24T20:26:40.3655314Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-24T20:26:40.3658633Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/vhs/vhs
+2026-09-24T20:26:40.3713289Z Deleting the contents of '/home/runner/work/vhs/vhs'
+2026-09-24T20:26:40.3717703Z ##[group]Initializing the repository
+2026-09-24T20:26:40.3721638Z [command]/usr/bin/git init /home/runner/work/vhs/vhs
+2026-09-24T20:26:40.3830639Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-09-24T20:26:40.3832841Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-09-24T20:26:40.3834754Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-09-24T20:26:40.3836244Z hint: call:
+2026-09-24T20:26:40.3837225Z hint:
+2026-09-24T20:26:40.3839201Z hint: 	git config --global init.defaultBranch <name>
+2026-09-24T20:26:40.3840813Z hint:
+2026-09-24T20:26:40.3842325Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-09-24T20:26:40.3844182Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-09-24T20:26:40.3845731Z hint:
+2026-09-24T20:26:40.3846616Z hint: 	git branch -m <name>
+2026-09-24T20:26:40.3847590Z hint:
+2026-09-24T20:26:40.3848927Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-09-24T20:26:40.3850948Z Initialized empty Git repository in /home/runner/work/vhs/vhs/.git/
+2026-09-24T20:26:40.3854505Z [command]/usr/bin/git remote add origin https://github.com/Goyimaticax1/vhs
+2026-09-24T20:26:40.3895059Z ##[endgroup]
+2026-09-24T20:26:40.3896386Z ##[group]Disabling automatic garbage collection
+2026-09-24T20:26:40.3900134Z [command]/usr/bin/git config --local gc.auto 0
+2026-09-24T20:26:40.3933836Z ##[endgroup]
+2026-09-24T20:26:40.3935129Z ##[group]Setting up auth
+2026-09-24T20:26:40.3940628Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-24T20:26:40.3974262Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-24T20:26:40.4368888Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-24T20:26:40.4408099Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-24T20:26:40.4634941Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-24T20:26:40.4670886Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-09-24T20:26:40.4902450Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-09-24T20:26:40.4948207Z ##[endgroup]
+2026-09-24T20:26:40.4949288Z ##[group]Fetching the repository
+2026-09-24T20:26:40.4958690Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +dc5268bea987f82699215729e75967bbdbc9bd95:refs/remotes/origin/main
+2026-09-24T20:26:40.7341713Z From https://github.com/Goyimaticax1/vhs
+2026-09-24T20:26:40.7343071Z  * [new ref]         dc5268bea987f82699215729e75967bbdbc9bd95 -> origin/main
+2026-09-24T20:26:40.7347472Z ##[endgroup]
+2026-09-24T20:26:40.7348259Z ##[group]Determining the checkout info
+2026-09-24T20:26:40.7350260Z ##[endgroup]
+2026-09-24T20:26:40.7356259Z [command]/usr/bin/git sparse-checkout disable
+2026-09-24T20:26:40.7408258Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-09-24T20:26:40.7440396Z ##[group]Checking out the ref
+2026-09-24T20:26:40.7446907Z [command]/usr/bin/git checkout --progress --force -B main refs/remotes/origin/main
+2026-09-24T20:26:40.7555620Z Switched to a new branch 'main'
+2026-09-24T20:26:40.7561737Z branch 'main' set up to track 'origin/main'.
+2026-09-24T20:26:40.7567439Z ##[endgroup]
+2026-09-24T20:26:40.7608565Z [command]/usr/bin/git log -1 --format=%H
+2026-09-24T20:26:40.7634772Z dc5268bea987f82699215729e75967bbdbc9bd95
 
 ===== repack/3_Rebuild zip from project_.txt =====
-﻿2026-09-24T20:23:15.4723018Z ##[group]Run rm -rf _pack
-2026-09-24T20:23:15.4724360Z [36;1mrm -rf _pack[0m
-2026-09-24T20:23:15.4725666Z [36;1mmkdir -p _pack/VHS_Camcorder_Godot48_Nodes[0m
-2026-09-24T20:23:15.4727467Z [36;1mcp -a project/. _pack/VHS_Camcorder_Godot48_Nodes/[0m
-2026-09-24T20:23:15.4729881Z [36;1mrm -rf _pack/VHS_Camcorder_Godot48_Nodes/.godot _pack/VHS_Camcorder_Godot48_Nodes/build[0m
-2026-09-24T20:23:15.4732459Z [36;1mrm -f VHS_Camcorder_Godot48_Nodes.zip[0m
-2026-09-24T20:23:15.4734533Z [36;1m(cd _pack && zip -X -r ../VHS_Camcorder_Godot48_Nodes.zip VHS_Camcorder_Godot48_Nodes)[0m
-2026-09-24T20:23:15.4736577Z [36;1mrm -rf _pack[0m
-2026-09-24T20:23:15.4738077Z [36;1munzip -l VHS_Camcorder_Godot48_Nodes.zip[0m
-2026-09-24T20:23:15.4995903Z shell: /usr/bin/bash -e {0}
-2026-09-24T20:23:15.4997462Z ##[endgroup]
-2026-09-24T20:23:15.5481148Z   adding: VHS_Camcorder_Godot48_Nodes/ (stored 0%)
-2026-09-24T20:23:15.5484751Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/ (stored 0%)
-2026-09-24T20:23:15.5487667Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/player.tscn (deflated 52%)
-2026-09-24T20:23:15.5491087Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/mobile_controls.tscn (deflated 52%)
-2026-09-24T20:23:15.5493990Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/camcorder_rig.tscn (deflated 53%)
-2026-09-24T20:23:15.5497154Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/vhs_overlay.tscn (deflated 84%)
-2026-09-24T20:23:15.5500235Z   adding: VHS_Camcorder_Godot48_Nodes/project.godot (deflated 76%)
-2026-09-24T20:23:15.5503270Z   adding: VHS_Camcorder_Godot48_Nodes/main.tscn (deflated 89%)
-2026-09-24T20:23:15.5505631Z   adding: VHS_Camcorder_Godot48_Nodes/.ci-trigger (stored 0%)
-2026-09-24T20:23:15.5508222Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/ (stored 0%)
-2026-09-24T20:23:15.5511075Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/camera_rig.gd (deflated 74%)
-2026-09-24T20:23:15.5514034Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/vhs_overlay.gd (deflated 71%)
-2026-09-24T20:23:15.5516426Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/mobile_controls.gd (deflated 75%)
-2026-09-24T20:23:15.5518888Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/camera_shakify.gd (deflated 62%)
-2026-09-24T20:23:15.5521128Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/player.gd (deflated 68%)
-2026-09-24T20:23:15.5523467Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/torch.gd (deflated 61%)
-2026-09-24T20:23:15.5525573Z   adding: VHS_Camcorder_Godot48_Nodes/export_presets.cfg (deflated 59%)
-2026-09-24T20:23:15.5528453Z   adding: VHS_Camcorder_Godot48_Nodes/README.md (deflated 52%)
-2026-09-24T20:23:15.5530644Z   adding: VHS_Camcorder_Godot48_Nodes/shaders/ (stored 0%)
-2026-09-24T20:23:15.5533030Z   adding: VHS_Camcorder_Godot48_Nodes/shaders/vhs_post.gdshader (deflated 68%)
-2026-09-24T20:23:15.5640675Z Archive:  VHS_Camcorder_Godot48_Nodes.zip
-2026-09-24T20:23:15.5642402Z   Length      Date    Time    Name
-2026-09-24T20:23:15.5644036Z ---------  ---------- -----   ----
-2026-09-24T20:23:15.5646508Z         0  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/
-2026-09-24T20:23:15.5648896Z         0  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scenes/
-2026-09-24T20:23:15.5650855Z       718  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scenes/player.tscn
-2026-09-24T20:23:15.5653312Z       787  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scenes/mobile_controls.tscn
-2026-09-24T20:23:15.5655571Z      1002  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scenes/camcorder_rig.tscn
-2026-09-24T20:23:15.5657800Z      8251  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scenes/vhs_overlay.tscn
-2026-09-24T20:23:15.5659852Z      3344  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/project.godot
-2026-09-24T20:23:15.5662011Z     17195  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/main.tscn
-2026-09-24T20:23:15.5663877Z         8  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/.ci-trigger
-2026-09-24T20:23:15.5665656Z         0  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/
-2026-09-24T20:23:15.5667641Z     20991  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/camera_rig.gd
-2026-09-24T20:23:15.5670028Z      9452  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/vhs_overlay.gd
-2026-09-24T20:23:15.5672434Z      4698  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/mobile_controls.gd
-2026-09-24T20:23:15.5674632Z      4832  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/camera_shakify.gd
-2026-09-24T20:23:15.5676792Z      6003  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/player.gd
-2026-09-24T20:23:15.5678755Z      2613  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/scripts/torch.gd
-2026-09-24T20:23:15.5680710Z      1769  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/export_presets.cfg
-2026-09-24T20:23:15.5683163Z      8038  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/README.md
-2026-09-24T20:23:15.5684921Z         0  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/shaders/
-2026-09-24T20:23:15.5686829Z      4282  2026-09-24 20:23   VHS_Camcorder_Godot48_Nodes/shaders/vhs_post.gdshader
-2026-09-24T20:23:15.5688582Z ---------                     -------
-2026-09-24T20:23:15.5689760Z     93983                     20 files
+﻿2026-09-24T20:26:40.7856621Z ##[group]Run rm -rf _pack
+2026-09-24T20:26:40.7857343Z [36;1mrm -rf _pack[0m
+2026-09-24T20:26:40.7857905Z [36;1mmkdir -p _pack/VHS_Camcorder_Godot48_Nodes[0m
+2026-09-24T20:26:40.7858641Z [36;1mcp -a project/. _pack/VHS_Camcorder_Godot48_Nodes/[0m
+2026-09-24T20:26:40.7859576Z [36;1mrm -rf _pack/VHS_Camcorder_Godot48_Nodes/.godot _pack/VHS_Camcorder_Godot48_Nodes/build[0m
+2026-09-24T20:26:40.7860462Z [36;1mrm -f VHS_Camcorder_Godot48_Nodes.zip[0m
+2026-09-24T20:26:40.7861667Z [36;1m(cd _pack && zip -X -r ../VHS_Camcorder_Godot48_Nodes.zip VHS_Camcorder_Godot48_Nodes)[0m
+2026-09-24T20:26:40.7862472Z [36;1mrm -rf _pack[0m
+2026-09-24T20:26:40.7863209Z [36;1munzip -l VHS_Camcorder_Godot48_Nodes.zip[0m
+2026-09-24T20:26:40.8135733Z shell: /usr/bin/bash -e {0}
+2026-09-24T20:26:40.8136391Z ##[endgroup]
+2026-09-24T20:26:40.9369942Z   adding: VHS_Camcorder_Godot48_Nodes/ (stored 0%)
+2026-09-24T20:26:40.9371769Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/ (stored 0%)
+2026-09-24T20:26:40.9373517Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/player.tscn (deflated 52%)
+2026-09-24T20:26:40.9375386Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/mobile_controls.tscn (deflated 52%)
+2026-09-24T20:26:40.9377405Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/camcorder_rig.tscn (deflated 53%)
+2026-09-24T20:26:40.9379241Z   adding: VHS_Camcorder_Godot48_Nodes/scenes/vhs_overlay.tscn (deflated 84%)
+2026-09-24T20:26:40.9380681Z   adding: VHS_Camcorder_Godot48_Nodes/project.godot (deflated 76%)
+2026-09-24T20:26:40.9382264Z   adding: VHS_Camcorder_Godot48_Nodes/main.tscn (deflated 89%)
+2026-09-24T20:26:40.9383548Z   adding: VHS_Camcorder_Godot48_Nodes/.ci-trigger (stored 0%)
+2026-09-24T20:26:40.9384770Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/ (stored 0%)
+2026-09-24T20:26:40.9388159Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/camera_rig.gd (deflated 74%)
+2026-09-24T20:26:40.9390698Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/vhs_overlay.gd (deflated 71%)
+2026-09-24T20:26:40.9392795Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/mobile_controls.gd (deflated 75%)
+2026-09-24T20:26:40.9394599Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/camera_shakify.gd (deflated 62%)
+2026-09-24T20:26:40.9396309Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/player.gd (deflated 68%)
+2026-09-24T20:26:40.9398055Z   adding: VHS_Camcorder_Godot48_Nodes/scripts/torch.gd (deflated 61%)
+2026-09-24T20:26:40.9399570Z   adding: VHS_Camcorder_Godot48_Nodes/export_presets.cfg (deflated 59%)
+2026-09-24T20:26:40.9401253Z   adding: VHS_Camcorder_Godot48_Nodes/README.md (deflated 52%)
+2026-09-24T20:26:40.9402384Z   adding: VHS_Camcorder_Godot48_Nodes/shaders/ (stored 0%)
+2026-09-24T20:26:40.9403413Z   adding: VHS_Camcorder_Godot48_Nodes/shaders/vhs_post.gdshader (deflated 68%)
+2026-09-24T20:26:40.9441348Z Archive:  VHS_Camcorder_Godot48_Nodes.zip
+2026-09-24T20:26:40.9442642Z   Length      Date    Time    Name
+2026-09-24T20:26:40.9443264Z ---------  ---------- -----   ----
+2026-09-24T20:26:40.9444101Z         0  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/
+2026-09-24T20:26:40.9445287Z         0  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scenes/
+2026-09-24T20:26:40.9446670Z       718  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scenes/player.tscn
+2026-09-24T20:26:40.9447883Z       787  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scenes/mobile_controls.tscn
+2026-09-24T20:26:40.9448837Z      1002  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scenes/camcorder_rig.tscn
+2026-09-24T20:26:40.9449709Z      8251  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scenes/vhs_overlay.tscn
+2026-09-24T20:26:40.9450876Z      3344  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/project.godot
+2026-09-24T20:26:40.9452055Z     23767  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/main.tscn
+2026-09-24T20:26:40.9452837Z         8  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/.ci-trigger
+2026-09-24T20:26:40.9453580Z         0  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/
+2026-09-24T20:26:40.9454361Z     20991  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/camera_rig.gd
+2026-09-24T20:26:40.9455724Z      9452  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/vhs_overlay.gd
+2026-09-24T20:26:40.9456640Z      4698  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/mobile_controls.gd
+2026-09-24T20:26:40.9457533Z      4832  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/camera_shakify.gd
+2026-09-24T20:26:40.9458391Z      6003  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/player.gd
+2026-09-24T20:26:40.9459191Z      2613  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/scripts/torch.gd
+2026-09-24T20:26:40.9460001Z      1769  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/export_presets.cfg
+2026-09-24T20:26:40.9460942Z      8038  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/README.md
+2026-09-24T20:26:40.9461969Z         0  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/shaders/
+2026-09-24T20:26:40.9462777Z      4282  2026-09-24 20:26   VHS_Camcorder_Godot48_Nodes/shaders/vhs_post.gdshader
+2026-09-24T20:26:40.9463500Z ---------                     -------
+2026-09-24T20:26:40.9464071Z    100555                     20 files
 
 ===== repack/4_Commit zip.txt =====
-﻿2026-09-24T20:23:15.5770887Z ##[group]Run git config user.name "github-actions[bot]"
-2026-09-24T20:23:15.5773001Z [36;1mgit config user.name "github-actions[bot]"[0m
-2026-09-24T20:23:15.5775093Z [36;1mgit config user.email "41898282+github-actions[bot]@users.noreply.github.com"[0m
-2026-09-24T20:23:15.5777193Z [36;1mgit add -f VHS_Camcorder_Godot48_Nodes.zip[0m
-2026-09-24T20:23:15.5778680Z [36;1mif git diff --cached --quiet; then[0m
-2026-09-24T20:23:15.5780045Z [36;1m  echo "No changes to commit."[0m
-2026-09-24T20:23:15.5781279Z [36;1m  exit 0[0m
-2026-09-24T20:23:15.5782553Z [36;1mfi[0m
-2026-09-24T20:23:15.5784000Z [36;1mgit commit -m "Repack VHS_Camcorder_Godot48_Nodes.zip from project/"[0m
-2026-09-24T20:23:15.5785748Z [36;1mfor i in 1 2 3 4 5; do[0m
-2026-09-24T20:23:15.5787523Z [36;1m  if git pull --rebase --autostash origin main && git push origin HEAD:main; then[0m
-2026-09-24T20:23:15.5789404Z [36;1m    exit 0[0m
-2026-09-24T20:23:15.5790387Z [36;1m  fi[0m
-2026-09-24T20:23:15.5791293Z [36;1m  sleep 7[0m
-2026-09-24T20:23:15.5792577Z [36;1mdone[0m
-2026-09-24T20:23:15.5793481Z [36;1mexit 1[0m
-2026-09-24T20:23:15.5859209Z shell: /usr/bin/bash -e {0}
-2026-09-24T20:23:15.5860345Z ##[endgroup]
-2026-09-24T20:23:15.6095468Z [main 4424bf1] Repack VHS_Camcorder_Godot48_Nodes.zip from project/
-2026-09-24T20:23:15.6099214Z  1 file changed, 0 insertions(+), 0 deletions(-)
-2026-09-24T20:23:15.8237015Z From https://github.com/Goyimaticax1/vhs
-2026-09-24T20:23:15.8238898Z  * branch            main       -> FETCH_HEAD
-2026-09-24T20:23:15.8423742Z Current branch main is up to date.
-2026-09-24T20:23:16.9286252Z To https://github.com/Goyimaticax1/vhs
-2026-09-24T20:23:16.9288117Z    912d2ea..4424bf1  HEAD -> main
+﻿2026-09-24T20:26:40.9507637Z ##[group]Run git config user.name "github-actions[bot]"
+2026-09-24T20:26:40.9508439Z [36;1mgit config user.name "github-actions[bot]"[0m
+2026-09-24T20:26:40.9509296Z [36;1mgit config user.email "41898282+github-actions[bot]@users.noreply.github.com"[0m
+2026-09-24T20:26:40.9510167Z [36;1mgit add -f VHS_Camcorder_Godot48_Nodes.zip[0m
+2026-09-24T20:26:40.9510810Z [36;1mif git diff --cached --quiet; then[0m
+2026-09-24T20:26:40.9511694Z [36;1m  echo "No changes to commit."[0m
+2026-09-24T20:26:40.9512233Z [36;1m  exit 0[0m
+2026-09-24T20:26:40.9512660Z [36;1mfi[0m
+2026-09-24T20:26:40.9513284Z [36;1mgit commit -m "Repack VHS_Camcorder_Godot48_Nodes.zip from project/"[0m
+2026-09-24T20:26:40.9514034Z [36;1mfor i in 1 2 3 4 5; do[0m
+2026-09-24T20:26:40.9514788Z [36;1m  if git pull --rebase --autostash origin main && git push origin HEAD:main; then[0m
+2026-09-24T20:26:40.9515568Z [36;1m    exit 0[0m
+2026-09-24T20:26:40.9515999Z [36;1m  fi[0m
+2026-09-24T20:26:40.9516417Z [36;1m  sleep 7[0m
+2026-09-24T20:26:40.9516875Z [36;1mdone[0m
+2026-09-24T20:26:40.9517282Z [36;1mexit 1[0m
+2026-09-24T20:26:40.9579988Z shell: /usr/bin/bash -e {0}
+2026-09-24T20:26:40.9580532Z ##[endgroup]
+2026-09-24T20:26:40.9793890Z [main 2c34717] Repack VHS_Camcorder_Godot48_Nodes.zip from project/
+2026-09-24T20:26:40.9794933Z  1 file changed, 0 insertions(+), 0 deletions(-)
+2026-09-24T20:26:41.1891468Z From https://github.com/Goyimaticax1/vhs
+2026-09-24T20:26:41.1892525Z  * branch            main       -> FETCH_HEAD
+2026-09-24T20:26:41.1984990Z Current branch main is up to date.
+2026-09-24T20:26:42.2260039Z To https://github.com/Goyimaticax1/vhs
+2026-09-24T20:26:42.2260878Z    dc5268b..2c34717  HEAD -> main
 
 ===== repack/8_Post Run actions_checkout@v4.txt =====
-﻿2026-09-24T20:23:16.9552499Z Post job cleanup.
-2026-09-24T20:23:17.0422414Z [command]/usr/bin/git version
-2026-09-24T20:23:17.0466866Z git version 2.55.0
-2026-09-24T20:23:17.0512715Z Temporarily overriding HOME='/home/runner/work/_temp/ddb31c9d-ba9a-4d26-9d86-ee1d984a60d3' before making global git config changes
-2026-09-24T20:23:17.0514044Z Adding repository directory to the temporary git global config as a safe directory
-2026-09-24T20:23:17.0519251Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/vhs/vhs
-2026-09-24T20:23:17.0563087Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
-2026-09-24T20:23:17.0601770Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
-2026-09-24T20:23:17.0869966Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
-2026-09-24T20:23:17.0902025Z http.https://github.com/.extraheader
-2026-09-24T20:23:17.0913308Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
-2026-09-24T20:23:17.0949815Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
-2026-09-24T20:23:17.1224505Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
-2026-09-24T20:23:17.1267751Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+﻿2026-09-24T20:26:42.2497074Z Post job cleanup.
+2026-09-24T20:26:42.3343917Z [command]/usr/bin/git version
+2026-09-24T20:26:42.3388442Z git version 2.55.0
+2026-09-24T20:26:42.3432376Z Temporarily overriding HOME='/home/runner/work/_temp/e72d19de-8642-4072-9776-4aaf77e3d1da' before making global git config changes
+2026-09-24T20:26:42.3433982Z Adding repository directory to the temporary git global config as a safe directory
+2026-09-24T20:26:42.3442169Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/vhs/vhs
+2026-09-24T20:26:42.3478888Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-09-24T20:26:42.3516700Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-09-24T20:26:42.3765504Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-09-24T20:26:42.3792934Z http.https://github.com/.extraheader
+2026-09-24T20:26:42.3805852Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-09-24T20:26:42.3846902Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-09-24T20:26:42.4172363Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-09-24T20:26:42.4226561Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
 
 ===== repack/9_Complete job.txt =====
-﻿2026-09-24T20:23:17.1669657Z Cleaning up orphan processes
-2026-09-24T20:23:17.1964266Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+﻿2026-09-24T20:26:42.4695896Z Cleaning up orphan processes
+2026-09-24T20:26:42.4999157Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
 
 ===== repack/system.txt =====
-2026-09-24T20:23:10.4190000Z Evaluating repack.if
-2026-09-24T20:23:10.4190000Z Evaluating: success()
-2026-09-24T20:23:10.4190000Z Result: true
-2026-09-24T20:23:10.5700000Z Requested labels: ubuntu-latest
-2026-09-24T20:23:10.5700000Z Job defined at: Goyimaticax1/vhs/.github/workflows/repack-zip.yml@refs/heads/main
-2026-09-24T20:23:10.5700000Z Waiting for a runner to pick up this job...
-2026-09-24T20:23:11.3360000Z Job is waiting for a hosted runner to come online.
-2026-09-24T20:23:11.3360000Z Job is about to start running on the hosted runner: GitHub Actions 1000000043
+2026-09-24T20:26:36.6910000Z Evaluating repack.if
+2026-09-24T20:26:36.6910000Z Evaluating: success()
+2026-09-24T20:26:36.6910000Z Result: true
+2026-09-24T20:26:36.6910000Z Requested labels: ubuntu-latest
+2026-09-24T20:26:36.6910000Z Job defined at: Goyimaticax1/vhs/.github/workflows/repack-zip.yml@refs/heads/main
+2026-09-24T20:26:36.6910000Z Waiting for a runner to pick up this job...
+2026-09-24T20:26:36.9650000Z Job is about to start running on the hosted runner: GitHub Actions 1000000047
+2026-09-24T20:26:36.9650000Z Job is waiting for a hosted runner to come online.
