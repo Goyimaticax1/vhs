@@ -1,14 +1,18 @@
 extends Node3D
 
-# Handheld camcorder rig.
+# Handheld camcorder operator rig.
 #
-# The camera motion here is Camera Shakify-style: NO sine bob anywhere.
-# Blender's Camera Shakify replays motion-captured handheld takes; the reason
-# it reads as a real operator is that the motion is broadband and aperiodic
-# (slow wander + medium sway + fine tremor, never repeating), not a periodic
-# oscillation. This rig reproduces that with fractal (fBm) noise per axis.
-# Rotation dominates, translation is tiny, roll is smallest -- that ratio is
-# what the eye reads as "a person is holding this".
+# Camera Shakify-style: NO sine bob anywhere. Blender's Camera Shakify replays
+# motion-captured handheld takes; what sells it is that real operator motion is
+# broadband and aperiodic -- slow wander + sway + tremor, never repeating -- not
+# a periodic oscillation. Here that is fBm noise per axis, plus discrete
+# footfall impacts (a real step is a jolt, not a sine crest) and irregular
+# breathing that deepens as the operator tires.
+#
+# Vertical offsets (crouch, landing dip) are applied in WORLD space on the rig.
+# They must not go on the camera's local Y: the rig carries pitch/yaw/roll, so a
+# local-Y offset tilts with the view and slides the camera forward when you look
+# down. That was the old crouch bug.
 
 @export_category("Scene references")
 @export var player_path: NodePath = NodePath("../Player")
@@ -46,9 +50,9 @@ extends Node3D
 
 @export_category("Handheld shake per state (rot amp deg, frequency, pos amp m)")
 @export var idle_handheld := Vector3(0.30, 0.55, 0.0035)
-@export var walk_handheld := Vector3(1.05, 1.35, 0.0160)
-@export var sprint_handheld := Vector3(1.80, 2.05, 0.0300)
-@export var crouch_handheld := Vector3(0.55, 0.85, 0.0080)
+@export var walk_handheld := Vector3(1.00, 1.30, 0.0150)
+@export var sprint_handheld := Vector3(1.55, 1.95, 0.0270)
+@export var crouch_handheld := Vector3(0.50, 0.80, 0.0075)
 
 @export_category("Handheld shake global controls")
 ## Master blend. 0 = locked off, 1 = full. Tween this per shot.
@@ -63,6 +67,28 @@ extends Node3D
 @export var shake_gain: float = 0.52
 @export var shake_lacunarity: float = 2.05
 @export var move_start_threshold: float = 0.18
+
+@export_category("Footstep impacts (distance based, aperiodic)")
+## Metres of travel between footfalls. Stepping on distance rather than time
+## means the rhythm follows the actual gait and never free-runs.
+@export var step_length_m: float = 0.80
+@export_range(0.0, 0.5, 0.01) var step_length_jitter: float = 0.16
+@export var step_kick_deg: float = 0.62
+@export var step_drop_m: float = 0.0075
+@export var step_lateral_ratio: float = 0.65
+
+@export_category("Breathing / exertion")
+@export var breath_position_m: float = 0.0030
+@export var breath_roll_deg: float = 0.022
+@export var exertion_gain_per_second: float = 0.34
+@export var exertion_recovery_per_second: float = 0.20
+
+@export_category("Crouch")
+## How fast the eye follows the crouch height. The crouch amount itself comes
+## from the player via set_crouch_offset().
+@export var crouch_follow_speed: float = 14.0
+@export var crouch_tilt_pitch_deg: float = 1.8
+@export var crouch_tilt_roll_deg: float = 1.1
 
 @export_category("Landing dip")
 @export var land_spring: float = 150.0
@@ -98,8 +124,10 @@ var last_player_velocity: Vector3 = Vector3.ZERO
 var elapsed: float = 0.0
 var regrip_timer: float = 2.4
 var regrip_offset: Vector3 = Vector3.ZERO
-var crouch_offset: float = 0.0
-var prev_crouch_offset: float = 0.0
+
+var crouch_offset: float = 0.0          # requested, from the player (<= 0)
+var crouch_current: float = 0.0         # smoothed, applied in world space
+var crouch_rate: float = 0.0            # m/s, drives the tilt reaction
 
 var current_fov: float = 67.0
 var target_fov: float = 67.0
@@ -107,6 +135,7 @@ var fov_velocity: float = 0.0
 var fov_spring_effective: float = 40.0
 
 var move_intensity: float = 0.0
+var exertion: float = 0.0
 var crouch_tilt_pitch: float = 0.0
 var crouch_tilt_roll: float = 0.0
 
@@ -120,16 +149,22 @@ var impulse_rot_vel: Vector3 = Vector3.ZERO
 
 var noise_low: FastNoiseLite = FastNoiseLite.new()
 var noise_mid: FastNoiseLite = FastNoiseLite.new()
+var breath_noise: FastNoiseLite = FastNoiseLite.new()
 
 # Six independent fBm fields: pos x/y/z and rot pitch/yaw/roll. They must be
 # separate, otherwise every axis correlates and the camera slides along a
-# diagonal instead of wandering. A seventh field slowly modulates overall
-# energy, so the operator gets tired and steady in waves.
+# diagonal instead of wandering. A seventh slowly modulates overall energy, so
+# the operator steadies and loosens in waves.
 var shake_noise: Array[FastNoiseLite] = []
 var energy_noise: FastNoiseLite = FastNoiseLite.new()
 var shake_time: float = 0.0
+var breath_time: float = 0.0
 var shake_position: Vector3 = Vector3.ZERO
 var shake_rotation_deg: Vector3 = Vector3.ZERO
+
+var step_distance: float = 0.0
+var next_step_distance: float = 0.8
+var step_side: float = 1.0
 
 func _ready() -> void:
     current_position = global_position
@@ -141,8 +176,12 @@ func _ready() -> void:
     noise_mid.frequency = 0.55
     noise_low.fractal_octaves = 2
     noise_mid.fractal_octaves = 2
+    breath_noise.seed = 33427
+    breath_noise.frequency = 1.0
+    breath_noise.fractal_octaves = 2
     _build_shake_noise()
     regrip_timer = randf_range(regrip_min_seconds, regrip_max_seconds)
+    next_step_distance = step_length_m
     if camera != null:
         current_fov = camera.fov
         target_fov = camera.fov
@@ -205,10 +244,12 @@ func set_crouch_offset(value: float) -> void:
 func _process(delta: float) -> void:
     elapsed += delta
     _update_state_weights(delta)
+    _update_exertion(delta)
+    _update_crouch(delta)
+    _update_land_spring(delta)
     _update_arm_sway(delta)
     _update_handheld_shake(delta)
-    _update_crouch_tilt(delta)
-    _update_land_spring(delta)
+    _update_footsteps(delta)
     _update_impulse(delta)
     _update_zoom(delta)
     _compose_camera_transform()
@@ -242,6 +283,26 @@ func _update_state_weights(delta: float) -> void:
         w_walk /= total
         w_sprint /= total
         w_crouch /= total
+
+func _update_exertion(delta: float) -> void:
+    if sprinting and is_moving:
+        exertion += exertion_gain_per_second * delta
+    else:
+        exertion -= exertion_recovery_per_second * delta
+    exertion = clampf(exertion, 0.0, 1.0)
+
+# Crouch is a world-space eye drop on the rig, smoothed here so the tilt
+# reaction comes from a filtered rate instead of a raw per-frame derivative
+# (which spiked on any frame hitch).
+func _update_crouch(delta: float) -> void:
+    var previous: float = crouch_current
+    crouch_current = lerp(crouch_current, crouch_offset, 1.0 - exp(-crouch_follow_speed * delta))
+    crouch_rate = (crouch_current - previous) / maxf(delta, 0.0001)
+
+    var response: float = 1.0 - exp(-state_blend_speed * delta)
+    var tilt_raw: float = clampf(crouch_rate * 1.4, -1.0, 1.0)
+    crouch_tilt_pitch = lerp(crouch_tilt_pitch, tilt_raw * crouch_tilt_pitch_deg, response)
+    crouch_tilt_roll = lerp(crouch_tilt_roll, tilt_raw * crouch_tilt_roll_deg, response)
 
 func _update_arm_sway(delta: float) -> void:
     var player_velocity: Vector3 = player.velocity
@@ -292,13 +353,14 @@ func _update_arm_sway(delta: float) -> void:
         regrip_timer = randf_range(regrip_min_seconds, regrip_max_seconds)
     regrip_offset = regrip_offset.lerp(Vector3.ZERO, 1.0 - exp(-7.5 * delta))
 
-    # Breathing used to be sin(elapsed * 1.47); a periodic breath is audible to
-    # the eye. Slow noise gives an irregular breath instead.
-    var breath: float = noise_low.get_noise_1d(elapsed * 0.41 + 311.0)
+    # Breathing was sin(elapsed * 1.47). A periodic breath is visible as a beat.
+    # This is noise-driven, and it deepens and quickens with exertion.
+    breath_time += delta * lerp(0.30, 0.78, exertion)
+    var breath: float = breath_noise.get_noise_1d(breath_time) * (1.0 + exertion * 1.7)
 
     var local_position_offset: Vector3 = low * position_amplitude
     local_position_offset += mid * (position_amplitude * 0.45)
-    local_position_offset += Vector3(0.0, breath * 0.0026, 0.0)
+    local_position_offset += Vector3(0.0, breath * breath_position_m, 0.0)
     local_position_offset += acceleration_sway + turn_position + regrip_offset * 0.0015
 
     var desired_position: Vector3 = player.global_position + Vector3.UP * head_height_m
@@ -308,7 +370,7 @@ func _update_arm_sway(delta: float) -> void:
     var desired_pitch: float = player.pitch + deg_to_rad(rotational_noise.x * rotation_amplitude * 0.75) + turn_rotation.x * 0.20
     var desired_yaw: float = player.rotation.y + deg_to_rad(rotational_noise.y * rotation_amplitude) + turn_rotation.y * 0.20
     var desired_roll: float = deg_to_rad(rotational_noise.z * rotation_amplitude * 0.90) + turn_rotation.z
-    desired_roll += deg_to_rad(breath * 0.020)
+    desired_roll += deg_to_rad(breath * breath_roll_deg)
     desired_roll += deg_to_rad(regrip_offset.z * rotation_amplitude * 0.60)
 
     var position_error: Vector3 = desired_position - current_position
@@ -316,7 +378,10 @@ func _update_arm_sway(delta: float) -> void:
     position_velocity *= exp(-position_damping * delta)
     current_position += position_velocity * delta
     current_position = current_position.lerp(desired_position, 1.0 - exp(-position_lag_speed * delta * 0.18))
-    global_position = current_position
+
+    # World-space vertical offsets, applied after the filter and outside the
+    # rig's rotation so crouching drops the eye straight down, always.
+    global_position = current_position + Vector3.UP * (crouch_current + land_disp)
 
     actual_yaw = _spring_angle(actual_yaw, desired_yaw, delta, 0)
     actual_pitch = _spring_angle(actual_pitch, desired_pitch, delta, 1)
@@ -357,12 +422,12 @@ func _update_handheld_shake(delta: float) -> void:
     var intensity_target: float = clampf(current_horizontal_speed / maxf(speed_ref, 0.01), 0.0, 1.3) if is_moving else 1.0
     move_intensity = lerp(move_intensity, intensity_target, response)
 
-    # Advancing a single time cursor (rather than a phase angle) is what keeps
-    # this aperiodic: there is no cycle to land back on.
+    # A single advancing time cursor, not a phase angle: there is no cycle to
+    # land back on, so the motion can never resolve into a beat.
     shake_time += delta * frequency * shake_speed * lerp(0.9, 1.15, clampf(move_intensity, 0.0, 1.0))
 
     var energy: float = 1.0 + energy_noise.get_noise_1d(elapsed * 0.23) * 0.18
-    var k: float = shake_influence * shake_scale * move_intensity * energy
+    var k: float = shake_influence * shake_scale * move_intensity * energy * (1.0 + exertion * 0.30)
 
     shake_position = Vector3(
         _shake_sample(0, shake_time) * position_amp,
@@ -379,13 +444,36 @@ func _update_handheld_shake(delta: float) -> void:
         _shake_sample(5, rotation_time) * rotation_amp * shake_roll_ratio
     ) * k
 
-func _update_crouch_tilt(delta: float) -> void:
-    var response: float = 1.0 - exp(-state_blend_speed * delta)
-    var crouch_transition_speed: float = (crouch_offset - prev_crouch_offset) / maxf(delta, 0.0001)
-    prev_crouch_offset = crouch_offset
-    var tilt_raw: float = clampf(crouch_transition_speed * 0.9, -1.0, 1.0)
-    crouch_tilt_pitch = lerp(crouch_tilt_pitch, tilt_raw * -2.2, response)
-    crouch_tilt_roll = lerp(crouch_tilt_roll, tilt_raw * 1.6, response)
+# Real walking shows up in a handheld shot as discrete jolts at footfalls, not
+# as a smooth wave. Steps are triggered by distance travelled with per-step
+# jitter, so the cadence follows the gait and stays irregular.
+func _update_footsteps(delta: float) -> void:
+    if not is_moving:
+        step_distance = maxf(step_distance - delta * 0.5, 0.0)
+        return
+
+    step_distance += current_horizontal_speed * delta
+    if step_distance < next_step_distance:
+        return
+
+    step_distance = 0.0
+    var stride: float = step_length_m * lerp(1.0, 1.25, w_sprint) * lerp(1.0, 0.72, w_crouch)
+    next_step_distance = stride * randf_range(1.0 - step_length_jitter, 1.0 + step_length_jitter)
+    step_side = -step_side
+
+    var strength: float = clampf(current_horizontal_speed / sprint_speed_reference(), 0.30, 1.15)
+    strength *= lerp(1.0, 0.45, w_crouch)
+
+    impulse_rot_vel += Vector3(
+        deg_to_rad(step_kick_deg * strength * randf_range(0.75, 1.25)),
+        deg_to_rad(step_side * step_kick_deg * 0.45 * strength * randf_range(0.6, 1.3)),
+        deg_to_rad(-step_side * step_kick_deg * 0.70 * strength * randf_range(0.7, 1.2))
+    )
+    impulse_pos_vel += Vector3(
+        step_side * step_drop_m * step_lateral_ratio,
+        -step_drop_m,
+        0.0
+    ) * strength
 
 func _update_land_spring(delta: float) -> void:
     var force: float = -land_spring * land_disp - land_damping * land_vel
@@ -411,14 +499,12 @@ func _update_zoom(delta: float) -> void:
     current_fov += fov_velocity * delta
     camera.fov = current_fov
 
+# The camera's local transform now carries ONLY shake and impulses. Anything
+# that should be vertical in the world lives on the rig instead.
 func _compose_camera_transform() -> void:
     if camera == null:
         return
-    camera.position = Vector3(
-        shake_position.x,
-        shake_position.y + land_disp + crouch_offset,
-        shake_position.z
-    ) + impulse_pos
+    camera.position = shake_position + impulse_pos
     camera.rotation = Vector3(
         deg_to_rad(shake_rotation_deg.x + crouch_tilt_pitch) + impulse_rot.x,
         deg_to_rad(shake_rotation_deg.y) + impulse_rot.y,

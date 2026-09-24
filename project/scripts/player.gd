@@ -12,7 +12,13 @@ extends CharacterBody3D
 
 @export_category("Crouch")
 @export var crouch_height_scale: float = 0.56
-@export var crouch_blend_speed: float = 1.7
+## Was 1.7, which took well over a second to settle and felt broken.
+@export var crouch_blend_speed: float = 9.0
+## How far the EYE drops when crouched, in metres. This is deliberately not
+## derived from the capsule shrink: the old code dropped the eye by the full
+## capsule delta (~0.76 m), sinking the view near the floor and below the
+## collider. A real crouch lowers the eye about 0.55-0.65 m.
+@export var crouch_eye_drop_m: float = 0.62
 
 @export_category("Look")
 @export var mouse_sensitivity: float = 0.0024
@@ -118,7 +124,7 @@ func _physics_process(delta: float) -> void:
         var crouched_height: float = standing_height * crouch_height_scale
         capsule_shape.height = lerp(standing_height, crouched_height, crouch_blend)
         collision_shape.position.y = standing_shape_y - (standing_height - capsule_shape.height) * 0.5
-    camera_rig.call("set_crouch_offset", -crouch_blend * standing_height * (1.0 - crouch_height_scale))
+    camera_rig.call("set_crouch_offset", -crouch_blend * crouch_eye_drop_m)
 
 func _apply_look(raw_delta: Vector2, sensitivity: float) -> void:
     var look_change: Vector2 = raw_delta * sensitivity
