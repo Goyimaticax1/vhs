@@ -27,9 +27,11 @@ uniform float vignette : hint_range(0.0, 0.8) = 0.18;
 
 // Proper bloom: energy above a threshold, gathered in two rings, then pushed
 // toward red (halation) the way a real lens + tape does around a hot source.
+// The gather radius is measured in tape-raster cells, not screen pixels, so it
+// stays the same size on any phone resolution.
 uniform float bloom_threshold : hint_range(0.0, 1.0) = 0.55;
 uniform float bloom_intensity : hint_range(0.0, 3.0) = 1.15;
-uniform float bloom_radius : hint_range(0.5, 14.0) = 4.5;
+uniform float bloom_radius : hint_range(0.5, 14.0) = 2.4;
 uniform float halation : hint_range(0.0, 1.0) = 0.45;
 
 uniform float tape_grain : hint_range(0.0, 0.3) = 0.038;
@@ -91,9 +93,11 @@ vec3 resample(vec2 uv, vec2 res, float soft) {
     return c;
 }
 
-vec3 bloom_gather(vec2 uv, float radius) {
+// texel is passed in: built-ins like SCREEN_PIXEL_SIZE are not visible inside
+// user functions in Godot's shader language.
+vec3 bloom_gather(vec2 uv, float radius, vec2 texel) {
     vec3 acc = vec3(0.0);
-    vec2 px = SCREEN_PIXEL_SIZE * radius;
+    vec2 px = texel * radius;
     for (int i = 0; i < 8; i++) {
         vec3 a = tap(uv + RING[i] * px);
         vec3 b = tap(uv + RING[i] * px * 2.7);
@@ -124,6 +128,8 @@ float dirt_mask(vec2 uv) {
 
 void fragment() {
     vec2 uv = SCREEN_UV;
+    vec2 raster = vec2(luma_samples, tape_lines);
+    vec2 texel = 1.0 / raster;
 
     float line_id = floor(uv.y * tape_lines);
     float tape_gate = step(0.972, hash21(vec2(floor(TIME * 6.0), line_id)));
@@ -133,7 +139,7 @@ void fragment() {
     float soft = softness + blur_pulse * 2.6;
     vec2 chroma_vec = vec2(chromatic + 0.0009 * abs(warped.y - 0.5), 0.0);
 
-    vec3 luma_src = resample(warped, vec2(luma_samples, tape_lines), soft);
+    vec3 luma_src = resample(warped, raster, soft);
     vec3 chroma_hi = resample(warped + chroma_vec, vec2(chroma_samples, chroma_lines), soft * 1.6);
     vec3 chroma_lo = resample(warped - chroma_vec, vec2(chroma_samples, chroma_lines), soft * 1.6);
     vec3 chroma_src = vec3(chroma_lo.r, mix(chroma_hi.g, chroma_lo.g, 0.5), chroma_hi.b);
@@ -141,7 +147,7 @@ void fragment() {
     float y = luma_of(luma_src);
     vec3 c = clamp(vec3(y) + (chroma_src - vec3(luma_of(chroma_src))) * 1.05, 0.0, 2.0);
 
-    vec3 bloom = bloom_gather(warped, bloom_radius + blur_pulse * 6.0);
+    vec3 bloom = bloom_gather(warped, bloom_radius + blur_pulse * 3.0, texel);
     vec3 hal = vec3(bloom.r, bloom.g * 0.45, bloom.b * 0.22);
     bloom = mix(bloom, hal, halation);
     c += bloom * bloom_intensity;
@@ -153,7 +159,7 @@ void fragment() {
         c += dirt * dirt_gate * dirt_intensity * 3.0 * mix(vec3(1.0), vec3(1.0, 0.9, 0.78), halation);
     }
 
-    float n = hash21(floor(uv * vec2(luma_samples, tape_lines)) + floor(TIME * 20.0));
+    float n = hash21(floor(uv * raster) + floor(TIME * 20.0));
     c += (n - 0.5) * tape_grain;
     float line_noise = hash21(vec2(floor(TIME * 11.0), line_id)) - 0.5;
     c += line_noise * noise_strength;
