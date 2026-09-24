@@ -6,8 +6,8 @@ class_name HandheldShake
 ## HOW TO USE
 ##   Put this node BETWEEN your rig and your Camera3D:
 ##     CameraRig
-##      \u2514\u2500 HandheldShake  (Node3D, this script)
-##          \u2514\u2500 Camera3D
+##       |- HandheldShake  (Node3D, this script)
+##            |- Camera3D
 ##   Nothing else to change. It offsets only itself, so your look/aim code
 ##   on the rig keeps working untouched.
 ##
