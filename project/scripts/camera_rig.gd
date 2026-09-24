@@ -2,17 +2,17 @@ extends Node3D
 
 # Handheld camcorder operator rig.
 #
-# Shake comes from CameraShakify (scripts/camera_shakify.gd): real recorded
-# handheld takes replayed as curves, blended by locomotion state, exactly like
-# the Blender addon. No sine bob, no hand-rolled noise on the shake path.
+# Shake comes from CameraShakify (scripts/camera_shakify.gd): recorded handheld
+# takes replayed as curves, blended by locomotion state.
 #
-# Layout mirrors the UE5 spring-arm setup: the rig is the arm (position lag 5,
-# rotation lag 10, no collision test, length 0), the camera hangs off it and
-# does NOT use pawn control rotation of its own -- it only carries shake and
-# impulses.
-#
-# The torch is aimed from the RAW look input with a small predictive lead, so
-# the beam moves first and the camera settles into it.
+# Three layers, deliberately separate:
+#   1. ARM FOLLOW  - spring-arm lag, the operator's body catching up.
+#   2. SHAKE       - the Shakify take, now low-pass filtered on output so it
+#                    reads as a hand, not a vibration.
+#   3. TILT        - slow operator lean: into strafes, into turns, forward when
+#                    running, plus a wandering roll drift. This is the layer
+#                    that actually makes it look handheld rather than
+#                    gimbal-stabilised.
 #
 # Vertical offsets (crouch, landing dip) are applied in WORLD space on the rig,
 # never on the camera's local Y, or they tilt with the view.
@@ -38,11 +38,11 @@ const SHAKE_TAKES := ["INVESTIGATION", "WALK_TO_STORE", "RUN_AND_GUN", "CROUCH_C
 @export_category("Handheld arm sway amount per state")
 @export var idle_position_m: float = 0.0045
 @export var walk_position_m: float = 0.0085
-@export var sprint_position_m: float = 0.014
+@export var sprint_position_m: float = 0.0100
 @export var crouch_position_m: float = 0.0035
 @export var idle_rotation_deg: float = 0.10
 @export var walk_rotation_deg: float = 0.20
-@export var sprint_rotation_deg: float = 0.34
+@export var sprint_rotation_deg: float = 0.24
 @export var crouch_rotation_deg: float = 0.09
 
 @export_category("Operator behavior")
@@ -59,20 +59,36 @@ const SHAKE_TAKES := ["INVESTIGATION", "WALK_TO_STORE", "RUN_AND_GUN", "CROUCH_C
 ## Master blend. 0 = locked off, 1 = the take as recorded, >1 = exaggerated.
 @export_range(0.0, 3.0, 0.01) var shake_influence: float = 1.0
 ## Amplitude only.
-@export_range(0.0, 4.0, 0.01) var shake_scale: float = 1.35
+@export_range(0.0, 4.0, 0.01) var shake_scale: float = 1.00
 ## Playback rate of the take. 1.0 = as recorded.
-@export_range(0.05, 4.0, 0.01) var shake_speed: float = 1.0
+@export_range(0.05, 4.0, 0.01) var shake_speed: float = 0.92
+## Output low-pass, in Hz-ish response. Lower = smoother / less snappy.
+@export_range(1.0, 40.0, 0.1) var shake_smoothing: float = 6.5
 @export var shake_pitch_ratio: float = 0.85
 @export var shake_roll_ratio: float = 0.60
 ## Floor on the shake while standing still, so the operator never goes rigid.
 @export_range(0.0, 1.0, 0.01) var shake_idle_floor: float = 0.55
 @export var move_start_threshold: float = 0.18
 
+@export_category("Handheld tilt / lean")
+## Roll into a strafe, like leaning the camera with your shoulder.
+@export var tilt_strafe_deg: float = 2.40
+## Roll into a turn.
+@export var tilt_turn_deg: float = 3.20
+## Slow wandering roll that never repeats. The main 'handheld' tell.
+@export var tilt_drift_deg: float = 0.70
+## Roll that alternates with the footstep side.
+@export var tilt_step_deg: float = 0.55
+## Pitch forward when running, back when braking.
+@export var tilt_lean_pitch_deg: float = 1.20
+## How fast the tilt layer responds. Keep this slow; it is a body, not a servo.
+@export_range(0.5, 20.0, 0.1) var tilt_smoothing: float = 3.6
+
 @export_category("Footstep impacts (distance based, aperiodic)")
 @export var step_length_m: float = 0.80
 @export_range(0.0, 0.5, 0.01) var step_length_jitter: float = 0.16
-@export var step_kick_deg: float = 0.78
-@export var step_drop_m: float = 0.0095
+@export var step_kick_deg: float = 0.52
+@export var step_drop_m: float = 0.0068
 @export var step_lateral_ratio: float = 0.65
 
 @export_category("Breathing / exertion")
@@ -81,10 +97,17 @@ const SHAKE_TAKES := ["INVESTIGATION", "WALK_TO_STORE", "RUN_AND_GUN", "CROUCH_C
 @export var exertion_gain_per_second: float = 0.34
 @export var exertion_recovery_per_second: float = 0.20
 
-@export_category("Crouch")
-@export var crouch_follow_speed: float = 14.0
-@export var crouch_tilt_pitch_deg: float = 1.8
-@export var crouch_tilt_roll_deg: float = 1.1
+@export_category("Crouch (heavy, sprung)")
+## Mass-spring instead of a lerp: the body drops with weight, then settles with
+## a small overshoot. This is the feel from the original script, not the flat
+## exponential ease.
+@export var crouch_spring: float = 44.0
+@export var crouch_damping: float = 9.0
+## Signs match the original script: going down pitches the lens up slightly and
+## rolls it, as the operator's weight shifts.
+@export var crouch_tilt_pitch_deg: float = 2.90
+@export var crouch_tilt_roll_deg: float = 2.10
+@export var crouch_tilt_gain: float = 1.05
 
 @export_category("Landing dip")
 @export var land_spring: float = 150.0
@@ -132,6 +155,7 @@ var regrip_offset: Vector3 = Vector3.ZERO
 
 var crouch_offset: float = 0.0
 var crouch_current: float = 0.0
+var crouch_velocity: float = 0.0
 var crouch_rate: float = 0.0
 
 var current_fov: float = 66.0
@@ -143,6 +167,10 @@ var move_intensity: float = 0.0
 var exertion: float = 0.0
 var crouch_tilt_pitch: float = 0.0
 var crouch_tilt_roll: float = 0.0
+
+var tilt_roll: float = 0.0
+var tilt_pitch: float = 0.0
+var step_side_smooth: float = 0.0
 
 var land_disp: float = 0.0
 var land_vel: float = 0.0
@@ -156,6 +184,7 @@ var noise_low: FastNoiseLite = FastNoiseLite.new()
 var noise_mid: FastNoiseLite = FastNoiseLite.new()
 var breath_noise: FastNoiseLite = FastNoiseLite.new()
 var energy_noise: FastNoiseLite = FastNoiseLite.new()
+var tilt_noise: FastNoiseLite = FastNoiseLite.new()
 
 var shake_time: float = 0.0
 var breath_time: float = 0.0
@@ -189,6 +218,9 @@ func _ready() -> void:
     energy_noise.seed = 77003
     energy_noise.frequency = 1.0
     energy_noise.fractal_octaves = 2
+    tilt_noise.seed = 60611
+    tilt_noise.frequency = 1.0
+    tilt_noise.fractal_octaves = 3
     regrip_timer = randf_range(regrip_min_seconds, regrip_max_seconds)
     next_step_distance = step_length_m
     shake_time = randf() * 37.0
@@ -196,11 +228,8 @@ func _ready() -> void:
         torch_pivot.call("set_enabled", torch_enabled_on_start)
     if camera != null:
         camera.fov = default_fov
-        current_fov = default_fov
-        target_fov = default_fov
-    else:
-        current_fov = default_fov
-        target_fov = default_fov
+    current_fov = default_fov
+    target_fov = default_fov
 
 func feed_look_velocity(value: Vector2) -> void:
     look_velocity = look_velocity.lerp(value, 0.35)
@@ -252,17 +281,31 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _process(delta: float) -> void:
     elapsed += delta
+    _update_look_rates(delta)
     _update_state_weights(delta)
     _update_exertion(delta)
     _update_crouch(delta)
     _update_land_spring(delta)
     _update_arm_sway(delta)
     _update_handheld_shake(delta)
+    _update_handheld_tilt(delta)
     _update_footsteps(delta)
     _update_impulse(delta)
     _update_zoom(delta)
     _compose_camera_transform()
     _update_torch(delta)
+
+# Raw, unlagged look rates. Used by both the tilt layer and the torch lead.
+func _update_look_rates(delta: float) -> void:
+    var raw_yaw: float = player.rotation.y
+    var raw_pitch: float = player.pitch
+    var yaw_delta: float = wrapf(raw_yaw - prev_look_yaw + PI, 0.0, TAU) - PI
+    var pitch_delta: float = raw_pitch - prev_look_pitch
+    prev_look_yaw = raw_yaw
+    prev_look_pitch = raw_pitch
+    var smoothing: float = 1.0 - exp(-torch_rate_smoothing * delta)
+    look_yaw_rate = lerp(look_yaw_rate, yaw_delta / maxf(delta, 0.0001), smoothing)
+    look_pitch_rate = lerp(look_pitch_rate, pitch_delta / maxf(delta, 0.0001), smoothing)
 
 func _update_state_weights(delta: float) -> void:
     current_horizontal_speed = Vector2(player.velocity.x, player.velocity.z).length()
@@ -301,14 +344,19 @@ func _update_exertion(delta: float) -> void:
         exertion -= exertion_recovery_per_second * delta
     exertion = clampf(exertion, 0.0, 1.0)
 
+# Sprung crouch. The eye carries momentum into the drop and settles with a
+# small rebound, which is what makes it feel like a body rather than a slider.
 func _update_crouch(delta: float) -> void:
     var previous: float = crouch_current
-    crouch_current = lerp(crouch_current, crouch_offset, 1.0 - exp(-crouch_follow_speed * delta))
+    var force: float = (crouch_offset - crouch_current) * crouch_spring
+    crouch_velocity += force * delta
+    crouch_velocity *= exp(-crouch_damping * delta)
+    crouch_current += crouch_velocity * delta
     crouch_rate = (crouch_current - previous) / maxf(delta, 0.0001)
 
     var response: float = 1.0 - exp(-state_blend_speed * delta)
-    var tilt_raw: float = clampf(crouch_rate * 1.4, -1.0, 1.0)
-    crouch_tilt_pitch = lerp(crouch_tilt_pitch, tilt_raw * crouch_tilt_pitch_deg, response)
+    var tilt_raw: float = clampf(crouch_rate * crouch_tilt_gain, -1.0, 1.0)
+    crouch_tilt_pitch = lerp(crouch_tilt_pitch, tilt_raw * -crouch_tilt_pitch_deg, response)
     crouch_tilt_roll = lerp(crouch_tilt_roll, tilt_raw * crouch_tilt_roll_deg, response)
 
 func _update_arm_sway(delta: float) -> void:
@@ -409,15 +457,16 @@ func _spring_angle(current: float, target: float, delta: float, channel: int) ->
     return current + velocity * delta
 
 # Blend the four Shakify takes by locomotion weight and play them on a single
-# advancing cursor, so a state change crossfades takes instead of restarting
-# one.
+# advancing cursor, then low-pass the RESULT. Filtering the output rather than
+# the tables means state crossfades are smooth too, and it is what kills the
+# snappiness without flattening the gesture.
 func _update_handheld_shake(delta: float) -> void:
     var speed_ref: float = maxf(player.walk_speed, 0.01) * (w_idle + w_walk) + sprint_speed_reference() * w_sprint + maxf(player.crouch_speed, 0.01) * w_crouch
     var response: float = 1.0 - exp(-state_blend_speed * delta)
     var intensity_target: float = clampf(current_horizontal_speed / maxf(speed_ref, 0.01), 0.0, 1.25) if is_moving else 0.0
     move_intensity = lerp(move_intensity, intensity_target, response)
 
-    shake_time += delta * shake_speed * lerp(0.9, 1.18, clampf(move_intensity, 0.0, 1.0))
+    shake_time += delta * shake_speed * lerp(0.92, 1.10, clampf(move_intensity, 0.0, 1.0))
 
     var weights: Array[float] = [w_idle, w_walk, w_sprint, w_crouch]
     var loc: Vector3 = Vector3.ZERO
@@ -430,16 +479,47 @@ func _update_handheld_shake(delta: float) -> void:
         loc += (s["loc"] as Vector3) * w
         rot_deg += (s["rot_deg"] as Vector3) * w
 
-    var energy: float = 1.0 + energy_noise.get_noise_1d(elapsed * 0.23) * 0.22
+    var energy: float = 1.0 + energy_noise.get_noise_1d(elapsed * 0.23) * 0.18
     var gate: float = lerp(shake_idle_floor, 1.0, clampf(move_intensity, 0.0, 1.0))
-    var k: float = shake_influence * shake_scale * energy * gate * (1.0 + exertion * 0.35)
+    var k: float = shake_influence * shake_scale * energy * gate * (1.0 + exertion * 0.25)
 
-    shake_position = loc * k
-    shake_rotation_deg = Vector3(
+    var target_position: Vector3 = loc * k
+    var target_rotation: Vector3 = Vector3(
         rot_deg.x * shake_pitch_ratio,
         rot_deg.y,
         rot_deg.z * shake_roll_ratio
     ) * k
+
+    var filter: float = 1.0 - exp(-shake_smoothing * delta)
+    shake_position = shake_position.lerp(target_position, filter)
+    shake_rotation_deg = shake_rotation_deg.lerp(target_rotation, filter)
+
+# Slow operator lean. Everything here is deliberately low frequency; it is the
+# difference between 'camera attached to a head' and 'camera held in hands'.
+func _update_handheld_tilt(delta: float) -> void:
+    var yaw_basis: Basis = Basis(Vector3.UP, player.rotation.y)
+    var local_velocity: Vector3 = yaw_basis.inverse() * player.velocity
+    var speed_ref: float = sprint_speed_reference()
+
+    var strafe: float = clampf(local_velocity.x / speed_ref, -1.0, 1.0)
+    var forward: float = clampf(-local_velocity.z / speed_ref, -1.0, 1.0)
+    var turn: float = clampf(look_yaw_rate * 0.22, -1.0, 1.0)
+
+    var drift: float = tilt_noise.get_noise_1d(elapsed * 0.31) * (1.0 + exertion * 0.8)
+    step_side_smooth = lerp(step_side_smooth, step_side, 1.0 - exp(-4.5 * delta))
+
+    var target_roll: float = 0.0
+    target_roll += -strafe * tilt_strafe_deg
+    target_roll += turn * tilt_turn_deg
+    target_roll += drift * tilt_drift_deg
+    target_roll += step_side_smooth * tilt_step_deg * move_intensity
+
+    var target_pitch: float = forward * tilt_lean_pitch_deg * lerp(0.6, 1.0, w_sprint)
+    target_pitch += tilt_noise.get_noise_1d(elapsed * 0.27 + 51.0) * tilt_drift_deg * 0.5
+
+    var response: float = 1.0 - exp(-tilt_smoothing * delta)
+    tilt_roll = lerp(tilt_roll, target_roll, response)
+    tilt_pitch = lerp(tilt_pitch, target_pitch, response)
 
 func _update_footsteps(delta: float) -> void:
     if not is_moving:
@@ -451,17 +531,17 @@ func _update_footsteps(delta: float) -> void:
         return
 
     step_distance = 0.0
-    var stride: float = step_length_m * lerp(1.0, 1.25, w_sprint) * lerp(1.0, 0.72, w_crouch)
+    var stride: float = step_length_m * lerp(1.0, 1.35, w_sprint) * lerp(1.0, 0.72, w_crouch)
     next_step_distance = stride * randf_range(1.0 - step_length_jitter, 1.0 + step_length_jitter)
     step_side = -step_side
 
-    var strength: float = clampf(current_horizontal_speed / sprint_speed_reference(), 0.30, 1.15)
+    var strength: float = clampf(current_horizontal_speed / sprint_speed_reference(), 0.30, 1.05)
     strength *= lerp(1.0, 0.45, w_crouch)
 
     impulse_rot_vel += Vector3(
-        deg_to_rad(step_kick_deg * strength * randf_range(0.75, 1.25)),
-        deg_to_rad(step_side * step_kick_deg * 0.45 * strength * randf_range(0.6, 1.3)),
-        deg_to_rad(-step_side * step_kick_deg * 0.70 * strength * randf_range(0.7, 1.2))
+        deg_to_rad(step_kick_deg * strength * randf_range(0.8, 1.2)),
+        deg_to_rad(step_side * step_kick_deg * 0.40 * strength * randf_range(0.7, 1.2)),
+        deg_to_rad(-step_side * step_kick_deg * 0.65 * strength * randf_range(0.75, 1.15))
     )
     impulse_pos_vel += Vector3(
         step_side * step_drop_m * step_lateral_ratio,
@@ -498,36 +578,24 @@ func _compose_camera_transform() -> void:
         return
     camera.position = shake_position + impulse_pos
     camera.rotation = Vector3(
-        deg_to_rad(shake_rotation_deg.x + crouch_tilt_pitch) + impulse_rot.x,
+        deg_to_rad(shake_rotation_deg.x + crouch_tilt_pitch + tilt_pitch) + impulse_rot.x,
         deg_to_rad(shake_rotation_deg.y) + impulse_rot.y,
-        deg_to_rad(shake_rotation_deg.z + crouch_tilt_roll) + impulse_rot.z
+        deg_to_rad(shake_rotation_deg.z + crouch_tilt_roll + tilt_roll) + impulse_rot.z
     )
 
 # The torch is aimed in WORLD space from the raw, unlagged look input plus a
 # short predictive lead, so during a turn the beam is already on the new
 # heading while the spring-filtered camera is still swinging onto it.
-func _update_torch(delta: float) -> void:
+func _update_torch(_delta: float) -> void:
     if torch_pivot == null:
         return
-
-    var raw_yaw: float = player.rotation.y
-    var raw_pitch: float = player.pitch
-
-    var yaw_delta: float = wrapf(raw_yaw - prev_look_yaw + PI, 0.0, TAU) - PI
-    var pitch_delta: float = raw_pitch - prev_look_pitch
-    prev_look_yaw = raw_yaw
-    prev_look_pitch = raw_pitch
-
-    var smoothing: float = 1.0 - exp(-torch_rate_smoothing * delta)
-    look_yaw_rate = lerp(look_yaw_rate, yaw_delta / maxf(delta, 0.0001), smoothing)
-    look_pitch_rate = lerp(look_pitch_rate, pitch_delta / maxf(delta, 0.0001), smoothing)
 
     var lead_cap: float = deg_to_rad(torch_lead_max_deg)
     var yaw_lead: float = clampf(look_yaw_rate * torch_lead_seconds, -lead_cap, lead_cap)
     var pitch_lead: float = clampf(look_pitch_rate * torch_lead_seconds, -lead_cap, lead_cap)
 
     torch_pivot.global_rotation = Vector3(
-        clampf(raw_pitch + pitch_lead, -1.45, 1.45),
-        raw_yaw + yaw_lead,
+        clampf(player.pitch + pitch_lead, -1.45, 1.45),
+        player.rotation.y + yaw_lead,
         0.0
     )

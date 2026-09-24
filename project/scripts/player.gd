@@ -12,13 +12,15 @@ extends CharacterBody3D
 
 @export_category("Crouch")
 @export var crouch_height_scale: float = 0.56
-## Was 1.7, which took well over a second to settle and felt broken.
-@export var crouch_blend_speed: float = 9.0
-## How far the EYE drops when crouched, in metres. This is deliberately not
-## derived from the capsule shrink: the old code dropped the eye by the full
-## capsule delta (~0.76 m), sinking the view near the floor and below the
-## collider. A real crouch lowers the eye about 0.55-0.65 m.
-@export var crouch_eye_drop_m: float = 0.62
+## Back to the slow, weighty blend from the original script (it was 1.7 there;
+## 2.0 keeps that heaviness without the >1s dead zone). The rig runs the eye
+## drop through a mass-spring on top, so this only shapes the intent, not the
+## final motion.
+@export var crouch_blend_speed: float = 2.0
+## How far the EYE drops when crouched, in metres. The original dropped by the
+## full capsule delta (~0.76 m). This is close to that, minus enough to keep
+## the view above the collider.
+@export var crouch_eye_drop_m: float = 0.72
 
 @export_category("Look")
 @export var mouse_sensitivity: float = 0.0024
