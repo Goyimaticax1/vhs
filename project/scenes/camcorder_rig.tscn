@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/camera_rig.gd" id="1_rig"]
+[ext_resource type="Script" path="res://scripts/torch.gd" id="2_torch"]
 
 [node name="CamcorderRig" type="Node3D"]
 script = ExtResource("1_rig")
@@ -10,11 +11,27 @@ player_path = NodePath("../Player")
 spring_length = 0.0
 motion_scale = 1.0
 margin = 0.02
-collision_mask = 1
+collision_mask = 0
 
 [node name="CamcorderCamera" type="Camera3D" parent="SpringArm3D"]
 current = true
-fov = 67.0
+fov = 66.0
 near = 0.03
-far = 70.0
+far = 90.0
 keep_aspect = 1
+
+[node name="TorchPivot" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.16, -0.14, 0.0)
+script = ExtResource("2_torch")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="TorchPivot"]
+light_color = Color(1, 0.94, 0.82, 1)
+light_energy = 4.2
+light_specular = 0.6
+shadow_enabled = true
+shadow_bias = 0.04
+shadow_normal_bias = 1.2
+spot_range = 26.0
+spot_attenuation = 1.35
+spot_angle = 27.0
+spot_angle_attenuation = 1.1
